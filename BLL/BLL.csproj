@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.32">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -14,12 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ModelsDTO\" />
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
