@@ -12,6 +12,9 @@ namespace DAL.Data.Entities
         [Required, StringLength(255)]
         public string Name { get; set; }
         public decimal Price { get; set; }
+        public decimal DiscountPrice { get; set; }
+        public bool IsOnDiscount { get; set; }
+        public int Weight { get; set; }
         [ StringLength(4000)]
         public string Desciption { get; set; }
         [ForeignKey("Category")]
