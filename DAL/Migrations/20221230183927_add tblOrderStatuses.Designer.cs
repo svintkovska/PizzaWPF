@@ -3,15 +3,17 @@ using System;
 using DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(EFAppContext))]
-    partial class EFAppContextModelSnapshot : ModelSnapshot
+    [Migration("20221230183927_add tblOrderStatuses")]
+    partial class addtblOrderStatuses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -84,7 +86,7 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tblOrderStatuses");
+                    b.ToTable("tblOrederStatuses");
                 });
 
             modelBuilder.Entity("DAL.Data.Entities.ProductEntity", b =>
