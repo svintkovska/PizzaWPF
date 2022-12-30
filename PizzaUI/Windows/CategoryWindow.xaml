@@ -3,10 +3,52 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:localVM="clr-namespace:PizzaUI.ViewModels"
         xmlns:local="clr-namespace:PizzaUI.Windows"
         mc:Ignorable="d"
-        Title="CategoryWindow" Height="450" Width="800">
+        Title="Categories" Height="450" Width="800">
+    <Window.DataContext>
+        <localVM:CategoriesVM></localVM:CategoriesVM>
+    </Window.DataContext>
     <Grid>
+        <TabControl >
+            <TabItem Header="Categories">
+                
+            </TabItem>
+            <TabItem Header="Update">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="1">Select a category:</Label>
+                    <Label Grid.Row="1" Grid.Column="1">Name:</Label>
+                    <Label Grid.Row="2" Grid.Column="1">Image:</Label>
+                    <ComboBox Grid.Row="0" Grid.Column="2" x:Name="comboboxUpd"
+                              ItemsSource="{Binding GetCategories}"
+                              ></ComboBox>
+                    <TextBox Grid.Row="1" Grid.Column="2" x:Name="nameUpd"></TextBox>
+                    <Button Grid.Row="2" Grid.Column="2" x:Name="imgUpdBtn"></Button>
+                    <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="updateBtn">Update</Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Delete">
+
+            </TabItem>
+            <TabItem Header="Create">
+
+            </TabItem>
+
+            
+        </TabControl>
         
     </Grid>
 </Window>

@@ -13,6 +13,9 @@ namespace DAL.Data
         public DbSet<ProductImageEntity> ProductImages { get; set; }
         public DbSet<UserEntity> Users { get; set; }
         public DbSet<BasketEntity> Baskets { get; set; }
+        public DbSet<OrderStatusEntity> OrderStatuses { get; set; }
+        public DbSet<OrderEntity> Orders { get; set; }
+        public DbSet<OrderItemEntity> OrderItems { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

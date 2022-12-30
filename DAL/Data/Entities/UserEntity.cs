@@ -21,5 +21,6 @@ namespace DAL.Data.Entities
         public string Password { get; set; }
 
         public virtual ICollection<BasketEntity> Baskets { get; set; }
+        public virtual ICollection<OrderEntity> Orders { get; set; }
     }
 }
