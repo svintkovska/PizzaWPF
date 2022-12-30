@@ -11,5 +11,6 @@ namespace DAL.Data.Entities
     {
         [Required, StringLength(255)]
         public string Name { get; set; }
+        public virtual ICollection<OrderEntity> Orders { get; set; }
     }
 }
