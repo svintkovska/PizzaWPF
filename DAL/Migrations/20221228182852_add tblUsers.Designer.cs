@@ -3,39 +3,23 @@ using System;
 using DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(EFAppContext))]
-    partial class EFAppContextModelSnapshot : ModelSnapshot
+    [Migration("20221228182852_add tblUsers")]
+    partial class addtblUsers
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.32")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
-
-            modelBuilder.Entity("DAL.Data.Entities.BasketEntity", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<short>("Count")
-                        .HasColumnType("smallint");
-
-                    b.HasKey("UserId", "ProductId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("tblBaskets");
-                });
 
             modelBuilder.Entity("DAL.Data.Entities.CategoryEntity", b =>
                 {
@@ -81,13 +65,7 @@ namespace DAL.Migrations
                         .HasColumnType("character varying(4000)")
                         .HasMaxLength(4000);
 
-                    b.Property<decimal>("DiscountPrice")
-                        .HasColumnType("numeric");
-
                     b.Property<bool>("IsDelete")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsOnDiscount")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
@@ -97,9 +75,6 @@ namespace DAL.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
-
-                    b.Property<int>("Weight")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -178,21 +153,6 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("tblUsers");
-                });
-
-            modelBuilder.Entity("DAL.Data.Entities.BasketEntity", b =>
-                {
-                    b.HasOne("DAL.Data.Entities.ProductEntity", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DAL.Data.Entities.UserEntity", "User")
-                        .WithMany("Baskets")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("DAL.Data.Entities.ProductEntity", b =>

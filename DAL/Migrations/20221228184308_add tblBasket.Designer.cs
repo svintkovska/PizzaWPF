@@ -3,15 +3,17 @@ using System;
 using DAL.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DAL.Migrations
 {
     [DbContext(typeof(EFAppContext))]
-    partial class EFAppContextModelSnapshot : ModelSnapshot
+    [Migration("20221228184308_add tblBasket")]
+    partial class addtblBasket
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,13 +83,7 @@ namespace DAL.Migrations
                         .HasColumnType("character varying(4000)")
                         .HasMaxLength(4000);
 
-                    b.Property<decimal>("DiscountPrice")
-                        .HasColumnType("numeric");
-
                     b.Property<bool>("IsDelete")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsOnDiscount")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
@@ -97,9 +93,6 @@ namespace DAL.Migrations
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
-
-                    b.Property<int>("Weight")
-                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
