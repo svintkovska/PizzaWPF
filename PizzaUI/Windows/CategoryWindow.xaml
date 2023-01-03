@@ -6,38 +6,89 @@
         xmlns:localVM="clr-namespace:PizzaUI.ViewModels"
         xmlns:local="clr-namespace:PizzaUI.Windows"
         mc:Ignorable="d"
-        Title="Categories" Height="450" Width="800">
+        Title="Categories" Height="470" Width="800">
     <Window.DataContext>
         <localVM:CategoriesVM></localVM:CategoriesVM>
     </Window.DataContext>
-    <Grid>
-        <TabControl >
+    <Window.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="20"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="Padding" Value="20 2"></Setter>
+            <Setter Property="Height" Value="35"></Setter>
+            <Setter Property="Margin" Value="10 0 0 0"></Setter>
+        </Style>
+    </Window.Resources>
+    
+
+    <Grid >
+        <TabControl Background="Black">
             <TabItem Header="Categories">
                 
             </TabItem>
             <TabItem Header="Update">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" Grid.Column="1">Select a category:</Label>
-                    <Label Grid.Row="1" Grid.Column="1">Name:</Label>
-                    <Label Grid.Row="2" Grid.Column="1">Image:</Label>
-                    <ComboBox Grid.Row="0" Grid.Column="2" x:Name="comboboxUpd"
-                              ItemsSource="{Binding GetCategories}"
+                    <Grid.Background>
+                        <ImageBrush ImageSource="https://cdn.pixabay.com/photo/2020/05/07/23/14/pizza-5143513_960_720.jpg"></ImageBrush>
+                    </Grid.Background>
+                    <Grid Margin="20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition Height="2.5*"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1.7*"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="1.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="1">Select a category:</Label>
+                        <Label Grid.Row="1" Grid.Column="1">Name:</Label>
+                        <Label Grid.Row="2" Grid.Column="1">Image:</Label>
+                        <ComboBox Grid.Row="0" Grid.Column="2" x:Name="comboboxUpd" Margin="10 0 10 10" Height="30"
+                                  ItemsSource="{Binding GetCategories}"  
+                                  IsSynchronizedWithCurrentItem="True"
                               ></ComboBox>
-                    <TextBox Grid.Row="1" Grid.Column="2" x:Name="nameUpd"></TextBox>
-                    <Button Grid.Row="2" Grid.Column="2" x:Name="imgUpdBtn"></Button>
-                    <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="updateBtn">Update</Button>
+                        <TextBox Grid.Row="1" Grid.Column="2" x:Name="nameUpd"></TextBox>
+                        <Grid Grid.Row="2" Grid.Column="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="selectImgUpdBtn" Width="60" Height="60" Background="DarkRed"
+                                    Click="selectImgUpdBtn_Click">
+                                <Image Source="https://icons-for-free.com/iconfiles/png/512/cloud+upload-1324760525006628307.png"></Image>
+                            </Button>
+                            <Grid Grid.Row="0" Grid.Column="1" Margin="5 15" x:Name="imgBackgrUpd">
+         
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition Height="0.4*"/>
+                                </Grid.RowDefinitions>
+                                <Button Grid.Row="1" Grid.Column="0" x:Name="editPhotoUpd" Background="Transparent" BorderBrush="Transparent"
+                                        Width="35" Height="35" Click="editPhotoUpd_Click" Visibility="Hidden"> 
+                                    <Image Source="https://cdn-icons-png.flaticon.com/512/3597/3597093.png"></Image>
+                                </Button>
+                                <Button Grid.Row="1" Grid.Column="1" x:Name="delPhotoUpd" Background="Transparent" BorderBrush="Transparent"
+                                        Width="35" Height="35" Click="delPhotoUpd_Click" Visibility="Hidden">
+                                    <Image Source="https://cdn-icons-png.flaticon.com/512/1828/1828804.png"></Image>
+                                </Button>
+
+                            </Grid>
+
+                        </Grid>
+                        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="updateBtn"
+                                Width="150" Margin="0 10" FontSize="20" Background="DarkRed"
+                                Click="updateBtn_Click">Update</Button>
+                    </Grid>
                 </Grid>
             </TabItem>
             <TabItem Header="Delete">

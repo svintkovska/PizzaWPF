@@ -1,5 +1,6 @@
 ﻿using BLL.ModelsDTO;
 using BLL.Services;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -36,5 +37,6 @@ namespace PizzaUI.ViewModels
                 NotifyPropertyChanged("GetCategories");
             }
         }
+      
     }
 }
