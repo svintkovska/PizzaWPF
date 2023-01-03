@@ -24,6 +24,7 @@ namespace PizzaUI.Windows
     {
         private CategoryService categoryService;
         private string pathUpdImg;
+        private string pathAddImg;
         
         public CategoryWindow()
         {
@@ -91,6 +92,64 @@ namespace PizzaUI.Windows
             comboboxUpd.ItemsSource = vm.GetCategories;
         }
 
-       
+        private void selectImgAddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.tif;...";
+            fileDialog.Multiselect = false;
+            if (fileDialog.ShowDialog() != false)
+            {
+                pathAddImg = fileDialog.FileName;
+                imgBackgrAdd.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), pathAddImg)));
+                editPhotoAdd.Visibility = Visibility.Visible;
+                delPhotoAdd.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void editPhotoAdd_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog fileDialog = new OpenFileDialog();
+            fileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.tif;...";
+            fileDialog.Multiselect = false;
+            if (fileDialog.ShowDialog() != false)
+            {
+                pathAddImg = fileDialog.FileName;
+                imgBackgrAdd.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), pathAddImg)));
+            }
+        }
+
+        private void delPhotoAdd_Click(object sender, RoutedEventArgs e)
+        {
+            imgBackgrAdd.Background = Brushes.Transparent;
+            pathAddImg = null;
+            editPhotoAdd.Visibility = Visibility.Hidden;
+            delPhotoAdd.Visibility = Visibility.Hidden;
+        }
+
+        private void addBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CategoryDTO category = new CategoryDTO();
+            if (!String.IsNullOrEmpty(nameAdd.Text))
+            {
+                category.Name = nameAdd.Text;
+            }
+            if (!String.IsNullOrEmpty(pathAddImg))
+            {
+                category.Image = pathAddImg;
+            }
+            category.DateCreated = DateTime.Now;
+            category.IsDelete = false;
+
+            categoryService.Create(category);
+
+            imgBackgrAdd.Background = Brushes.Transparent;
+            pathAddImg = null;
+            editPhotoAdd.Visibility = Visibility.Hidden;
+            delPhotoAdd.Visibility = Visibility.Hidden;
+            nameAdd.Text = "";
+
+            CategoriesVM vm = new CategoriesVM();
+            comboboxUpd.ItemsSource = vm.GetCategories;
+        }
     }
 }
