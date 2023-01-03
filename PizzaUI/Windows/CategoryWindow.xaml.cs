@@ -86,10 +86,13 @@ namespace PizzaUI.Windows
             editPhotoUpd.Visibility = Visibility.Hidden;
             delPhotoUpd.Visibility = Visibility.Hidden;
             nameUpd.Text = "";
-            comboboxUpd.SelectedIndex = -1;
 
             CategoriesVM vm = new CategoriesVM();
             comboboxUpd.ItemsSource = vm.GetCategories;
+            comboboxDel.ItemsSource = vm.GetCategories;
+
+            comboboxUpd.SelectedIndex = -1;
+
         }
 
         private void selectImgAddBtn_Click(object sender, RoutedEventArgs e)
@@ -150,6 +153,20 @@ namespace PizzaUI.Windows
 
             CategoriesVM vm = new CategoriesVM();
             comboboxUpd.ItemsSource = vm.GetCategories;
+            comboboxDel.ItemsSource = vm.GetCategories;
+        }
+
+        private void deleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var category = comboboxDel.SelectedItem as CategoryDTO;
+            categoryService.Delete(category.Id);
+
+            CategoriesVM vm = new CategoriesVM();
+            comboboxDel.ItemsSource = vm.GetCategories;
+            comboboxUpd.ItemsSource = vm.GetCategories;
+
+            comboboxUpd.SelectedIndex = -1;
+
         }
     }
 }
