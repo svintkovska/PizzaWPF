@@ -1,9 +1,11 @@
 ﻿using BLL.ModelsDTO;
 using BLL.Services;
 using Microsoft.Win32;
+using PizzaUI.ImgToServer;
 using PizzaUI.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,8 +25,8 @@ namespace PizzaUI.Windows
     public partial class CategoryWindow : Window
     {
         private CategoryService categoryService;
-        private string pathUpdImg;
-        private string pathAddImg;
+        private string base64UpdImg;
+        private string base64AddImg;
         
         public CategoryWindow()
         {
@@ -40,8 +42,14 @@ namespace PizzaUI.Windows
             fileDialog.Multiselect = false;
             if (fileDialog.ShowDialog() != false)
             {
-                pathUpdImg = fileDialog.FileName;
-                imgBackgrUpd.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), pathUpdImg)));
+                string pathUpdImg = fileDialog.FileName;
+
+                byte[] imageBytes = File.ReadAllBytes(pathUpdImg);
+
+                base64UpdImg = Convert.ToBase64String(imageBytes);
+
+                base64UpdImg = UploadImagesToServer.UploadImage(base64UpdImg);
+                imgBackgrUpd.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), base64UpdImg)));
                 editPhotoUpd.Visibility = Visibility.Visible;
                 delPhotoUpd.Visibility = Visibility.Visible;
             }
@@ -54,15 +62,21 @@ namespace PizzaUI.Windows
             fileDialog.Multiselect = false;
             if (fileDialog.ShowDialog() != false)
             {
-                pathUpdImg = fileDialog.FileName;
-                imgBackgrUpd.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), pathUpdImg)));
+                string pathUpdImg = fileDialog.FileName;
+
+                byte[] imageBytes = File.ReadAllBytes(pathUpdImg);
+
+                base64UpdImg = Convert.ToBase64String(imageBytes);
+
+                base64UpdImg = UploadImagesToServer.UploadImage(base64UpdImg);
+                imgBackgrUpd.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), base64UpdImg)));
             }
         }
 
         private void delPhotoUpd_Click(object sender, RoutedEventArgs e)
         {
             imgBackgrUpd.Background = Brushes.Transparent;
-            pathUpdImg = null;
+            base64UpdImg = null;
             editPhotoUpd.Visibility = Visibility.Hidden;
             delPhotoUpd.Visibility = Visibility.Hidden;
         }
@@ -75,14 +89,14 @@ namespace PizzaUI.Windows
             {
                 category.Name = nameUpd.Text;
             }
-            if (!String.IsNullOrEmpty(pathUpdImg))
+            if (!String.IsNullOrEmpty(base64UpdImg))
             {
-                category.Image = pathUpdImg;
+                category.Image = base64UpdImg;
             }
             categoryService.Update(category);
 
             imgBackgrUpd.Background = Brushes.Transparent;
-            pathUpdImg = null;
+            base64UpdImg = null;
             editPhotoUpd.Visibility = Visibility.Hidden;
             delPhotoUpd.Visibility = Visibility.Hidden;
             nameUpd.Text = "";
@@ -102,8 +116,13 @@ namespace PizzaUI.Windows
             fileDialog.Multiselect = false;
             if (fileDialog.ShowDialog() != false)
             {
-                pathAddImg = fileDialog.FileName;
-                imgBackgrAdd.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), pathAddImg)));
+                string pathAddImg = fileDialog.FileName;
+                byte[] imageBytes = File.ReadAllBytes(pathAddImg);
+
+                base64AddImg = Convert.ToBase64String(imageBytes);
+
+                base64AddImg = UploadImagesToServer.UploadImage(base64AddImg);
+                imgBackgrAdd.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), base64AddImg)));
                 editPhotoAdd.Visibility = Visibility.Visible;
                 delPhotoAdd.Visibility = Visibility.Visible;
             }
@@ -116,15 +135,20 @@ namespace PizzaUI.Windows
             fileDialog.Multiselect = false;
             if (fileDialog.ShowDialog() != false)
             {
-                pathAddImg = fileDialog.FileName;
-                imgBackgrAdd.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), pathAddImg)));
+                string pathAddImg = fileDialog.FileName;
+                byte[] imageBytes = File.ReadAllBytes(pathAddImg);
+
+                base64AddImg = Convert.ToBase64String(imageBytes);
+
+                base64AddImg = UploadImagesToServer.UploadImage(base64AddImg);
+                imgBackgrAdd.Background = new ImageBrush(new BitmapImage(new Uri(BaseUriHelper.GetBaseUri(this), base64AddImg)));
             }
         }
 
         private void delPhotoAdd_Click(object sender, RoutedEventArgs e)
         {
             imgBackgrAdd.Background = Brushes.Transparent;
-            pathAddImg = null;
+            base64AddImg = null;
             editPhotoAdd.Visibility = Visibility.Hidden;
             delPhotoAdd.Visibility = Visibility.Hidden;
         }
@@ -136,9 +160,9 @@ namespace PizzaUI.Windows
             {
                 category.Name = nameAdd.Text;
             }
-            if (!String.IsNullOrEmpty(pathAddImg))
+            if (!String.IsNullOrEmpty(base64AddImg))
             {
-                category.Image = pathAddImg;
+                category.Image = base64AddImg;
             }
             category.DateCreated = DateTime.Now;
             category.IsDelete = false;
@@ -146,7 +170,7 @@ namespace PizzaUI.Windows
             categoryService.Create(category);
 
             imgBackgrAdd.Background = Brushes.Transparent;
-            pathAddImg = null;
+            base64AddImg = null;
             editPhotoAdd.Visibility = Visibility.Hidden;
             delPhotoAdd.Visibility = Visibility.Hidden;
             nameAdd.Text = "";
