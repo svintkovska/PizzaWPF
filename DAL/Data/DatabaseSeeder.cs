@@ -14,8 +14,8 @@ namespace DAL.Data
         {
             using (EFAppContext dataContext = new EFAppContext())
             {
-                //SeedCategories(dataContext);
-                //SeedProducts(dataContext);
+                SeedCategories(dataContext);
+                SeedProducts(dataContext);
                 SeedProductImages(dataContext);
             }
         }
@@ -59,14 +59,17 @@ namespace DAL.Data
 
         private static void SeedProducts(EFAppContext dataContext)
         {
-            CategoryRepository repository = new CategoryRepository();
-            var list = repository.GetAll();
-            int pizzaId = list.Where((i) => i.Name == "Pizza").FirstOrDefault().Id;
-            int soupsId = list.Where((i) => i.Name == "Soups").FirstOrDefault().Id;
-            int desserstId = list.Where((i) => i.Name == "Desserts").FirstOrDefault().Id;
-            int drinksId = list.Where((i) => i.Name == "Drinks").FirstOrDefault().Id;
+           
             if (!dataContext.Products.Any())
             {
+
+                CategoryRepository repository = new CategoryRepository();
+                var list = repository.GetAll();
+                int pizzaId = list.Where((i) => i.Name == "Pizza").FirstOrDefault().Id;
+                int soupsId = list.Where((i) => i.Name == "Soups").FirstOrDefault().Id;
+                int desserstId = list.Where((i) => i.Name == "Desserts").FirstOrDefault().Id;
+                int drinksId = list.Where((i) => i.Name == "Drinks").FirstOrDefault().Id;
+
                 var margherita = new ProductEntity
                 {
                     DateCreated = DateTime.Now,
@@ -274,33 +277,31 @@ namespace DAL.Data
 
         private static void SeedProductImages(EFAppContext dataContext)
         {
-            ProductRepository repository = new ProductRepository();
-            var list = repository.GetAll();
-            int margheritaId = list.Where((i) => i.Name == "Margherita").FirstOrDefault().Id;
-            int formaggiId = list.Where((i) => i.Name == "Formaggi").FirstOrDefault().Id;
-            int pepperoniId = list.Where((i) => i.Name == "Pepperoni ").FirstOrDefault().Id;
-            int carbonaraId = list.Where((i) => i.Name == "Carbonara").FirstOrDefault().Id;
-
-            int tomYumId = list.Where((i) => i.Name == "Tom Yum").FirstOrDefault().Id;
-            int chickenNoodleId = list.Where((i) => i.Name == "Chicken noodle soup").FirstOrDefault().Id;
-            int misoSoupId = list.Where((i) => i.Name == "Miso soup with salmon").FirstOrDefault().Id;
-            int creamySoupId = list.Where((i) => i.Name == "Cheese creamy soup").FirstOrDefault().Id;
-
-            int tiramisuId = list.Where((i) => i.Name == "Tiramisu").FirstOrDefault().Id;
-            int cheesecakeId = list.Where((i) => i.Name == "Red Berry & Vanilla Cheesecake").FirstOrDefault().Id;
-            int brownieId = list.Where((i) => i.Name == "Chocolate Brownie").FirstOrDefault().Id;
-            int applePieId = list.Where((i) => i.Name == "Apple Pie").FirstOrDefault().Id;
-
-            int colaId = list.Where((i) => i.Name == "Coca-Cola").FirstOrDefault().Id;
-            int spriteId = list.Where((i) => i.Name == "Sprite").FirstOrDefault().Id;
-            int schweppesId = list.Where((i) => i.Name == "Schweppes Mojito").FirstOrDefault().Id;
-            int richId = list.Where((i) => i.Name == "Rich Orange").FirstOrDefault().Id;
-
-
-
-
+           
             if (!dataContext.ProductImages.Any())
             {
+                ProductRepository repository = new ProductRepository();
+                var list = repository.GetAll();
+                int margheritaId = list.Where((i) => i.Name == "Margherita").FirstOrDefault().Id;
+                int formaggiId = list.Where((i) => i.Name == "Formaggi").FirstOrDefault().Id;
+                int pepperoniId = list.Where((i) => i.Name == "Pepperoni").FirstOrDefault().Id;
+                int carbonaraId = list.Where((i) => i.Name == "Carbonara").FirstOrDefault().Id;
+
+                int tomYumId = list.Where((i) => i.Name == "Tom Yum").FirstOrDefault().Id;
+                int chickenNoodleId = list.Where((i) => i.Name == "Chicken noodle soup").FirstOrDefault().Id;
+                int misoSoupId = list.Where((i) => i.Name == "Miso soup with salmon").FirstOrDefault().Id;
+                int creamySoupId = list.Where((i) => i.Name == "Cheese creamy soup").FirstOrDefault().Id;
+
+                int tiramisuId = list.Where((i) => i.Name == "Tiramisu").FirstOrDefault().Id;
+                int cheesecakeId = list.Where((i) => i.Name == "Red Berry & Vanilla Cheesecake").FirstOrDefault().Id;
+                int brownieId = list.Where((i) => i.Name == "Chocolate Brownie").FirstOrDefault().Id;
+                int applePieId = list.Where((i) => i.Name == "Apple Pie").FirstOrDefault().Id;
+
+                int colaId = list.Where((i) => i.Name == "Coca-Cola").FirstOrDefault().Id;
+                int spriteId = list.Where((i) => i.Name == "Sprite").FirstOrDefault().Id;
+                int schweppesId = list.Where((i) => i.Name == "Schweppes Mojito").FirstOrDefault().Id;
+                int richId = list.Where((i) => i.Name == "Rich Orange").FirstOrDefault().Id;
+
                 var margherita1 = new ProductImageEntity
                 {
                     Name = @"https://res.cloudinary.com/norgesgruppen/images/c_scale,dpr_auto,f_auto,q_auto:eco,w_1600/mnnrfrpmfqbjtnxdycf2/klassisk-pizza-margherita",
