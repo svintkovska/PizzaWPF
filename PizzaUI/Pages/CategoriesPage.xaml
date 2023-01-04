@@ -11,7 +11,7 @@
         <Style TargetType="Label">
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="FontSize" Value="20"></Setter>
-            <Setter Property="Margin" Value="5 10"></Setter>
+            <Setter Property="Margin" Value="0"></Setter>
         </Style>
         <Style TargetType="Border">
             <Setter Property="BorderBrush" Value="Black"></Setter>
@@ -40,9 +40,14 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1" Grid.Column="1">
-            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="wrapPanel">
-                
-            </WrapPanel>
+            <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                <WrapPanel Orientation="Horizontal" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center" 
+                       x:Name="wrapPanel">
+
+                </WrapPanel>
+            </ScrollViewer>
+            
         </Grid>
     </Grid>
 </Page>

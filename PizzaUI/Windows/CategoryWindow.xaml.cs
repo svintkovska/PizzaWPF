@@ -192,5 +192,46 @@ namespace PizzaUI.Windows
             comboboxUpd.SelectedIndex = -1;
 
         }
+
+        private void Grid_MouseMove(object sender, MouseEventArgs e)
+        {
+            ValidateCreate();
+            ValidateUpdate();
+            ValidateDelete();
+        }
+
+        private void ValidateCreate()
+        {
+            if(String.IsNullOrEmpty(nameAdd.Text))
+                addBtn.IsEnabled = false;
+            else if(String.IsNullOrEmpty(base64AddImg))
+                addBtn.IsEnabled = false;
+            else
+                addBtn.IsEnabled = true;
+        }
+
+        private void ValidateUpdate()
+        {
+            var category = comboboxUpd.SelectedItem as CategoryDTO;
+
+            if (String.IsNullOrEmpty(nameUpd.Text))
+                updateBtn.IsEnabled = false;
+            else if (String.IsNullOrEmpty(base64UpdImg))
+                updateBtn.IsEnabled = false;
+            else if(category == null)
+                updateBtn.IsEnabled = false;
+            else
+                updateBtn.IsEnabled = true;
+        }
+
+        private void ValidateDelete()
+        {
+            var category = comboboxDel.SelectedItem as CategoryDTO;
+            if (category == null)
+                deleteBtn.IsEnabled = false;
+            else
+                deleteBtn.IsEnabled = true;
+
+        }
     }
 }
