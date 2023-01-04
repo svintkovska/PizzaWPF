@@ -62,6 +62,7 @@ namespace BLL.Services
             if (categoryDTO != null)
                 return new CategoryEntity()
                 {
+                    Id = categoryDTO.Id,
                     Name = categoryDTO.Name,
                     Image = categoryDTO.Image,
                     DateCreated = categoryDTO.DateCreated,

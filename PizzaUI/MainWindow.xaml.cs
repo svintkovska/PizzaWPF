@@ -27,5 +27,7 @@ namespace PizzaUI
             CategoryWindow cw = new CategoryWindow();
             cw.ShowDialog();
         }
+
+       
     }
 }
