@@ -1,0 +1,48 @@
+﻿<Page x:Class="PizzaUI.Pages.CategoriesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PizzaUI.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="800"
+      Title="CategoriesPage">
+    <Page.Resources>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="Margin" Value="5 10"></Setter>
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="2"></Setter>
+        </Style>
+        <Style TargetType="Image">
+            <Setter Property="Width" Value="150"></Setter>
+            <Setter Property="Height" Value="120"></Setter>
+            <Setter Property="Margin" Value="5 5 5 0"></Setter>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="https://i.pinimg.com/564x/d0/7f/1f/d07f1f146947fab6db0205c49f0fd85c.jpg"></ImageBrush>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.7*"/>
+            <ColumnDefinition Width="1.8*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="0.4*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="1">
+            <WrapPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="wrapPanel">
+                
+            </WrapPanel>
+        </Grid>
+    </Grid>
+</Page>

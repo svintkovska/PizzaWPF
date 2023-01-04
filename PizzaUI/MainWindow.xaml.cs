@@ -24,8 +24,13 @@ namespace PizzaUI
         public MainWindow()
         {
             InitializeComponent();
-            CategoryWindow cw = new CategoryWindow();
-            cw.ShowDialog();
+            //CategoryWindow cw = new CategoryWindow();
+            //cw.ShowDialog();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

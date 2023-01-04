@@ -39,9 +39,6 @@
 
     <Grid >
         <TabControl Background="Black">
-            <TabItem Header="Categories">
-                
-            </TabItem>
             <TabItem Header="Create">
                 <Grid>
                     <Grid.Background>
