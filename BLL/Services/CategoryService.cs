@@ -6,7 +6,7 @@ using DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
-
+           
 namespace BLL.Services
 {
     public class CategoryService : IService<CategoryDTO>
@@ -62,6 +62,7 @@ namespace BLL.Services
             if (categoryDTO != null)
                 return new CategoryEntity()
                 {
+                    Id = categoryDTO.Id,
                     Name = categoryDTO.Name,
                     Image = categoryDTO.Image,
                     DateCreated = categoryDTO.DateCreated,

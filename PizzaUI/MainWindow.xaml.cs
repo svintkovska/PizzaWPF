@@ -1,4 +1,5 @@
-﻿using PizzaUI.Windows;
+﻿using DAL.Data;
+using PizzaUI.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,8 +25,11 @@ namespace PizzaUI
         public MainWindow()
         {
             InitializeComponent();
-            //CategoryWindow cw = new CategoryWindow();
-            //cw.ShowDialog();
+            DatabaseSeeder.Seed();
+            CategoryWindow cw = new CategoryWindow();
+            cw.ShowDialog();
         }
+
+       
     }
 }

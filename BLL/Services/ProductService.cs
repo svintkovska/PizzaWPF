@@ -62,6 +62,7 @@ namespace BLL.Services
             if (productDTO != null)
                 return new ProductEntity()
                 {
+                    Id = productDTO.Id,
                     Name = productDTO.Name,
                     Price = productDTO.Price,
                     DiscountPrice = productDTO.DiscountPrice,
@@ -81,6 +82,7 @@ namespace BLL.Services
             if (productEntity != null)
                 return new ProductDTO()
                 {
+                    Id = productEntity.Id,
                     Name = productEntity.Name,
                     Price = productEntity.Price,
                     DiscountPrice = productEntity.DiscountPrice,
