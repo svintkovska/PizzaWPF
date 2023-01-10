@@ -1,25 +1,31 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
 using BLL.ModelsDTO;
+using DAL.Data;
 using DAL.Data.Entities;
+using DAL.Interfaces;
 using DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
-           
+using System.Threading.Tasks;
+
 namespace BLL.Services
 {
     public class CategoryService : IService<CategoryDTO>
     {
-        private readonly CategoryRepository _categoryRepository = new CategoryRepository();
+        private readonly ICategoryRepository _categoryRepository;
+        public CategoryService()
+        {
+            EFAppContext context = new EFAppContext();
+            _categoryRepository = new CategoryRepository(context);
+        }
 
         public void Create(CategoryDTO item)
         {
             if (item != null)
             {
-                var cat = TranslateCategoryDTOToCategoryEntity(item);
-                _categoryRepository.Create(cat);
-                item.Id = cat.Id;
+                _categoryRepository.Create(TranslateCategoryDTOToCategoryEntity(item));
             }
         }
 
@@ -27,17 +33,20 @@ namespace BLL.Services
         {
             if (id != null)
             {
-                _categoryRepository.Delete(id);
-            }
+                _categoryRepository.Delete((int)id);
+            };
         }
 
         public CategoryDTO Find(int? id)
         {
             if (id != null)
-                return TranslateCategoryEntityToCategoryDTO(_categoryRepository.Find(id));
-            return null;
+            {
+                Task<CategoryEntity> item = _categoryRepository.GetById((int)id);
+                return TranslateCategoryEntityToCategoryDTO(item.Result);
+            }
+                return null;
         }
-
+        
         public IList<CategoryDTO> GetAll()
         {
             var list = new List<CategoryDTO>();
@@ -48,11 +57,11 @@ namespace BLL.Services
             return list;
         }
 
-        public void Update(CategoryDTO item)
+        public void Update(int id,CategoryDTO item)
         {
             if (item != null)
             {
-                _categoryRepository.Update(TranslateCategoryDTOToCategoryEntity(item));
+                _categoryRepository.Update(id, TranslateCategoryDTOToCategoryEntity(item));
             }
         }
 

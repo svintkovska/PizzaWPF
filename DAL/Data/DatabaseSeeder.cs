@@ -17,6 +17,8 @@ namespace DAL.Data
                 SeedCategories(dataContext);
                 SeedProducts(dataContext);
                 SeedProductImages(dataContext);
+                SeedUsers(dataContext);
+                SeedBasket(dataContext);
             }
         }
         private static void SeedCategories(EFAppContext dataContext)
@@ -63,7 +65,7 @@ namespace DAL.Data
             if (!dataContext.Products.Any())
             {
 
-                CategoryRepository repository = new CategoryRepository();
+                CategoryRepository repository = new CategoryRepository(dataContext);
                 var list = repository.GetAll();
                 int pizzaId = list.Where((i) => i.Name == "Pizza").FirstOrDefault().Id;
                 int soupsId = list.Where((i) => i.Name == "Soups").FirstOrDefault().Id;
@@ -280,7 +282,7 @@ namespace DAL.Data
            
             if (!dataContext.ProductImages.Any())
             {
-                ProductRepository repository = new ProductRepository();
+                ProductRepository repository = new ProductRepository(dataContext);
                 var list = repository.GetAll();
                 int margheritaId = list.Where((i) => i.Name == "Margherita").FirstOrDefault().Id;
                 int formaggiId = list.Where((i) => i.Name == "Formaggi").FirstOrDefault().Id;
@@ -649,5 +651,101 @@ namespace DAL.Data
 
         }
 
+        private static void SeedUsers(EFAppContext dataContext)
+        {
+            if (!dataContext.Users.Any())
+            {
+                var user1 = new UserEntity
+                {
+                    FirstName = "Ivan",
+                    LastName = "Koval",
+                    Email = "ivan@ua.com",
+                    Phone = "0971548789",
+                    Password = "123456",
+                    IsDelete = false,
+                    DateCreated = DateTime.Now
+                };
+                var user2 = new UserEntity
+                {
+                    FirstName = "Vika",
+                    LastName = "Khmil",
+                    Email = "vika@ua.com",
+                    Phone = "0967548780",
+                    Password = "123456",
+                    IsDelete = false,
+                    DateCreated = DateTime.Now
+                };
+                var user3 = new UserEntity
+                {
+                    FirstName = "John",
+                    LastName = "Dorrison",
+                    Email = "john@gmail.com",
+                    Phone = "0970012363",
+                    Password = "123456",
+                    IsDelete = false,
+                    DateCreated = DateTime.Now
+                };
+                var user4 = new UserEntity
+                {
+                    FirstName = "Kate",
+                    LastName = "Fomit",
+                    Email = "kate@gmail.com",
+                    Phone = "0662323231",
+                    Password = "123456",
+                    IsDelete = false,
+                    DateCreated = DateTime.Now
+                };
+
+
+                dataContext.Users.Add(user1);
+                dataContext.Users.Add(user2);
+                dataContext.Users.Add(user3);
+                dataContext.Users.Add(user4);
+               
+                dataContext.SaveChanges();
+
+            }
+        }
+        private static void SeedBasket(EFAppContext dataContext)
+        {
+            if (!dataContext.Baskets.Any())
+            {
+                UserRepository us_repository = new UserRepository(dataContext);
+                var usertList = us_repository.GetAll();
+                int userId1 = usertList.Where((i) => i.Email == "vika@ua.com").FirstOrDefault().Id;
+                int userId2 = usertList.Where((i) => i.Email == "john@gmail.com").FirstOrDefault().Id;
+
+                ProductRepository pr_repository = new ProductRepository(dataContext);
+                var productList = pr_repository.GetAll();
+                int pepperoniId = productList.Where((i) => i.Name == "Pepperoni").FirstOrDefault().Id;
+                int cheesecakeId = productList.Where((i) => i.Name == "Red Berry & Vanilla Cheesecake").FirstOrDefault().Id;
+                int tomYumId = productList.Where((i) => i.Name == "Tom Yum").FirstOrDefault().Id;
+
+
+                var basket1 = new BasketEntity
+                {
+                    UserId = userId1,
+                    ProductId = cheesecakeId,
+                    Count = 2
+                };
+                var basket2 = new BasketEntity
+                {
+                    UserId = userId1,
+                    ProductId = tomYumId,
+                    Count = 3
+                };
+                var basket3 = new BasketEntity
+                {
+                    UserId = userId2,
+                    ProductId = pepperoniId,
+                    Count = 4
+                };
+
+                dataContext.Baskets.Add(basket1);
+                dataContext.Baskets.Add(basket2);
+                dataContext.Baskets.Add(basket3);
+                dataContext.SaveChanges();
+            }
+        }
     }
 }

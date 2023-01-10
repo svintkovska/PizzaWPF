@@ -7,8 +7,9 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    public class CategoryRepository : GenericRepository<CategoryEntity>, ICategoryRepository
+    public class UserRepository : GenericRepository<UserEntity>, IUserRepository
     {
-        public CategoryRepository(EFAppContext context) : base(context) { }
+        public UserRepository(EFAppContext context) : base(context){ }
     }
+   
 }

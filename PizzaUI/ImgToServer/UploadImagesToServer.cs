@@ -12,7 +12,7 @@ namespace PizzaUI.ImgToServer
     {
         public static string UploadImage(string base64Image)
         {
-            string server = "https://bv012.novakvova.com";
+            string server = "https://solido.tk";
             UploadDTO upload = new UploadDTO();
             upload.Photo = base64Image;
             string json = JsonConvert.SerializeObject(upload);
