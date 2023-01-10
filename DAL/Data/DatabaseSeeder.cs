@@ -17,6 +17,7 @@ namespace DAL.Data
                 SeedCategories(dataContext);
                 SeedProducts(dataContext);
                 SeedProductImages(dataContext);
+                SeedUsers(dataContext);
             }
         }
         private static void SeedCategories(EFAppContext dataContext)
@@ -649,5 +650,60 @@ namespace DAL.Data
 
         }
 
+        private static void SeedUsers(EFAppContext dataContext)
+        {
+            if (!dataContext.Users.Any())
+            {
+                var user1 = new UserEntity
+                {
+                    FirstName = "Ivan",
+                    LastName = "Koval",
+                    Email = "ivan@ua.com",
+                    Phone = "0971548789",
+                    Password = "123456",
+                    IsDelete = false,
+                    DateCreated = DateTime.Now
+                };
+                var user2 = new UserEntity
+                {
+                    FirstName = "Vika",
+                    LastName = "Khmil",
+                    Email = "vika@ua.com",
+                    Phone = "0967548780",
+                    Password = "123456",
+                    IsDelete = false,
+                    DateCreated = DateTime.Now
+                };
+                var user3 = new UserEntity
+                {
+                    FirstName = "John",
+                    LastName = "Dorrison",
+                    Email = "john@gmail.com",
+                    Phone = "0970012363",
+                    Password = "123456",
+                    IsDelete = false,
+                    DateCreated = DateTime.Now
+                };
+                var user4 = new UserEntity
+                {
+                    FirstName = "Kate",
+                    LastName = "Fomit",
+                    Email = "kate@gmail.com",
+                    Phone = "0662323231",
+                    Password = "123456",
+                    IsDelete = false,
+                    DateCreated = DateTime.Now
+                };
+
+
+                dataContext.Users.Add(user1);
+                dataContext.Users.Add(user2);
+                dataContext.Users.Add(user3);
+                dataContext.Users.Add(user4);
+               
+                dataContext.SaveChanges();
+
+            }
+        }
     }
 }
