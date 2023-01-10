@@ -7,39 +7,11 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    public class CategoryRepository : IRepository<CategoryEntity>
+    public class CategoryRepository : GenericRepository<CategoryEntity>,
+         ICategoryRepository
     {
-        private EFAppContext _context = new EFAppContext();
-
-        public void Create(CategoryEntity item)
+        public CategoryRepository(EFAppContext context) : base(context)
         {
-            if (item != null)
-            {
-                _context.Categories.Add(item);
-                _context.SaveChanges();
-            }
-        }
-
-        public void Delete(int? id)
-        {
-            var tempCat = _context.Categories.Find(id);
-            if (tempCat != null)
-            {
-                _context.Categories.Remove(tempCat);
-                _context.SaveChanges();
-            }
-        }
-
-        public CategoryEntity Find(int? id) => _context.Categories.Find(id);
-
-        public IEnumerable<CategoryEntity> GetAll() => _context.Categories;
-
-        public void Update(CategoryEntity item)
-        {
-            var tempCat = _context.Categories.Find(item.Id);
-            tempCat.Name = item.Name;
-            tempCat.Image = item.Image;
-            _context.SaveChanges();
         }
     }
 }

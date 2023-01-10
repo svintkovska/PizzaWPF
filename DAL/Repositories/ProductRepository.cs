@@ -7,45 +7,10 @@ using System.Text;
 
 namespace DAL.Repositories
 {
-    public class ProductRepository : IRepository<ProductEntity>
+    public class ProductRepository : GenericRepository<ProductEntity>, IProductRepository    
     {
-        private EFAppContext _context = new EFAppContext();
-
-        public void Create(ProductEntity item)
+        public ProductRepository(EFAppContext context) : base(context)
         {
-            if (item != null)
-            {
-                _context.Products.Add(item);
-                _context.SaveChanges();
-            }
-        }
-
-        public void Delete(int? id)
-        {
-            var tempProd = _context.Products.Find(id);
-            if (tempProd != null)
-            {
-                _context.Products.Remove(tempProd);
-                _context.SaveChanges();
-            }
-        }
-
-        public ProductEntity Find(int? id) => _context.Products.Find(id);
-
-        public IEnumerable<ProductEntity> GetAll() => _context.Products;
-
-        public void Update(ProductEntity item)
-        {
-            var tempProd= _context.Products.Find(item.Id);
-            tempProd.Name = item.Name;
-            tempProd.Price = item.Price;
-            tempProd.DiscountPrice = item.DiscountPrice;
-            tempProd.IsOnDiscount = item.IsOnDiscount;
-            tempProd.Weight = item.Weight;
-            tempProd.Description = item.Description;
-            tempProd.CategoryId = item.CategoryId;
-
-           _context.SaveChanges();
         }
     }
 }

@@ -63,7 +63,7 @@ namespace DAL.Data
             if (!dataContext.Products.Any())
             {
 
-                CategoryRepository repository = new CategoryRepository();
+                CategoryRepository repository = new CategoryRepository(dataContext);
                 var list = repository.GetAll();
                 int pizzaId = list.Where((i) => i.Name == "Pizza").FirstOrDefault().Id;
                 int soupsId = list.Where((i) => i.Name == "Soups").FirstOrDefault().Id;
@@ -280,7 +280,7 @@ namespace DAL.Data
            
             if (!dataContext.ProductImages.Any())
             {
-                ProductRepository repository = new ProductRepository();
+                ProductRepository repository = new ProductRepository(dataContext);
                 var list = repository.GetAll();
                 int margheritaId = list.Where((i) => i.Name == "Margherita").FirstOrDefault().Id;
                 int formaggiId = list.Where((i) => i.Name == "Formaggi").FirstOrDefault().Id;

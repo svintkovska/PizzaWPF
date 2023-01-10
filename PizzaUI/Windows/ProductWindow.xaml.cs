@@ -124,7 +124,7 @@ namespace PizzaUI.Windows
                     DateCreated = DateTime.Now,
                     IsDelete = false
                 };
-                productService.Update(new_product);
+                //productService.Update(new_product);
             }
             else
             {

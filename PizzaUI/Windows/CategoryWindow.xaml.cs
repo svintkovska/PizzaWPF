@@ -93,7 +93,7 @@ namespace PizzaUI.Windows
             {
                 category.Image = base64UpdImg;
             }
-            categoryService.Update(category);
+            categoryService.Update(category.Id, category);
 
             imgBackgrUpd.Background = Brushes.Transparent;
             base64UpdImg = null;

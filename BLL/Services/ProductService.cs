@@ -1,25 +1,31 @@
 ﻿using AutoMapper;
 using BLL.Interfaces;
 using BLL.ModelsDTO;
+using DAL.Data;
 using DAL.Data.Entities;
+using DAL.Interfaces;
 using DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BLL.Services
 {
     public class ProductService : IService<ProductDTO>
     {
-        private readonly ProductRepository _productRepository = new ProductRepository();
+        private readonly IProductRepository _productRepository;
+        public ProductService()
+        {
+            EFAppContext context = new EFAppContext();
+            _productRepository = new ProductRepository(context);
 
+        }
         public void Create(ProductDTO item)
         {
             if (item != null)
             {
-                var prod = TranslateProductDTOToProductEntity(item);
-                _productRepository.Create(prod);
-                item.Id = prod.Id;
+                _productRepository.Create(TranslateProductDTOToProductEntity(item));
             }
         }
 
@@ -27,14 +33,17 @@ namespace BLL.Services
         {
             if (id != null)
             {
-                _productRepository.Delete(id);
-            }
+                _productRepository.Delete((int)id);
+            };
         }
 
         public ProductDTO Find(int? id)
         {
             if (id != null)
-                return TranslateProductEntityToProductDTO(_productRepository.Find(id));
+            {
+                Task<ProductEntity> item = _productRepository.GetById((int)id);
+                return TranslateProductEntityToProductDTO(item.Result);
+            }
             return null;
         }
 
@@ -48,11 +57,11 @@ namespace BLL.Services
             return list;
         }
 
-        public void Update(ProductDTO item)
+        public void Update(int id, ProductDTO item)
         {
             if (item != null)
             {
-                _productRepository.Update(TranslateProductDTOToProductEntity(item));
+                _productRepository.Update(id, TranslateProductDTOToProductEntity(item));
             }
         }
 
