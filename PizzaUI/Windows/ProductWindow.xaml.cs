@@ -82,13 +82,13 @@ namespace PizzaUI.Windows
             {
                 var new_product = new ProductDTO
                 {
-                    Name = new_name.Text,
-                    Price = decimal.Parse(new_price.Text),
-                    DiscountPrice = decimal.Parse(new_discount_price.Text),
-                    IsOnDiscount = bool.Parse(new_isondiscount.Text),
-                    Weight = Int32.Parse(new_weight.Text),
-                    Description = new_description.Text,
-                    CategoryId = Int32.Parse(new_category_id.Text),
+                    Name = name_add.Text,
+                    Price = decimal.Parse(price_add.Text),
+                    DiscountPrice = decimal.Parse(discount_price_add.Text),
+                    IsOnDiscount = bool.Parse(isondiscount_add.Text),
+                    Weight = Int32.Parse(weight_add.Text),
+                    Description = description_add.Text,
+                    CategoryId = Int32.Parse(category_id_add.Text),
                     DateCreated = DateTime.Now,
                     IsDelete = false
                 };
