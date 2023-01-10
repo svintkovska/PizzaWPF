@@ -3,54 +3,151 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PizzaUI.Windows"
+        xmlns:local="clr-namespace:PizzaUI.Windows" xmlns:localVM="clr-namespace:PizzaUI.ViewModels"
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-        </Grid.RowDefinitions>
+    <Window.DataContext>
+        <localVM:CategoriesVM></localVM:CategoriesVM>
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="17"></Setter>
+            <Setter Property="Margin" Value="5 10"></Setter>
+            <Setter Property="Background" Value="Black"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="Padding" Value="20 2"></Setter>
+            <Setter Property="Height" Value="35"></Setter>
+            <Setter Property="Margin" Value="10 0 7 0"></Setter>
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Foreground" Value="Red"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="Width" Value="150"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Background" Value="DarkRed"></Setter>
+        </Style>
+    </Window.Resources>
+    <TabControl Background="Black">
+        <TabItem Header="Add">
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="https://cdn.pixabay.com/photo/2020/05/07/23/14/pizza-5143513_960_720.jpg"></ImageBrush>
+                </Grid.Background>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
 
-        <TextBlock>Name of product:</TextBlock>
-        <TextBox x:Name="prod_name" Grid.Column="1"></TextBox>
+                <TextBlock>Name of product:</TextBlock>
+                <TextBox x:Name="prod_name_add" Grid.Column="1"></TextBox>
 
-        <Button x:Name="delete_prod_btn" Margin="10" Grid.ColumnSpan="2" Grid.Row="1" Click="delete_prod_btn_Click">Delete</Button>
+                <TextBlock Grid.Column="0" Grid.Row="2">Name of product:</TextBlock>
+                <TextBox x:Name="name_add" Grid.Column="1" Grid.Row="2"></TextBox>
 
-        <TextBlock Grid.Column="0" Grid.Row="2">New name of product:</TextBlock>
-        <TextBox x:Name="new_name" Grid.Column="1" Grid.Row="2"></TextBox>
+                <TextBlock Grid.Column="0" Grid.Row="3">Price of product:</TextBlock>
+                <TextBox x:Name="price_add" Grid.Column="1" Grid.Row="3"></TextBox>
 
-        <TextBlock Grid.Column="0" Grid.Row="3">New price of product:</TextBlock>
-        <TextBox x:Name="new_price" Grid.Column="1" Grid.Row="3"></TextBox>
+                <TextBlock Grid.Column="0" Grid.Row="4">Discount price of product:</TextBlock>
+                <TextBox x:Name="discount_price_add" Grid.Column="1" Grid.Row="4"></TextBox>
 
-        <TextBlock Grid.Column="0" Grid.Row="4">New discount price of product:</TextBlock>
-        <TextBox x:Name="new_discount_price" Grid.Column="1" Grid.Row="4"></TextBox>
+                <TextBlock Grid.Column="0" Grid.Row="5">Is product on discount (true or false)?</TextBlock>
+                <TextBox x:Name="isondiscount_add" Grid.Column="1" Grid.Row="5"></TextBox>
 
-        <TextBlock Grid.Column="0" Grid.Row="5">Is product on discount (true or false)?</TextBlock>
-        <TextBox x:Name="new_isondiscount" Grid.Column="1" Grid.Row="5"></TextBox>
+                <TextBlock Grid.Column="0" Grid.Row="6">Weight of product:</TextBlock>
+                <TextBox x:Name="weight_add" Grid.Column="1" Grid.Row="6"></TextBox>
 
-        <TextBlock Grid.Column="0" Grid.Row="6">New weight of product:</TextBlock>
-        <TextBox x:Name="new_weight" Grid.Column="1" Grid.Row="6"></TextBox>
+                <TextBlock Grid.Column="0" Grid.Row="7">Description of product:</TextBlock>
+                <TextBox x:Name="description_add" Grid.Column="1" Grid.Row="7"></TextBox>
 
-        <TextBlock Grid.Column="0" Grid.Row="7">New description of product:</TextBlock>
-        <TextBox x:Name="new_description" Grid.Column="1" Grid.Row="7"></TextBox>
+                <TextBlock Grid.Column="0" Grid.Row="8">Category id:</TextBlock>
+                <TextBox x:Name="category_id_add" Grid.Column="1" Grid.Row="8"></TextBox>
 
-        <TextBlock Grid.Column="0" Grid.Row="8">New category id:</TextBlock>
-        <TextBox x:Name="new_category_id" Grid.Column="1" Grid.Row="8"></TextBox>
+                <Button x:Name="add_prod_btn" Grid.ColumnSpan="2" Grid.Row="9" Click="add_prod_btn_Click">Add</Button>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Delete">
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="https://cdn.pixabay.com/photo/2020/05/07/23/14/pizza-5143513_960_720.jpg"></ImageBrush>
+                </Grid.Background>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"></RowDefinition>
+                    <RowDefinition Height="70"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock>Name of product:</TextBlock>
+                <TextBox x:Name="prod_name_del" Grid.Column="1"></TextBox>
 
-        <Button x:Name="add_prod_btn" Margin="5" Grid.Column="0" Grid.Row="9" Click="add_prod_btn_Click">Add</Button>
-        <Button x:Name="edit_prod_btn" Margin="5" Grid.Column="1" Grid.Row="9" Click="edit_prod_btn_Click">Edit</Button>
-    </Grid>
+                <Button x:Name="delete_prod_btn" Grid.ColumnSpan="2" Grid.Row="1" Click="delete_prod_btn_Click">Delete</Button>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Edit">
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="https://cdn.pixabay.com/photo/2020/05/07/23/14/pizza-5143513_960_720.jpg"></ImageBrush>
+                </Grid.Background>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <TextBlock>Name of product:</TextBlock>
+                <TextBox x:Name="prod_name" Grid.Column="1"></TextBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="2">New name of product:</TextBlock>
+                <TextBox x:Name="new_name" Grid.Column="1" Grid.Row="2"></TextBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="3">New price of product:</TextBlock>
+                <TextBox x:Name="new_price" Grid.Column="1" Grid.Row="3"></TextBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="4">New discount price of product:</TextBlock>
+                <TextBox x:Name="new_discount_price" Grid.Column="1" Grid.Row="4"></TextBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="5">Is product on discount (true or false)?</TextBlock>
+                <TextBox x:Name="new_isondiscount" Grid.Column="1" Grid.Row="5"></TextBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="6">New weight of product:</TextBlock>
+                <TextBox x:Name="new_weight" Grid.Column="1" Grid.Row="6"></TextBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="7">New description of product:</TextBlock>
+                <TextBox x:Name="new_description" Grid.Column="1" Grid.Row="7"></TextBox>
+
+                <TextBlock Grid.Column="0" Grid.Row="8">New category id:</TextBlock>
+                <TextBox x:Name="new_category_id" Grid.Column="1" Grid.Row="8"></TextBox>
+
+                <Button x:Name="edit_prod_btn" Grid.ColumnSpan="2" Grid.Row="9" Click="edit_prod_btn_Click">Edit</Button>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </Window>
