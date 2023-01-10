@@ -7,6 +7,50 @@
         mc:Ignorable="d"
         Title="ProductWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <TextBlock>Name of product:</TextBlock>
+        <TextBox x:Name="prod_name" Grid.Column="1"></TextBox>
+
+        <Button x:Name="delete_prod_btn" Margin="10" Grid.ColumnSpan="2" Grid.Row="1" Click="delete_prod_btn_Click">Delete</Button>
+
+        <TextBlock Grid.Column="0" Grid.Row="2">New name of product:</TextBlock>
+        <TextBox x:Name="new_name" Grid.Column="1" Grid.Row="2"></TextBox>
+
+        <TextBlock Grid.Column="0" Grid.Row="3">New price of product:</TextBlock>
+        <TextBox x:Name="new_price" Grid.Column="1" Grid.Row="3"></TextBox>
+
+        <TextBlock Grid.Column="0" Grid.Row="4">New discount price of product:</TextBlock>
+        <TextBox x:Name="new_discount_price" Grid.Column="1" Grid.Row="4"></TextBox>
+
+        <TextBlock Grid.Column="0" Grid.Row="5">Is product on discount (true or false)?</TextBlock>
+        <TextBox x:Name="new_isondiscount" Grid.Column="1" Grid.Row="5"></TextBox>
+
+        <TextBlock Grid.Column="0" Grid.Row="6">New weight of product:</TextBlock>
+        <TextBox x:Name="new_weight" Grid.Column="1" Grid.Row="6"></TextBox>
+
+        <TextBlock Grid.Column="0" Grid.Row="7">New description of product:</TextBlock>
+        <TextBox x:Name="new_description" Grid.Column="1" Grid.Row="7"></TextBox>
+
+        <TextBlock Grid.Column="0" Grid.Row="8">New category id:</TextBlock>
+        <TextBox x:Name="new_category_id" Grid.Column="1" Grid.Row="8"></TextBox>
+
+        <Button x:Name="add_prod_btn" Margin="5" Grid.Column="0" Grid.Row="9" Click="add_prod_btn_Click">Add</Button>
+        <Button x:Name="edit_prod_btn" Margin="5" Grid.Column="1" Grid.Row="9" Click="edit_prod_btn_Click">Edit</Button>
     </Grid>
 </Window>
