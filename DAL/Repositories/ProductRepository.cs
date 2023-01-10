@@ -9,8 +9,6 @@ namespace DAL.Repositories
 {
     public class ProductRepository : GenericRepository<ProductEntity>, IProductRepository    
     {
-        public ProductRepository(EFAppContext context) : base(context)
-        {
-        }
+        public ProductRepository(EFAppContext context) : base(context) { }
     }
 }
