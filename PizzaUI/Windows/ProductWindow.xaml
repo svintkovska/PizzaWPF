@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PizzaUI.Windows" xmlns:localVM="clr-namespace:PizzaUI.ViewModels"
         mc:Ignorable="d"
-        Title="ProductWindow" Height="450" Width="800">
+        Title="ProductWindow" Height="470" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <localVM:CategoriesVM></localVM:CategoriesVM>
     </Window.DataContext>
@@ -29,6 +30,10 @@
             <Setter Property="Width" Value="150"></Setter>
             <Setter Property="Margin" Value="5"></Setter>
             <Setter Property="Background" Value="DarkRed"></Setter>
+        </Style>
+        <Style TargetType="TabItem">
+            <Setter Property="Background" Value="DarkRed"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
         </Style>
     </Window.Resources>
     <TabControl Background="Black">

@@ -6,7 +6,8 @@
         xmlns:localVM="clr-namespace:PizzaUI.ViewModels"
         xmlns:local="clr-namespace:PizzaUI.Windows"
         mc:Ignorable="d"
-        Title="Categories" Height="470" Width="800">
+        Title="Categories" Height="470" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <localVM:CategoriesVM></localVM:CategoriesVM>
     </Window.DataContext>
@@ -33,6 +34,10 @@
             <Setter Property="BorderBrush" Value="Black"></Setter>
             <Setter Property="BorderThickness" Value="3"></Setter>
             <Setter Property="Foreground" Value="Red"></Setter>
+        </Style>
+        <Style TargetType="TabItem">
+            <Setter Property="Background" Value="DarkRed"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
         </Style>
 
     </Window.Resources>
