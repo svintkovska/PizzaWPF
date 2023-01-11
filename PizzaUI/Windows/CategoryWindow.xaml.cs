@@ -214,11 +214,7 @@ namespace PizzaUI.Windows
         {
             var category = comboboxUpd.SelectedItem as CategoryDTO;
 
-            if (String.IsNullOrEmpty(nameUpd.Text))
-                updateBtn.IsEnabled = false;
-            else if (String.IsNullOrEmpty(base64UpdImg))
-                updateBtn.IsEnabled = false;
-            else if(category == null)
+            if(category == null)
                 updateBtn.IsEnabled = false;
             else
                 updateBtn.IsEnabled = true;

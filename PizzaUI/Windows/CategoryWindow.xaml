@@ -194,15 +194,6 @@
                                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Gray" />
                             </ComboBox.Resources>
                         </ComboBox>
-                        <Grid Grid.Row="2" Grid.Column="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            
-                        
-
-                        </Grid>
                         <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="deleteBtn"
                                 Width="150" Margin="0 10" FontSize="20" Background="DarkRed"
                                 Click="deleteBtn_Click">Delete</Button>

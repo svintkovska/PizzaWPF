@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PizzaUI.Windows" xmlns:localVM="clr-namespace:PizzaUI.ViewModels"
+        xmlns:local="clr-namespace:PizzaUI.Windows" 
+        xmlns:localVM="clr-namespace:PizzaUI.ViewModels"
         mc:Ignorable="d"
-        Title="ProductWindow" Height="470" Width="800"
+        Title="ProductWindow" Height="500" Width="800"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <localVM:CategoriesVM></localVM:CategoriesVM>
@@ -15,7 +16,6 @@
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="FontSize" Value="17"></Setter>
             <Setter Property="Margin" Value="5 10"></Setter>
-            <Setter Property="Background" Value="Black"></Setter>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="20"></Setter>
@@ -35,15 +35,31 @@
             <Setter Property="Background" Value="DarkRed"></Setter>
             <Setter Property="FontSize" Value="15"></Setter>
         </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="Padding" Value="20 0"></Setter>
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Margin" Value="8 0 7 2"></Setter>
+            <Setter Property="Background" Value="Black"></Setter>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="3"></Setter>
+            <Setter Property="Foreground" Value="Red"></Setter>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="Margin" Value="5 10"></Setter>
+        </Style>
     </Window.Resources>
     <TabControl Background="Black">
         <TabItem Header="Add">
-            <Grid>
+            <Grid MouseMove="Grid_MouseMove">
                 <Grid.Background>
                     <ImageBrush ImageSource="https://cdn.pixabay.com/photo/2020/05/07/23/14/pizza-5143513_960_720.jpg"></ImageBrush>
                 </Grid.Background>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="0.4*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -59,50 +75,120 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock>Name of product:</TextBlock>
-                <TextBox x:Name="prod_name_add" Grid.Column="1"></TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="2">Name of product:</TextBlock>
-                <TextBox x:Name="name_add" Grid.Column="1" Grid.Row="2"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="0">Name:</TextBlock>
+                <TextBox x:Name="name_add" Grid.Column="2" Grid.Row="0"></TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="3">Price of product:</TextBlock>
-                <TextBox x:Name="price_add" Grid.Column="1" Grid.Row="3"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="1">Price:</TextBlock>
+                <TextBox x:Name="price_add" Grid.Column="2" Grid.Row="1"></TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="4">Discount price of product:</TextBlock>
-                <TextBox x:Name="discount_price_add" Grid.Column="1" Grid.Row="4"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="2">Discount price:</TextBlock>
+                <TextBox x:Name="discount_price_add" Grid.Column="2" Grid.Row="2"></TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="5">Is product on discount (true or false)?</TextBlock>
-                <TextBox x:Name="isondiscount_add" Grid.Column="1" Grid.Row="5"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="3">Is on discount:</TextBlock>
+                <CheckBox x:Name="isondiscount_add" Grid.Column="2" Grid.Row="3"
+                          VerticalAlignment="Center" Margin="50 0" IsChecked="False"></CheckBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="6">Weight of product:</TextBlock>
-                <TextBox x:Name="weight_add" Grid.Column="1" Grid.Row="6"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="4">Weight:</TextBlock>
+                <TextBox x:Name="weight_add" Grid.Column="2" Grid.Row="4"></TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="7">Description of product:</TextBlock>
-                <TextBox x:Name="description_add" Grid.Column="1" Grid.Row="7"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="5">Ingridients:</TextBlock>
+                <TextBox x:Name="description_add" Grid.Column="2" Grid.Row="5"></TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="8">Category id:</TextBlock>
-                <TextBox x:Name="category_id_add" Grid.Column="1" Grid.Row="8"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="6">Category:</TextBlock>
+                <ComboBox Grid.Row="6" Grid.Column="2" x:Name="comboboxAdd" 
+                                  ItemsSource="{Binding GetCategories}"  
+                                  IsSynchronizedWithCurrentItem="True">
+                    <ComboBox.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Gray" />
+                    </ComboBox.Resources>
+                </ComboBox>
 
-                <Button x:Name="add_prod_btn" Grid.ColumnSpan="2" Grid.Row="9" Click="add_prod_btn_Click">Add</Button>
-            </Grid>
-        </TabItem>
-        <TabItem Header="Delete">
-            <Grid>
-                <Grid.Background>
-                    <ImageBrush ImageSource="https://cdn.pixabay.com/photo/2020/05/07/23/14/pizza-5143513_960_720.jpg"></ImageBrush>
-                </Grid.Background>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="70"></RowDefinition>
-                    <RowDefinition Height="70"></RowDefinition>
-                </Grid.RowDefinitions>
-                <TextBlock>Name of product:</TextBlock>
-                <TextBox x:Name="prod_name_del" Grid.Column="1"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="7">Images:</TextBlock>
+                <Grid Grid.Row="7" Grid.Column="2" Grid.RowSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="0.3*"/>
+                    </Grid.RowDefinitions>
 
-                <Button x:Name="delete_prod_btn" Grid.ColumnSpan="2" Grid.Row="1" Click="delete_prod_btn_Click">Delete</Button>
+                    <Grid Grid.Row="0" Grid.Column="0" Margin="5 15" x:Name="imgBackgrAdd1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="0.8*"/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="1" Grid.Column="0" x:Name="editPhotoAdd1" Background="Transparent" BorderBrush="Transparent"
+                                        Width="20" Height="20" Click="editPhotoAdd1_Click" Visibility="Hidden">
+                            <Image Source="https://cdn-icons-png.flaticon.com/512/3597/3597093.png"></Image>
+                        </Button>
+                        <Button Grid.Row="1" Grid.Column="1" x:Name="delPhotoAdd1" Background="Transparent" BorderBrush="Transparent"
+                                        Width="20" Height="20" Click="delPhotoAdd1_Click" Visibility="Hidden">
+                            <Image Source="https://cdn-icons-png.flaticon.com/512/1828/1828804.png"></Image>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="1" Margin="5 15" x:Name="imgBackgrAdd2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="0.8*"/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="1" Grid.Column="0" x:Name="editPhotoAdd2" Background="Transparent" BorderBrush="Transparent"
+                                        Width="20" Height="20" Click="editPhotoAdd2_Click" Visibility="Hidden">
+                            <Image Source="https://cdn-icons-png.flaticon.com/512/3597/3597093.png"></Image>
+                        </Button>
+                        <Button Grid.Row="1" Grid.Column="1" x:Name="delPhotoAdd2" Background="Transparent" BorderBrush="Transparent"
+                                        Width="20" Height="20" Click="delPhotoAdd2_Click" Visibility="Hidden">
+                            <Image Source="https://cdn-icons-png.flaticon.com/512/1828/1828804.png"></Image>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="2" Margin="5 15" x:Name="imgBackgrAdd3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="0.8*"/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="1" Grid.Column="0" x:Name="editPhotoAdd3" Background="Transparent" BorderBrush="Transparent"
+                                        Width="20" Height="20" Click="editPhotoAdd3_Click" Visibility="Hidden">
+                            <Image Source="https://cdn-icons-png.flaticon.com/512/3597/3597093.png"></Image>
+                        </Button>
+                        <Button Grid.Row="1" Grid.Column="1" x:Name="delPhotoAdd3" Background="Transparent" BorderBrush="Transparent"
+                                        Width="20" Height="20" Click="delPhotoAdd3_Click" Visibility="Hidden">
+                            <Image Source="https://cdn-icons-png.flaticon.com/512/1828/1828804.png"></Image>
+                        </Button>
+                    </Grid>
+
+
+                    <Button Grid.Row="1" Grid.Column="0" x:Name="addImg1" Width="35" Height="35" Background="DarkRed"
+                                    Click="addImg1_Click" Margin="0 0 0 2">
+                        <Image Source="https://icons-for-free.com/iconfiles/png/512/cloud+upload-1324760525006628307.png"></Image>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="1" x:Name="addImg2" Width="35" Height="35" Background="DarkRed"
+                                    Click="addImg2_Click" Margin="0 0 0 2">
+                        <Image Source="https://icons-for-free.com/iconfiles/png/512/cloud+upload-1324760525006628307.png"></Image>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="2" x:Name="addImg3" Width="35" Height="35" Background="DarkRed"
+                                    Click="addImg3_Click" Margin="0 0 0 2">
+                        <Image Source="https://icons-for-free.com/iconfiles/png/512/cloud+upload-1324760525006628307.png"></Image>
+                    </Button>
+                </Grid>
+
+
+                <Button x:Name="add_prod_btn" Grid.Column="1" Grid.Row="9" Click="add_prod_btn_Click" HorizontalAlignment="Center">Add</Button>
             </Grid>
         </TabItem>
         <TabItem Header="Edit">
@@ -112,6 +198,7 @@
                 </Grid.Background>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="0.4*"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -123,35 +210,166 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="1.8*"></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock>Name of product:</TextBlock>
-                <TextBox x:Name="prod_name" Grid.Column="1"></TextBox>
+                <TextBlock Grid.Column="1">Product:</TextBlock>
+                <ComboBox Grid.Row="0" Grid.Column="2" x:Name="comboboxProductUpd" 
+                                  ItemsSource="{Binding GetProducts}"  
+                                  IsSynchronizedWithCurrentItem="True">
+                    <ComboBox.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Gray" />
+                    </ComboBox.Resources>
+                </ComboBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="2">New name of product:</TextBlock>
-                <TextBox x:Name="new_name" Grid.Column="1" Grid.Row="2"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="1">New name:</TextBlock>
+                <TextBox x:Name="new_name" Grid.Column="2" Grid.Row="1"></TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="3">New price of product:</TextBlock>
-                <TextBox x:Name="new_price" Grid.Column="1" Grid.Row="3"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="2">New price:</TextBlock>
+                <TextBox x:Name="new_price" Grid.Column="2" Grid.Row="2"></TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="4">New discount price of product:</TextBlock>
-                <TextBox x:Name="new_discount_price" Grid.Column="1" Grid.Row="4"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="3">New discount:</TextBlock>
+                <TextBox x:Name="new_discount_price" Grid.Column="2" Grid.Row="3"></TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="5">Is product on discount (true or false)?</TextBlock>
-                <TextBox x:Name="new_isondiscount" Grid.Column="1" Grid.Row="5"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="4">Is on discount:</TextBlock>
+                <CheckBox x:Name="new_isondiscount" Grid.Column="2" Grid.Row="4"
+                          VerticalAlignment="Center" Margin="50 0" IsChecked="False"></CheckBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="6">New weight of product:</TextBlock>
-                <TextBox x:Name="new_weight" Grid.Column="1" Grid.Row="6"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="5">New weight:</TextBlock>
+                <TextBox x:Name="new_weight" Grid.Column="2" Grid.Row="5"></TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="7">New description of product:</TextBlock>
-                <TextBox x:Name="new_description" Grid.Column="1" Grid.Row="7"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="6">New description:</TextBlock>
+                <TextBox x:Name="new_description" Grid.Column="2" Grid.Row="6"></TextBox>
 
-                <TextBlock Grid.Column="0" Grid.Row="8">New category id:</TextBlock>
-                <TextBox x:Name="new_category_id" Grid.Column="1" Grid.Row="8"></TextBox>
+                <TextBlock Grid.Column="1" Grid.Row="7">New category:</TextBlock>
+                <ComboBox Grid.Row="7" Grid.Column="2" x:Name="comboboxCategoryUpd" 
+                                  ItemsSource="{Binding GetCategories}"  
+                                  IsSynchronizedWithCurrentItem="True">
+                    <ComboBox.Resources>
+                        <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
+                        <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Gray" />
+                    </ComboBox.Resources>
+                </ComboBox>
 
-                <Button x:Name="edit_prod_btn" Grid.ColumnSpan="2" Grid.Row="9" Click="edit_prod_btn_Click">Edit</Button>
+                <TextBlock Grid.Column="1" Grid.Row="8">Images:</TextBlock>
+                <Grid Grid.Row="8" Grid.Column="2" Grid.RowSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="0.3*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Grid.Column="0" Margin="5 15" x:Name="imgBackgrUpd1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="0.8*"/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="1" Grid.Column="0" x:Name="editPhotoUpd1" Background="Transparent" BorderBrush="Transparent"
+                                        Width="20" Height="20" Click="editPhotoUpd1_Click" Visibility="Hidden">
+                            <Image Source="https://cdn-icons-png.flaticon.com/512/3597/3597093.png"></Image>
+                        </Button>
+                        <Button Grid.Row="1" Grid.Column="1" x:Name="delPhotoUpd1" Background="Transparent" BorderBrush="Transparent"
+                                        Width="20" Height="20" Click="delPhotoUpd1_Click" Visibility="Hidden">
+                            <Image Source="https://cdn-icons-png.flaticon.com/512/1828/1828804.png"></Image>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="1" Margin="5 15" x:Name="imgBackgrUpd2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="0.8*"/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="1" Grid.Column="0" x:Name="editPhotoUpd2" Background="Transparent" BorderBrush="Transparent"
+                                        Width="20" Height="20" Click="editPhotoUpd2_Click" Visibility="Hidden">
+                            <Image Source="https://cdn-icons-png.flaticon.com/512/3597/3597093.png"></Image>
+                        </Button>
+                        <Button Grid.Row="1" Grid.Column="1" x:Name="delPhotoUpd2" Background="Transparent" BorderBrush="Transparent"
+                                        Width="20" Height="20" Click="delPhotoUpd2_Click" Visibility="Hidden">
+                            <Image Source="https://cdn-icons-png.flaticon.com/512/1828/1828804.png"></Image>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="0" Grid.Column="2" Margin="5 15" x:Name="imgBackgrUpd3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="0.8*"/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="1" Grid.Column="0" x:Name="editPhotoUpd3" Background="Transparent" BorderBrush="Transparent"
+                                        Width="20" Height="20" Click="editPhotoUpd3_Click" Visibility="Hidden">
+                            <Image Source="https://cdn-icons-png.flaticon.com/512/3597/3597093.png"></Image>
+                        </Button>
+                        <Button Grid.Row="1" Grid.Column="1" x:Name="delPhotoUpd3" Background="Transparent" BorderBrush="Transparent"
+                                        Width="20" Height="20" Click="delPhotoUpd3_Click" Visibility="Hidden">
+                            <Image Source="https://cdn-icons-png.flaticon.com/512/1828/1828804.png"></Image>
+                        </Button>
+                    </Grid>
+
+
+                    <Button Grid.Row="1" Grid.Column="0" x:Name="updImg1" Width="35" Height="30" Background="DarkRed"
+                                    Click="updImg1_Click" Margin="0 0 0 2">
+                        <Image Source="https://icons-for-free.com/iconfiles/png/512/cloud+upload-1324760525006628307.png"></Image>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="1" x:Name="updImg2" Width="35" Height="30" Background="DarkRed"
+                                    Click="updImg2_Click" Margin="0 0 0 2">
+                        <Image Source="https://icons-for-free.com/iconfiles/png/512/cloud+upload-1324760525006628307.png"></Image>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="2" x:Name="updImg3" Width="35" Height="30" Background="DarkRed"
+                                    Click="updImg3_Click" Margin="0 0 0 2">
+                        <Image Source="https://icons-for-free.com/iconfiles/png/512/cloud+upload-1324760525006628307.png"></Image>
+                    </Button>
+                </Grid>
+
+
+                <Button x:Name="edit_prod_btn" Grid.Column="1" Grid.Row="9" Click="edit_prod_btn_Click"
+                        HorizontalAlignment="Center">Edit</Button>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Delete">
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="https://cdn.pixabay.com/photo/2020/05/07/23/14/pizza-5143513_960_720.jpg"></ImageBrush>
+                </Grid.Background>
+                  <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="2.5*"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.7*"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="1.5*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Grid.Column="1" >Select a category:</Label>
+                    <ComboBox Grid.Row="1" Grid.Column="2" x:Name="comboboxDel"
+                                  ItemsSource="{Binding GetProducts}"  
+                                  IsSynchronizedWithCurrentItem="True">
+                        <ComboBox.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Gray" />
+                        </ComboBox.Resources>
+                    </ComboBox>
+                    <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="delete_prod_btn"
+                                Width="150" Margin="0 10" FontSize="20" Background="DarkRed"
+                                Click="delete_prod_btn_Click_1">Delete</Button>
+                </Grid>
             </Grid>
         </TabItem>
     </TabControl>

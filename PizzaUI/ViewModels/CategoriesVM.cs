@@ -11,12 +11,16 @@ namespace PizzaUI.ViewModels
     public class CategoriesVM : INotifyPropertyChanged
     {
         private CategoryService _categoryService;
+        private ProductService _productService;
         private IList<CategoryDTO> _categories;
+        private IList<ProductDTO> _products;
 
         public CategoriesVM()
         {
             _categoryService = new CategoryService();
+            _productService = new ProductService();
             _categories = _categoryService.GetAll();
+            _products = _productService.GetAll();
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -37,6 +41,16 @@ namespace PizzaUI.ViewModels
                 NotifyPropertyChanged("GetCategories");
             }
         }
-      
+
+        public IList<ProductDTO> GetProducts
+        {
+            get { return _products; }
+            set
+            {
+                _products = value;
+                NotifyPropertyChanged("GetProducts");
+            }
+        }
+
     }
 }
