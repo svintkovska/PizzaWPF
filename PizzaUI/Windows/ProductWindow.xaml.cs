@@ -28,6 +28,7 @@ namespace PizzaUI.Windows
     public partial class ProductWindow : Window
     {
         private ProductService productService;
+        private ProductImageService productImgService;
 
         private string base64AddImg1;
         private string base64AddImg2;
@@ -40,6 +41,7 @@ namespace PizzaUI.Windows
         {
             InitializeComponent();
             productService = new ProductService();
+            productImgService = new ProductImageService();
         }
 
         private void Grid_MouseMove(object sender, MouseEventArgs e)
@@ -48,8 +50,6 @@ namespace PizzaUI.Windows
             ValidateDelete();
             ValidateEdit();
         }
-
-
 
 
         private void delete_prod_btn_Click_1(object sender, RoutedEventArgs e)
@@ -89,6 +89,41 @@ namespace PizzaUI.Windows
             };
 
             productService.Create(new_product);
+
+            //int id =-1;
+            //if(!String.IsNullOrEmpty(base64AddImg1))
+            //{
+            //    productImgService.Create(new ProductImageDTO
+            //    {
+            //        Name = base64AddImg1,
+            //        Priority = 1,
+            //        ProductId = id,
+            //        DateCreated = DateTime.Now,
+            //        IsDelete = false
+            //    });               
+            //}
+            //if (!String.IsNullOrEmpty(base64AddImg2))
+            //{
+            //    productImgService.Create(new ProductImageDTO
+            //    {
+            //        Name = base64AddImg2,
+            //        Priority = 2,
+            //        ProductId = id,
+            //        DateCreated = DateTime.Now,
+            //        IsDelete = false
+            //    });
+            //}
+            //if (!String.IsNullOrEmpty(base64AddImg3))
+            //{
+            //    productImgService.Create(new ProductImageDTO
+            //    {
+            //        Name = base64AddImg3,
+            //        Priority = 3,
+            //        ProductId = id,
+            //        DateCreated = DateTime.Now,
+            //        IsDelete = false
+            //    });
+            //}
 
             name_add.Text = "";
             price_add.Text = "";

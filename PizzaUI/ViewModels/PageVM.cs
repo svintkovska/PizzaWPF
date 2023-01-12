@@ -42,13 +42,13 @@ namespace PizzaUI.ViewModels
             CurrentPage = adminPage;
         }
 
-        public ICommand MainBtnClick
-        {
-            get
-            {
-                return new RelayCommand(() => CurrentPage = categoriesPage);
-            }
-        }
+        //public ICommand MainBtnClick
+        //{
+        //    get
+        //    {
+        //        return new RelayCommand(() => CurrentPage = adminPage);
+        //    }
+        //}
         //public ICommand LLibraryBtnClick
         //{
         //    get
