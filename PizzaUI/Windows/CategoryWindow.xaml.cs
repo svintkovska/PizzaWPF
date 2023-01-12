@@ -6,6 +6,7 @@ using PizzaUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -101,10 +102,6 @@ namespace PizzaUI.Windows
             delPhotoUpd.Visibility = Visibility.Hidden;
             nameUpd.Text = "";
 
-            CategoriesVM vm = new CategoriesVM();
-            comboboxUpd.ItemsSource = vm.GetCategories;
-            comboboxDel.ItemsSource = vm.GetCategories;
-
             comboboxUpd.SelectedIndex = -1;
 
         }
@@ -175,9 +172,8 @@ namespace PizzaUI.Windows
             delPhotoAdd.Visibility = Visibility.Hidden;
             nameAdd.Text = "";
 
-            CategoriesVM vm = new CategoriesVM();
-            comboboxUpd.ItemsSource = vm.GetCategories;
-            comboboxDel.ItemsSource = vm.GetCategories;
+            var cm = DataContext as CategoriesVM;
+            cm.GetCategories.Add(category);
         }
 
         private void deleteBtn_Click(object sender, RoutedEventArgs e)
@@ -185,12 +181,9 @@ namespace PizzaUI.Windows
             var category = comboboxDel.SelectedItem as CategoryDTO;
             categoryService.Delete(category.Id);
 
-            CategoriesVM vm = new CategoriesVM();
-            comboboxDel.ItemsSource = vm.GetCategories;
-            comboboxUpd.ItemsSource = vm.GetCategories;
-
+            var cm = DataContext as CategoriesVM;
+            cm.GetCategories.Remove(category);
             comboboxUpd.SelectedIndex = -1;
-
         }
 
         private void Grid_MouseMove(object sender, MouseEventArgs e)

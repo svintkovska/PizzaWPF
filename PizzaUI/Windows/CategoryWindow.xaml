@@ -123,7 +123,8 @@
                         <Label Grid.Row="1" Grid.Column="1">Name:</Label>
                         <Label Grid.Row="2" Grid.Column="1">Image:</Label>
                         <ComboBox Grid.Row="0" Grid.Column="2" x:Name="comboboxUpd" 
-                                  ItemsSource="{Binding GetCategories}"  
+                                  ItemsSource="{Binding GetCategories}" 
+                                  DisplayMemberPath="Name"
                                   IsSynchronizedWithCurrentItem="True">
                             <ComboBox.Resources>
                                 <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
@@ -188,6 +189,7 @@
                         <Label Grid.Row="1" Grid.Column="1" >Select a category:</Label>
                         <ComboBox Grid.Row="1" Grid.Column="2" x:Name="comboboxDel"
                                   ItemsSource="{Binding GetCategories}"  
+                                  DisplayMemberPath="Name"
                                   IsSynchronizedWithCurrentItem="True">
                             <ComboBox.Resources>
                                 <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
@@ -202,7 +204,6 @@
 
             </TabItem>
             
-
             
         </TabControl>
         

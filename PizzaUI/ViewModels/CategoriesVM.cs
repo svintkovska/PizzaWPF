@@ -3,6 +3,7 @@ using BLL.Services;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text;
 
@@ -12,15 +13,23 @@ namespace PizzaUI.ViewModels
     {
         private CategoryService _categoryService;
         private ProductService _productService;
-        private IList<CategoryDTO> _categories;
-        private IList<ProductDTO> _products;
+        private ObservableCollection<CategoryDTO> _categories;
+        private ObservableCollection<ProductDTO> _products;
 
         public CategoriesVM()
         {
             _categoryService = new CategoryService();
             _productService = new ProductService();
-            _categories = _categoryService.GetAll();
-            _products = _productService.GetAll();
+            _categories = new ObservableCollection<CategoryDTO>();
+            foreach (var item in _categoryService.GetAll())
+            {
+                _categories.Add(item);
+            }
+            _products = new ObservableCollection<ProductDTO>();
+            foreach (var item in _productService.GetAll())
+            {
+                _products.Add(item);
+            }
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -32,7 +41,7 @@ namespace PizzaUI.ViewModels
             }
         }
 
-        public IList<CategoryDTO> GetCategories
+        public ObservableCollection<CategoryDTO> GetCategories
         {
             get { return _categories; }
             set
@@ -42,7 +51,7 @@ namespace PizzaUI.ViewModels
             }
         }
 
-        public IList<ProductDTO> GetProducts
+        public ObservableCollection<ProductDTO> GetProducts
         {
             get { return _products; }
             set

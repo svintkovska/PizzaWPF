@@ -36,10 +36,10 @@
             <Setter Property="FontSize" Value="15"></Setter>
         </Style>
         <Style TargetType="ComboBox">
-            <Setter Property="FontSize" Value="15"></Setter>
-            <Setter Property="Padding" Value="20 0"></Setter>
-            <Setter Property="Height" Value="40"></Setter>
-            <Setter Property="Margin" Value="8 0 7 2"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="Padding" Value="20 2"></Setter>
+            <Setter Property="Height" Value="35"></Setter>
+            <Setter Property="Margin" Value="10 0 10 10"></Setter>
             <Setter Property="Background" Value="Black"></Setter>
             <Setter Property="BorderBrush" Value="Black"></Setter>
             <Setter Property="BorderThickness" Value="3"></Setter>
@@ -98,6 +98,7 @@
                 <TextBlock Grid.Column="1" Grid.Row="6">Category:</TextBlock>
                 <ComboBox Grid.Row="6" Grid.Column="2" x:Name="comboboxAdd" 
                                   ItemsSource="{Binding GetCategories}"  
+                                  DisplayMemberPath="Name"
                                   IsSynchronizedWithCurrentItem="True">
                     <ComboBox.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
@@ -216,7 +217,8 @@
 
                 <TextBlock Grid.Column="1">Product:</TextBlock>
                 <ComboBox Grid.Row="0" Grid.Column="2" x:Name="comboboxProductUpd" 
-                                  ItemsSource="{Binding GetProducts}"  
+                                  ItemsSource="{Binding GetProducts}"
+                                  DisplayMemberPath="Name"
                                   IsSynchronizedWithCurrentItem="True">
                     <ComboBox.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
@@ -246,6 +248,7 @@
                 <TextBlock Grid.Column="1" Grid.Row="7">New category:</TextBlock>
                 <ComboBox Grid.Row="7" Grid.Column="2" x:Name="comboboxCategoryUpd" 
                                   ItemsSource="{Binding GetCategories}"  
+                                  DisplayMemberPath="Name"
                                   IsSynchronizedWithCurrentItem="True">
                     <ComboBox.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
@@ -360,6 +363,7 @@
                     <Label Grid.Row="1" Grid.Column="1" >Select a category:</Label>
                     <ComboBox Grid.Row="1" Grid.Column="2" x:Name="comboboxDel"
                                   ItemsSource="{Binding GetProducts}"  
+                                  DisplayMemberPath="Name"
                                   IsSynchronizedWithCurrentItem="True">
                         <ComboBox.Resources>
                             <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}" Color="Black" />
