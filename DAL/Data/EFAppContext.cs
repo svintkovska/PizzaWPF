@@ -19,8 +19,11 @@ namespace DAL.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //optionsBuilder
+            //    .UseNpgsql("Server=localhost;Port=5432;Database=teambv121;User Id=postgres;Password=123456;");
             optionsBuilder
-                .UseNpgsql("Server=localhost;Port=5432;Database=teambv121;User Id=postgres;Password=123456;");
+                         .UseNpgsql("Server=ep-bold-shape-881551.us-east-2.aws.neon.tech;Port=5432;Database=PizzaDB;User Id=tanyasv97;Password=IRQoA3vXsL6H;SslMode=Require;");
+
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

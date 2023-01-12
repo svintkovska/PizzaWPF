@@ -56,10 +56,10 @@ namespace PizzaUI.Windows
         {
             var product = comboboxDel.SelectedItem as ProductDTO;
             productService.Delete(product.Id);
+            comboboxDel.SelectedIndex = -1;
 
-            CategoriesVM vm = new CategoriesVM();
-            comboboxProductUpd.ItemsSource = vm.GetProducts;
-            comboboxDel.ItemsSource = vm.GetProducts;
+            var cm = DataContext as CategoriesVM;
+            cm.GetProducts.Remove(product);
         }
 
         private void add_prod_btn_Click(object sender, RoutedEventArgs e)
@@ -90,7 +90,7 @@ namespace PizzaUI.Windows
 
             productService.Create(new_product);
 
-            //int id =-1;
+            //int id =-1;    //////////////////////////////////// треба якось витягнути id продукта, який створили
             //if(!String.IsNullOrEmpty(base64AddImg1))
             //{
             //    productImgService.Create(new ProductImageDTO
@@ -145,9 +145,8 @@ namespace PizzaUI.Windows
             delPhotoAdd2.Visibility = Visibility.Hidden;
             delPhotoAdd3.Visibility = Visibility.Hidden;
 
-            CategoriesVM vm = new CategoriesVM();
-            comboboxProductUpd.ItemsSource = vm.GetProducts;
-            comboboxDel.ItemsSource = vm.GetProducts;
+            var cm = DataContext as CategoriesVM;
+            cm.GetProducts.Add(new_product);
         }
 
      
@@ -203,11 +202,7 @@ namespace PizzaUI.Windows
             delPhotoUpd2.Visibility = Visibility.Hidden;
             delPhotoUpd3.Visibility = Visibility.Hidden;
 
-
-            CategoriesVM vm = new CategoriesVM();
-            comboboxProductUpd.ItemsSource = vm.GetProducts;
-            comboboxDel.ItemsSource = vm.GetProducts;
-
+            comboboxProductUpd.SelectedIndex = -1;
         }
 
 
