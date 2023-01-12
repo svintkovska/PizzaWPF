@@ -10,6 +10,6 @@ namespace BLL.Interfaces
         T Find(int? id);
         void Create(T item);
         void Delete(int? id);
-        void Update(T item);
+        void Update(int id, T item);
     }
 }

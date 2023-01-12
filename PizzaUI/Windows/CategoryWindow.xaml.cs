@@ -93,7 +93,7 @@ namespace PizzaUI.Windows
             {
                 category.Image = base64UpdImg;
             }
-            categoryService.Update(category);
+            categoryService.Update(category.Id, category);
 
             imgBackgrUpd.Background = Brushes.Transparent;
             base64UpdImg = null;
@@ -214,11 +214,7 @@ namespace PizzaUI.Windows
         {
             var category = comboboxUpd.SelectedItem as CategoryDTO;
 
-            if (String.IsNullOrEmpty(nameUpd.Text))
-                updateBtn.IsEnabled = false;
-            else if (String.IsNullOrEmpty(base64UpdImg))
-                updateBtn.IsEnabled = false;
-            else if(category == null)
+            if(category == null)
                 updateBtn.IsEnabled = false;
             else
                 updateBtn.IsEnabled = true;

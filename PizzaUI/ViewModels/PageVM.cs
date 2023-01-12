@@ -13,6 +13,7 @@ namespace PizzaUI.ViewModels
     public class PageVM : INotifyPropertyChanged
     {
         private Page categoriesPage;
+        private Page adminPage;
         public Page currentPage;
         public Page CurrentPage
         {
@@ -37,16 +38,17 @@ namespace PizzaUI.ViewModels
         private void CreatePages()
         {
             categoriesPage = new CategoriesPage();
-            CurrentPage = categoriesPage;
+            adminPage = new AdminPage();
+            CurrentPage = adminPage;
         }
 
-        public ICommand MainBtnClick
-        {
-            get
-            {
-                return new RelayCommand(() => CurrentPage = categoriesPage);
-            }
-        }
+        //public ICommand MainBtnClick
+        //{
+        //    get
+        //    {
+        //        return new RelayCommand(() => CurrentPage = adminPage);
+        //    }
+        //}
         //public ICommand LLibraryBtnClick
         //{
         //    get

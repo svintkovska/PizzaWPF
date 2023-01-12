@@ -26,8 +26,7 @@ namespace PizzaUI
         {
             InitializeComponent();
             DatabaseSeeder.Seed();
-            CategoryWindow cw = new CategoryWindow();
-            cw.ShowDialog();
+           
         }
 
        
