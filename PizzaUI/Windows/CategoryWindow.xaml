@@ -6,7 +6,8 @@
         xmlns:localVM="clr-namespace:PizzaUI.ViewModels"
         xmlns:local="clr-namespace:PizzaUI.Windows"
         mc:Ignorable="d"
-        Title="Categories" Height="470" Width="800">
+        Title="Categories" Height="470" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <localVM:CategoriesVM></localVM:CategoriesVM>
     </Window.DataContext>
@@ -33,6 +34,10 @@
             <Setter Property="BorderBrush" Value="Black"></Setter>
             <Setter Property="BorderThickness" Value="3"></Setter>
             <Setter Property="Foreground" Value="Red"></Setter>
+        </Style>
+        <Style TargetType="TabItem">
+            <Setter Property="Background" Value="DarkRed"></Setter>
+            <Setter Property="FontSize" Value="15"></Setter>
         </Style>
 
     </Window.Resources>
@@ -189,15 +194,6 @@
                                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Gray" />
                             </ComboBox.Resources>
                         </ComboBox>
-                        <Grid Grid.Row="2" Grid.Column="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.5*"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            
-                        
-
-                        </Grid>
                         <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="deleteBtn"
                                 Width="150" Margin="0 10" FontSize="20" Background="DarkRed"
                                 Click="deleteBtn_Click">Delete</Button>
