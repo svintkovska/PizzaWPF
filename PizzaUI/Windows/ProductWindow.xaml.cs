@@ -90,7 +90,7 @@ namespace PizzaUI.Windows
 
             productService.Create(new_product);
 
-            //int id =-1;
+            //int id =-1;    //////////////////////////////////// треба якось витягнути id продукта, який створили
             //if(!String.IsNullOrEmpty(base64AddImg1))
             //{
             //    productImgService.Create(new ProductImageDTO
