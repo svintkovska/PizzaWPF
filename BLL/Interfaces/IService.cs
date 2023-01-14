@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace BLL.Interfaces
 {
@@ -8,7 +9,7 @@ namespace BLL.Interfaces
     {
         IList<T> GetAll();
         T Find(int? id);
-        void Create(T item);
+        Task<int> Create(T item);
         void Delete(int? id);
         void Update(int id, T item);
     }

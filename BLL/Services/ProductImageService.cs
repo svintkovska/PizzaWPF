@@ -7,6 +7,7 @@ using DAL.Interfaces;
 using DAL.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,12 +21,15 @@ namespace BLL.Services
             EFAppContext context = new EFAppContext();
             _productImgRepository = new ProductImageRepository(context);
         }
-        public void Create(ProductImageDTO item)
+        public async Task<int> Create(ProductImageDTO item)
         {
             if (item != null)
             {
-                _productImgRepository.Create(TranslateProductImageDTOToProductImageEntity(item));
+                var entity = TranslateProductImageDTOToProductImageEntity(item);
+                await _productImgRepository.Create(entity);
+                return entity.Id;
             }
+            return 0;
         }
 
         public void Delete(int? id)
@@ -74,7 +78,8 @@ namespace BLL.Services
                     Name = productImgDTO.Name,
                     Priority = productImgDTO.Priority,
                     DateCreated = productImgDTO.DateCreated,
-                    IsDelete = productImgDTO.IsDelete
+                    IsDelete = productImgDTO.IsDelete,
+                    ProductId = productImgDTO.ProductId
                 };
             return null;
         }

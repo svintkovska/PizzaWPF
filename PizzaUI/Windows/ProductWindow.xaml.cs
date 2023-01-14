@@ -63,7 +63,7 @@ namespace PizzaUI.Windows
             cm.GetProducts.Remove(product);
         }
 
-        private void add_prod_btn_Click(object sender, RoutedEventArgs e)
+        private async void add_prod_btn_Click(object sender, RoutedEventArgs e)
         {
             var category = comboboxAdd.SelectedItem as CategoryDTO;
             var discount = false;
@@ -89,15 +89,18 @@ namespace PizzaUI.Windows
                 IsDelete = false
             };
 
-            productService.Create(new_product);
+            //int id = productService.Create(new_product);
 
             //var findprod = context.Products.FirstOrDefault(x => x.Name == name_add.Text);
             //findprod.Id
 
-            int id = new_product.Id;    //////////////////////////////////// треба якось витягнути id продукта, який створили
+            //////////////////////////////////// треба якось витягнути id продукта, який створили
+            ///
+            var id = await productService.Create(new_product);
+
             if (!String.IsNullOrEmpty(base64AddImg1))
             {
-                productImgService.Create(new ProductImageDTO
+                await productImgService.Create(new ProductImageDTO
                 {
                     Name = base64AddImg1,
                     Priority = 1,
@@ -108,7 +111,7 @@ namespace PizzaUI.Windows
             }
             if (!String.IsNullOrEmpty(base64AddImg2))
             {
-                productImgService.Create(new ProductImageDTO
+                await productImgService.Create(new ProductImageDTO
                 {
                     Name = base64AddImg2,
                     Priority = 2,
@@ -119,7 +122,7 @@ namespace PizzaUI.Windows
             }
             if (!String.IsNullOrEmpty(base64AddImg3))
             {
-                productImgService.Create(new ProductImageDTO
+                await productImgService.Create(new ProductImageDTO
                 {
                     Name = base64AddImg3,
                     Priority = 3,
@@ -530,6 +533,9 @@ namespace PizzaUI.Windows
             delPhotoUpd3.Visibility = Visibility.Hidden;
         }
 
-       
+        private void order_btn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -22,12 +22,16 @@ namespace BLL.Services
             _productRepository = new ProductRepository(context);
 
         }
-        public void Create(ProductDTO item)
+        public async Task<int> Create(ProductDTO item)
         {
             if (item != null)
             {
-                _productRepository.Create(TranslateProductDTOToProductEntity(item));
+                var entity = TranslateProductDTOToProductEntity(item);
+                await _productRepository.Create(entity);
+                var id = entity.Id;
+                return id;
             }
+            return 0;
         }
 
         public void Delete(int? id)

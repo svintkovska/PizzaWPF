@@ -22,6 +22,7 @@ namespace DAL.Repositories
         {
             await _dbContext.Set<TEntity>().AddAsync(entity);
             await _dbContext.SaveChangesAsync();
+            //int id = entity.Id;
         }
 
         public async Task Delete(int id)

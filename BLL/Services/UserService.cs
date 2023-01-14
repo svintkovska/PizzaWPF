@@ -20,12 +20,15 @@ namespace BLL.Services
             EFAppContext context = new EFAppContext();
             _userRepository = new UserRepository(context);
         }
-        public void Create(UserDTO item)
+        public async Task<int> Create(UserDTO item)
         {
             if (item != null)
             {
-                _userRepository.Create(TranslateUserDTOToUserEntity(item));
+                var entity = TranslateUserDTOToUserEntity(item);
+                _userRepository.Create(entity);
+                return entity.Id;
             }
+            return 0;
         }
 
         public void Delete(int? id)
