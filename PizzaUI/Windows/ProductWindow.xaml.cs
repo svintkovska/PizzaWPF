@@ -27,6 +27,7 @@ namespace PizzaUI.Windows
     /// </summary>
     public partial class ProductWindow : Window
     {
+        EFAppContext context = new EFAppContext();
         private ProductService productService;
         private ProductImageService productImgService;
 
@@ -90,40 +91,43 @@ namespace PizzaUI.Windows
 
             productService.Create(new_product);
 
-            //int id =-1;    //////////////////////////////////// треба якось витягнути id продукта, який створили
-            //if(!String.IsNullOrEmpty(base64AddImg1))
-            //{
-            //    productImgService.Create(new ProductImageDTO
-            //    {
-            //        Name = base64AddImg1,
-            //        Priority = 1,
-            //        ProductId = id,
-            //        DateCreated = DateTime.Now,
-            //        IsDelete = false
-            //    });               
-            //}
-            //if (!String.IsNullOrEmpty(base64AddImg2))
-            //{
-            //    productImgService.Create(new ProductImageDTO
-            //    {
-            //        Name = base64AddImg2,
-            //        Priority = 2,
-            //        ProductId = id,
-            //        DateCreated = DateTime.Now,
-            //        IsDelete = false
-            //    });
-            //}
-            //if (!String.IsNullOrEmpty(base64AddImg3))
-            //{
-            //    productImgService.Create(new ProductImageDTO
-            //    {
-            //        Name = base64AddImg3,
-            //        Priority = 3,
-            //        ProductId = id,
-            //        DateCreated = DateTime.Now,
-            //        IsDelete = false
-            //    });
-            //}
+            //var findprod = context.Products.FirstOrDefault(x => x.Name == name_add.Text);
+            //findprod.Id
+
+            int id = new_product.Id;    //////////////////////////////////// треба якось витягнути id продукта, який створили
+            if (!String.IsNullOrEmpty(base64AddImg1))
+            {
+                productImgService.Create(new ProductImageDTO
+                {
+                    Name = base64AddImg1,
+                    Priority = 1,
+                    ProductId = id,
+                    DateCreated = DateTime.Now,
+                    IsDelete = false
+                });
+            }
+            if (!String.IsNullOrEmpty(base64AddImg2))
+            {
+                productImgService.Create(new ProductImageDTO
+                {
+                    Name = base64AddImg2,
+                    Priority = 2,
+                    ProductId = id,
+                    DateCreated = DateTime.Now,
+                    IsDelete = false
+                });
+            }
+            if (!String.IsNullOrEmpty(base64AddImg3))
+            {
+                productImgService.Create(new ProductImageDTO
+                {
+                    Name = base64AddImg3,
+                    Priority = 3,
+                    ProductId = id,
+                    DateCreated = DateTime.Now,
+                    IsDelete = false
+                });
+            }
 
             name_add.Text = "";
             price_add.Text = "";
