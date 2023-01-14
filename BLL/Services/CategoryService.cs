@@ -21,12 +21,15 @@ namespace BLL.Services
             _categoryRepository = new CategoryRepository(context);
         }
 
-        public void Create(CategoryDTO item)
+        public async Task<int> Create(CategoryDTO item)
         {
             if (item != null)
             {
-                _categoryRepository.Create(TranslateCategoryDTOToCategoryEntity(item));
+                var entity = TranslateCategoryDTOToCategoryEntity(item);
+                await _categoryRepository.Create(entity);
+                return entity.Id;
             }
+            return 0;
         }
 
         public void Delete(int? id)
