@@ -32,20 +32,20 @@ namespace BLL.Services
             return 0;
         }
 
-        public void Delete(int? id)
+        public async Task Delete(int? id)
         {
             if (id != null)
             {
-                _categoryRepository.Delete((int)id);
+               await _categoryRepository.Delete((int)id);
             };
         }
 
-        public CategoryDTO Find(int? id)
+        public async Task<CategoryDTO> Find(int? id)
         {
             if (id != null)
             {
-                Task<CategoryEntity> item = _categoryRepository.GetById((int)id);
-                return TranslateCategoryEntityToCategoryDTO(item.Result);
+                CategoryEntity item = await _categoryRepository.GetById((int)id);
+                return TranslateCategoryEntityToCategoryDTO(item);
             }
                 return null;
         }
@@ -60,11 +60,11 @@ namespace BLL.Services
             return list;
         }
 
-        public void Update(int id,CategoryDTO item)
+        public async Task Update(int id,CategoryDTO item)
         {
             if (item != null)
             {
-                _categoryRepository.Update(id, TranslateCategoryDTOToCategoryEntity(item));
+                await _categoryRepository.Update(id, TranslateCategoryDTOToCategoryEntity(item));
             }
         }
 

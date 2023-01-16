@@ -1,6 +1,7 @@
-﻿using DAL.Data;
+﻿using BLL.ModelsDTO;
+using BLL.Services;
+using DAL.Data;
 using DAL.Data.Entities;
-using PizzaUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,34 +24,40 @@ namespace PizzaUI.Pages
     /// </summary>
     public partial class LoginRegPage : Page
     {
-        EFAppContext context = new EFAppContext();
+        UserService userService = new UserService();
+        
         public LoginRegPage()
         {
             InitializeComponent();
         }
-        private void login_btn_Click(object sender, RoutedEventArgs e)
+        private async void login_btn_Click(object sender, RoutedEventArgs e)
         {
             string password = "";
             using (MD5 md5Hash = MD5.Create())
             {
                 password = GetMd5Hash(md5Hash, password_user.Text);
             }
-            var user = context.Users.FirstOrDefault(x => x.Email == email_user.Text && x.Password == password);
+            //EFAppContext context = new EFAppContext();
+            //var user = await context.Users.FirstOrDefault(x => x.Email == email_user.Text && x.Password == password);
 
-            //PageVM pageVM = new PageVM();
-            //CategoriesPage catp = new CategoriesPage();
-            //pageVM.CurrentPage = catp;
-            //if (user != null)
-            //{
-            //    NavigationService ns = NavigationService.GetNavigationService(this);
-            //    CategoriesPage categoriesPage = new CategoriesPage();
-            //    categoriesPage.Show();
-            //    this.Content = categoriesPage;
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Error email or password");
-            //}
+            UserDTO user = null;
+
+            var users = userService.GetAll();
+            foreach (var u in users)
+            {
+                if (u.Password == password && u.Email == email_user.Text)
+                    user = u;
+            }
+
+            if (user != null)
+            {
+                var mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.pagesFrame.Navigate(new CategoriesPage() );
+            }
+            else
+            {
+                MessageBox.Show("Error email or password");
+            }
         }
 
         static string GetMd5Hash(MD5 md5Hash, string input)
@@ -64,7 +71,7 @@ namespace PizzaUI.Pages
             return sBuilder.ToString();
         }
 
-        private void register_btn_Click(object sender, RoutedEventArgs e)
+        private async void register_btn_Click(object sender, RoutedEventArgs e)
         {
             string hashPassword;
             string StrPassword = password_user_reg.Text;
@@ -73,7 +80,7 @@ namespace PizzaUI.Pages
                 hashPassword = GetMd5Hash(md5Hash, StrPassword);
             }
 
-            var user = new UserEntity
+            var user = new UserDTO
             {
                 FirstName = first_name_user_reg.Text,
                 LastName = last_name_user_reg.Text,
@@ -82,10 +89,7 @@ namespace PizzaUI.Pages
                 Password = hashPassword
             };
 
-            context.Users.Add(user);
-            context.SaveChanges();
-            //CategoriesPage categoriesPage = new CategoriesPage();
-            //this.Content = categoriesPage;
+            await userService.Create(user);                      
         }
     }
 }

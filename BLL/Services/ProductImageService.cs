@@ -32,20 +32,20 @@ namespace BLL.Services
             return 0;
         }
 
-        public void Delete(int? id)
+        public async Task Delete(int? id)
         {
             if (id != null)
             {
-                _productImgRepository.Delete((int)id);
+               await _productImgRepository.Delete((int)id);
             };
         }
 
-        public ProductImageDTO Find(int? id)
+        public async Task <ProductImageDTO> Find(int? id)
         {
             if (id != null)
             {
-                Task<ProductImageEntity> item = _productImgRepository.GetById((int)id);
-                return TranslateProductImageEntityToProductImageDTO(item.Result);
+                ProductImageEntity item = await _productImgRepository.GetById((int)id);
+                return TranslateProductImageEntityToProductImageDTO(item);
             }
             return null;
         }
@@ -60,11 +60,11 @@ namespace BLL.Services
             return list;
         }
 
-        public void Update(int id, ProductImageDTO item)
+        public async Task Update(int id, ProductImageDTO item)
         {
             if (item != null)
             {
-                _productImgRepository.Update(id, TranslateProductImageDTOToProductImageEntity(item));
+               await _productImgRepository.Update(id, TranslateProductImageDTOToProductImageEntity(item));
             }
         }
 
