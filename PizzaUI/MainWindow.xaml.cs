@@ -1,8 +1,10 @@
-﻿using DAL.Data;
+﻿using BLL.ModelsDTO;
+using DAL.Data;
 using PizzaUI.Pages;
 using PizzaUI.Windows;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,8 +23,23 @@ namespace PizzaUI
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private UserDTO _loginedUser;
+        public UserDTO LoginedUser
+        {
+            get { return _loginedUser; }
+            set { _loginedUser = value; 
+                if(_loginedUser != null)
+                {
+                    loginBtn.IsEnabled = false;
+                }
+                else
+                {
+                    loginBtn.IsEnabled = true;
+                }
+                OnPropertyChanged(); }
+        }
         public MainWindow()
         {
             InitializeComponent();
@@ -53,9 +70,15 @@ namespace PizzaUI
 
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            _loginedUser = null;
+            loginBtn.IsEnabled = true;
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
     }
 }

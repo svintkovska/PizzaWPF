@@ -48,6 +48,7 @@ namespace PizzaUI.Pages
 
             if (user != null)
             {
+                (App.Current.MainWindow as MainWindow).LoginedUser = user;
                 var mainWindow = (MainWindow)Application.Current.MainWindow;
                 mainWindow.pagesFrame.Navigate(new CategoriesPage());
             }
