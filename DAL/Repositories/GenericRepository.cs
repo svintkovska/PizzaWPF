@@ -22,13 +22,13 @@ namespace DAL.Repositories
         {
             await _dbContext.Set<TEntity>().AddAsync(entity);
             await _dbContext.SaveChangesAsync();
-            //int id = entity.Id;
         }
 
         public async Task Delete(int id)
         {
             var entity = await GetById(id);
-            _dbContext.Set<TEntity>().Remove(entity);
+            entity.IsDelete = true;
+            _dbContext.Set<TEntity>().Update(entity);
             await _dbContext.SaveChangesAsync();
         }
 

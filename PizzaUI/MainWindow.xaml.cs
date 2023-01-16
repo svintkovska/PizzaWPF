@@ -43,7 +43,7 @@ namespace PizzaUI
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
-            pagesFrame.Content = new LoginRegPage();
+            pagesFrame.Content = new LoginPage();
         }
 
         private void basketBtn_Click(object sender, RoutedEventArgs e)
@@ -55,5 +55,7 @@ namespace PizzaUI
         {
 
         }
+
+
     }
 }

@@ -23,5 +23,6 @@ namespace DAL.Data.Entities
         public virtual ICollection<BasketEntity> Baskets { get; set; }
         public virtual ICollection<OrderEntity> Orders { get; set; }
         public virtual ICollection<UserRoleEntity> UserRoles { get; set; }
+
     }
 }
