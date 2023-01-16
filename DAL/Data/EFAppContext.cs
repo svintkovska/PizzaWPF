@@ -38,6 +38,5 @@ namespace DAL.Data
                 ur.HasKey(b => new { b.UserId, b.RoleId });
             });
         }
-       
     }
 }

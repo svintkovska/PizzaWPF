@@ -1,10 +1,7 @@
 ﻿using BLL.ModelsDTO;
 using BLL.Services;
-using DAL.Data;
-using DAL.Data.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
@@ -20,25 +17,25 @@ using System.Windows.Shapes;
 namespace PizzaUI.Pages
 {
     /// <summary>
-    /// Interaction logic for LoginRegPage.xaml
+    /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class LoginRegPage : Page
+    public partial class LoginPage : Page
     {
         UserService userService = new UserService();
-        
-        public LoginRegPage()
+
+        public LoginPage()
         {
             InitializeComponent();
         }
-        private async void login_btn_Click(object sender, RoutedEventArgs e)
+
+        private void login_btn_Click(object sender, RoutedEventArgs e)
         {
             string password = "";
             using (MD5 md5Hash = MD5.Create())
             {
-                password = GetMd5Hash(md5Hash, password_user.Text);
+                password = GetMd5Hash(md5Hash, password_user.Password);
             }
-            //EFAppContext context = new EFAppContext();
-            //var user = await context.Users.FirstOrDefault(x => x.Email == email_user.Text && x.Password == password);
+
 
             UserDTO user = null;
 
@@ -52,7 +49,7 @@ namespace PizzaUI.Pages
             if (user != null)
             {
                 var mainWindow = (MainWindow)Application.Current.MainWindow;
-                mainWindow.pagesFrame.Navigate(new CategoriesPage() );
+                mainWindow.pagesFrame.Navigate(new CategoriesPage());
             }
             else
             {
@@ -71,25 +68,10 @@ namespace PizzaUI.Pages
             return sBuilder.ToString();
         }
 
-        private async void register_btn_Click(object sender, RoutedEventArgs e)
+        private void registerBtn_Click(object sender, RoutedEventArgs e)
         {
-            string hashPassword;
-            string StrPassword = password_user_reg.Text;
-            using (MD5 md5Hash = MD5.Create())
-            {
-                hashPassword = GetMd5Hash(md5Hash, StrPassword);
-            }
-
-            var user = new UserDTO
-            {
-                FirstName = first_name_user_reg.Text,
-                LastName = last_name_user_reg.Text,
-                Phone = phone_user_reg.Text,
-                Email = email_user_reg.Text,
-                Password = hashPassword
-            };
-
-            await userService.Create(user);                      
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.pagesFrame.Navigate(new RegisterPage());
         }
     }
 }
