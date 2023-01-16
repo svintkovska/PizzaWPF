@@ -27,17 +27,22 @@ namespace PizzaUI.Pages
             GenerateCategories();
         }
 
-
          //<Border>
-         //           <Grid>
-         //               <Grid.RowDefinitions>
-         //                   <RowDefinition/>
-         //                   <RowDefinition/>
-         //               </Grid.RowDefinitions>
-         //               <Image Source = "https://ternopil.celentano.delivery/wp-content/uploads/2019/06/bavarska-538x538.jpg" ></ Image >
-         //               < Label Grid.Row="1" Margin="0" HorizontalAlignment="Center">Pizza</Label>
-         //           </Grid>
-         //       </Border>
+         //               <Button Background = "Transparent" >
+         //                   < Grid >
+         //                       < Grid.RowDefinitions >
+         //                           < RowDefinition />
+         //                           < RowDefinition />
+         //                       </ Grid.RowDefinitions >
+         //                       < Image Source = "https://ternopil.celentano.delivery/wp-content/uploads/2019/06/bavarska-538x538.jpg" ></Image >
+         //                       <Label Grid.Row="1" Margin= "0" HorizontalAlignment= "Center" > Pizza1 </ Label >
+         //                   </ Grid >
+         //               </ Button >
+
+
+         //           </ Border >
+
+
         private void GenerateCategories()
         {
             CategoryService categoryService = new CategoryService();
@@ -48,8 +53,9 @@ namespace PizzaUI.Pages
             for (int i = 0; i < list.Count; i++)
             {
                 var border = new Border();
-
                 var grid = new Grid();
+                var button = new Button();
+
                 grid.RowDefinitions.Add(new RowDefinition());
                 grid.RowDefinitions.Add(new RowDefinition());
 
@@ -71,8 +77,8 @@ namespace PizzaUI.Pages
 
                 Grid.SetRow(label, 1);
                 grid.Children.Add(label);
-
-                border.Child = grid;
+                button.Content = grid;
+                border.Child = button;
                 wrapPanel.Children.Add(border);
             }
         }

@@ -60,11 +60,11 @@
             <RowDefinition ></RowDefinition>
             <RowDefinition ></RowDefinition>
             <RowDefinition ></RowDefinition>
-            <RowDefinition ></RowDefinition>
-            <RowDefinition Height="0.5*"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.8*"></RowDefinition>
+            <RowDefinition Height="0.7*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Center" FontSize="27">Welcome to our pizzeria, please login</TextBlock>
+        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Center" FontSize="27" FontWeight="Bold" Foreground="Red">Welcome to La Pizza, please Log In:</TextBlock>
         <TextBlock Grid.Row="1" Grid.Column="1">Email:</TextBlock>
         <TextBox Grid.Row="1" Grid.Column="2" x:Name="email_user"></TextBox>
         <TextBlock Grid.Row="2" Grid.Column="1">Password:</TextBlock>
@@ -72,9 +72,9 @@
         <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="login_btn" Click="login_btn_Click"
                         >Login</Button>
         <TextBlock Grid.Row="4" Grid.Column="1"
-                   FontSize="15">Have no account?</TextBlock>
+                   FontSize="15" VerticalAlignment="Center">Have no account?</TextBlock>
         <Button Grid.Row="4" Grid.Column="2" x:Name="registerBtn" Click="registerBtn_Click"
-                Background="Transparent" Foreground="red" Margin="0" HorizontalAlignment="Left" >Register</Button>
+                Background="Transparent" Foreground="red" Margin="0" HorizontalAlignment="Left" Height="35" BorderBrush="Transparent">Register</Button>
     </Grid>
 
 </Page>
