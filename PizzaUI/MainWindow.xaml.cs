@@ -1,4 +1,5 @@
 ﻿using DAL.Data;
+using PizzaUI.Pages;
 using PizzaUI.Windows;
 using System;
 using System.Collections.Generic;
@@ -26,9 +27,33 @@ namespace PizzaUI
         {
             InitializeComponent();
             DatabaseSeeder.Seed();
-           
+
+            pagesFrame.Content = new CategoriesPage();
         }
 
-       
+        private void logoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            pagesFrame.Content = new CategoriesPage();
+        }
+
+        private void adminBtn_Click(object sender, RoutedEventArgs e)
+        {
+            pagesFrame.Content = new AdminPage();
+        }
+
+        private void loginBtn_Click(object sender, RoutedEventArgs e)
+        {
+            pagesFrame.Content = new LoginRegPage();
+        }
+
+        private void basketBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void exitBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

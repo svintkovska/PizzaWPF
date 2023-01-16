@@ -1,5 +1,6 @@
 ﻿using DAL.Data;
 using DAL.Data.Entities;
+using PizzaUI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,17 +37,20 @@ namespace PizzaUI.Pages
             }
             var user = context.Users.FirstOrDefault(x => x.Email == email_user.Text && x.Password == password);
 
-            if (user != null)
-            {
-                //NavigationService ns = NavigationService.GetNavigationService(this);
-                CategoriesPage categoriesPage = new CategoriesPage();
-                //categoriesPage.Show();
-                this.Content = categoriesPage;
-            }
-            else
-            {
-                MessageBox.Show("Error email or password");
-            }
+            //PageVM pageVM = new PageVM();
+            //CategoriesPage catp = new CategoriesPage();
+            //pageVM.CurrentPage = catp;
+            //if (user != null)
+            //{
+            //    NavigationService ns = NavigationService.GetNavigationService(this);
+            //    CategoriesPage categoriesPage = new CategoriesPage();
+            //    categoriesPage.Show();
+            //    this.Content = categoriesPage;
+            //}
+            //else
+            //{
+            //    MessageBox.Show("Error email or password");
+            //}
         }
 
         static string GetMd5Hash(MD5 md5Hash, string input)
@@ -80,8 +84,8 @@ namespace PizzaUI.Pages
 
             context.Users.Add(user);
             context.SaveChanges();
-            CategoriesPage categoriesPage = new CategoriesPage();
-            this.Content = categoriesPage;
+            //CategoriesPage categoriesPage = new CategoriesPage();
+            //this.Content = categoriesPage;
         }
     }
 }

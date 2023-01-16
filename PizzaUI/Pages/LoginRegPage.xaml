@@ -7,6 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="LoginRegPage">
+   
 
     <Page.Resources>
         <Style TargetType="TextBlock">
@@ -60,7 +61,8 @@
                 <TextBox Grid.Row="1" Grid.Column="2" x:Name="email_user"></TextBox>
                 <TextBlock Grid.Row="2" Grid.Column="1">Password:</TextBlock>
                 <TextBox Grid.Row="2" Grid.Column="2" x:Name="password_user"></TextBox>
-                <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="login_btn" Click="login_btn_Click">Login</Button>
+                <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" x:Name="login_btn" Click="login_btn_Click"
+                        >Login</Button>
             </Grid>
         </TabItem>
         <TabItem Header="Register">
