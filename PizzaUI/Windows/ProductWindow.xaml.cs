@@ -89,13 +89,7 @@ namespace PizzaUI.Windows
                 IsDelete = false
             };
 
-            //int id = productService.Create(new_product);
 
-            //var findprod = context.Products.FirstOrDefault(x => x.Name == name_add.Text);
-            //findprod.Id
-
-            //////////////////////////////////// треба якось витягнути id продукта, який створили
-            ///
             var id = await productService.Create(new_product);
 
             if (!String.IsNullOrEmpty(base64AddImg1))
