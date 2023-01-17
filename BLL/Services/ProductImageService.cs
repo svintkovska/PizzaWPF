@@ -25,27 +25,27 @@ namespace BLL.Services
         {
             if (item != null)
             {
-                var entity = TranslateProductImageDTOToProductImageEntity(item);
+                var entity = MappingToEntity(item);
                 await _productImgRepository.Create(entity);
                 return entity.Id;
             }
             return 0;
         }
 
-        public void Delete(int? id)
+        public async Task Delete(int? id)
         {
             if (id != null)
             {
-                _productImgRepository.Delete((int)id);
+               await _productImgRepository.Delete((int)id);
             };
         }
 
-        public ProductImageDTO Find(int? id)
+        public async Task <ProductImageDTO> Find(int? id)
         {
             if (id != null)
             {
-                Task<ProductImageEntity> item = _productImgRepository.GetById((int)id);
-                return TranslateProductImageEntityToProductImageDTO(item.Result);
+                ProductImageEntity item = await _productImgRepository.GetById((int)id);
+                return MappingToDTO(item);
             }
             return null;
         }
@@ -55,48 +55,34 @@ namespace BLL.Services
             var list = new List<ProductImageDTO>();
             foreach (var cat in _productImgRepository.GetAll())
             {
-                list.Add(TranslateProductImageEntityToProductImageDTO(cat));
+                list.Add(MappingToDTO(cat));
             }
             return list;
         }
 
-        public void Update(int id, ProductImageDTO item)
+        public async Task Update(int id, ProductImageDTO item)
         {
             if (item != null)
             {
-                _productImgRepository.Update(id, TranslateProductImageDTOToProductImageEntity(item));
+               await _productImgRepository.Update(id, MappingToEntity(item));
             }
         }
 
-        private ProductImageEntity TranslateProductImageDTOToProductImageEntity(ProductImageDTO productImgDTO)
+        private ProductImageEntity MappingToEntity(ProductImageDTO productImgDTO)
         {
             var translateObj = new MapperConfiguration(map => map.CreateMap<ProductImageDTO, ProductImageEntity>()).CreateMapper();
             if (productImgDTO != null)
-                return new ProductImageEntity()
-                {
-                    Id = productImgDTO.Id,
-                    Name = productImgDTO.Name,
-                    Priority = productImgDTO.Priority,
-                    DateCreated = productImgDTO.DateCreated,
-                    IsDelete = productImgDTO.IsDelete,
-                    ProductId = productImgDTO.ProductId
-                };
+                return translateObj.Map<ProductImageDTO, ProductImageEntity>(productImgDTO);
+
             return null;
         }
 
-        private ProductImageDTO TranslateProductImageEntityToProductImageDTO(ProductImageEntity productImgEntity)
+        private ProductImageDTO MappingToDTO(ProductImageEntity productImgEntity)
         {
             var translateObj = new MapperConfiguration(map => map.CreateMap<ProductImageEntity, ProductImageDTO>()).CreateMapper();
 
             if (productImgEntity != null)
-                return new ProductImageDTO()
-                {
-                    Id = productImgEntity.Id,
-                    Name = productImgEntity.Name,
-                    Priority = productImgEntity.Priority,
-                    DateCreated = productImgEntity.DateCreated,
-                    IsDelete = productImgEntity.IsDelete
-                };
+                return translateObj.Map<ProductImageEntity, ProductImageDTO>(productImgEntity);
             return null;
         }
     }

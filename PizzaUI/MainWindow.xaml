@@ -3,18 +3,49 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:localPageVM="clr-namespace:PizzaUI.ViewModels"
         xmlns:local="clr-namespace:PizzaUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800"
+        Title="MainWindow" Height="500" Width="800" MinHeight="500" MinWidth="800"
         WindowStartupLocation="CenterScreen">
-    <Window.DataContext>
-        <localPageVM:PageVM></localPageVM:PageVM>
-    </Window.DataContext>
-    <Grid>
-        <Frame x:Name="pagesFrame"
-               NavigationUIVisibility="Visible"
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Black"></Setter>
+            <Setter Property="Padding" Value="5"></Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="logoBtn" Grid.Column="0" Padding="0" Click="logoBtn_Click">
+                <Image Source="https://lapizza.te.ua/catalog/view/theme/default/image/logo_white.png"></Image>
+            </Button>
+            <Button x:Name="adminBtn" Grid.Column="2" Visibility="Visible" Click="adminBtn_Click" ToolTip="Admin">
+                <Image Source="https://cdn-icons-png.flaticon.com/512/3281/3281344.png"></Image>
+            </Button>
+            <Button x:Name="loginBtn" Grid.Column="3" Click="loginBtn_Click" ToolTip="Log In">
+                <Image Source="https://cdn-icons-png.flaticon.com/512/2050/2050106.png"></Image>
+            </Button>
+            <Button x:Name="basketBtn" Grid.Column="4" Click="basketBtn_Click" ToolTip="Basket">
+                <Image Source="https://cdn-icons-png.flaticon.com/512/2636/2636614.png"></Image>
+            </Button>
+            <Button x:Name="exitBtn" Grid.Column="5" Click="exitBtn_Click" ToolTip="Exit">
+                <Image Source="https://cdn-icons-png.flaticon.com/512/4400/4400828.png"></Image>
+            </Button>
+        </Grid>
+        <Frame Grid.Row="1" x:Name="pagesFrame"
+               NavigationUIVisibility="Hidden"
                Panel.ZIndex="10"
-               Content="{Binding CurrentPage}"/>
+              />
     </Grid>
 </Window>

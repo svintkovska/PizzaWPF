@@ -26,7 +26,7 @@ namespace BLL.Services
         {
             if (item != null)
             {
-                var entity = TranslateProductDTOToProductEntity(item);
+                var entity = MappingToEntity(item);
                 await _productRepository.Create(entity);
                 var id = entity.Id;
                 return id;
@@ -34,20 +34,20 @@ namespace BLL.Services
             return 0;
         }
 
-        public void Delete(int? id)
+        public async Task Delete(int? id)
         {
             if (id != null)
             {
-                _productRepository.Delete((int)id);
+                await _productRepository.Delete((int)id);
             };
         }
 
-        public ProductDTO Find(int? id)
+        public async Task<ProductDTO> Find(int? id)
         {
             if (id != null)
             {
-                Task<ProductEntity> item = _productRepository.GetById((int)id);
-                return TranslateProductEntityToProductDTO(item.Result);
+                ProductEntity item = await _productRepository.GetById((int)id);
+                return MappingToDTO(item);
             }
             return null;
         }
@@ -57,56 +57,34 @@ namespace BLL.Services
             var list = new List<ProductDTO>();
             foreach (var prod in _productRepository.GetAll())
             {
-                list.Add(TranslateProductEntityToProductDTO(prod));
+                list.Add(MappingToDTO(prod));
             }
             return list;
         }
 
-        public void Update(int id, ProductDTO item)
+        public async Task Update(int id, ProductDTO item)
         {
             if (item != null)
             {
-                _productRepository.Update(id, TranslateProductDTOToProductEntity(item));
+                await _productRepository.Update(id, MappingToEntity(item));
             }
         }
 
-        private ProductEntity TranslateProductDTOToProductEntity(ProductDTO productDTO)
+        private ProductEntity MappingToEntity(ProductDTO productDTO)
         {
             var translateObj = new MapperConfiguration(map => map.CreateMap<ProductDTO, ProductEntity>()).CreateMapper();
             if (productDTO != null)
-                return new ProductEntity()
-                {
-                    Id = productDTO.Id,
-                    Name = productDTO.Name,
-                    Price = productDTO.Price,
-                    DiscountPrice = productDTO.DiscountPrice,
-                    IsOnDiscount = productDTO.IsOnDiscount,
-                    Weight = productDTO.Weight,
-                    Description = productDTO.Description,
-                    CategoryId = productDTO.CategoryId,
-                    DateCreated = productDTO.DateCreated,
-                    IsDelete = productDTO.IsDelete
-                };
+                return translateObj.Map<ProductDTO, ProductEntity>(productDTO);
+
             return null;
         }
 
-        private ProductDTO TranslateProductEntityToProductDTO(ProductEntity productEntity)
+        private ProductDTO MappingToDTO(ProductEntity productEntity)
         {
             var translateObj = new MapperConfiguration(map => map.CreateMap<ProductEntity, ProductDTO>()).CreateMapper();
             if (productEntity != null)
-                return new ProductDTO()
-                {
-                    Id = productEntity.Id,
-                    Name = productEntity.Name,
-                    Price = productEntity.Price,
-                    DiscountPrice = productEntity.DiscountPrice,
-                    IsOnDiscount = productEntity.IsOnDiscount,
-                    Weight = productEntity.Weight,
-                    Description = productEntity.Description,
-                    CategoryId = productEntity.CategoryId,
-                    DateCreated = productEntity.DateCreated,
-                    IsDelete = productEntity.IsDelete
-                };
+                return translateObj.Map<ProductEntity, ProductDTO>(productEntity);
+
             return null;
         }
     }

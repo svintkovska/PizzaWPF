@@ -53,10 +53,10 @@ namespace PizzaUI.Windows
         }
 
 
-        private void delete_prod_btn_Click_1(object sender, RoutedEventArgs e)
+        private async void delete_prod_btn_Click_1(object sender, RoutedEventArgs e)
         {
             var product = comboboxDel.SelectedItem as ProductDTO;
-            productService.Delete(product.Id);
+            await productService.Delete(product.Id);
             comboboxDel.SelectedIndex = -1;
 
             var cm = DataContext as CategoriesVM;
@@ -157,7 +157,7 @@ namespace PizzaUI.Windows
         }
 
      
-        private void edit_prod_btn_Click(object sender, RoutedEventArgs e)
+        private async void edit_prod_btn_Click(object sender, RoutedEventArgs e)
         {
             decimal d = 0;
             int i = 0;
@@ -187,7 +187,7 @@ namespace PizzaUI.Windows
             if (category != null)
                 product.CategoryId = category.Id;
             
-            productService.Update(product.Id, product);
+            await productService.Update(product.Id, product);
 
             new_name.Text = "";
             new_price.Text = "";
@@ -533,9 +533,6 @@ namespace PizzaUI.Windows
             delPhotoUpd3.Visibility = Visibility.Hidden;
         }
 
-        private void order_btn_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+       
     }
 }

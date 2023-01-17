@@ -24,27 +24,27 @@ namespace BLL.Services
         {
             if (item != null)
             {
-                var entity = TranslateUserDTOToUserEntity(item);
-                _userRepository.Create(entity);
+                var entity = MappingToEntity(item);
+                await _userRepository.Create(entity);
                 return entity.Id;
             }
             return 0;
         }
 
-        public void Delete(int? id)
+        public async Task Delete(int? id)
         {
             if (id != null)
             {
-                _userRepository.Delete((int)id);
+                await _userRepository.Delete((int)id);
             }; 
         }
 
-        public UserDTO Find(int? id)
+        public async Task<UserDTO> Find(int? id)
         {
             if (id != null)
             {
-                Task<UserEntity> item = _userRepository.GetById((int)id);
-                return TranslateCategoryEntityToCategoryDTO(item.Result);
+                UserEntity item = await _userRepository.GetById((int)id);
+                return MappingToDTO(item);
             }
             return null;
         }
@@ -54,53 +54,35 @@ namespace BLL.Services
             var list = new List<UserDTO>();
             foreach (var user in _userRepository.GetAll())
             {
-                list.Add(TranslateCategoryEntityToCategoryDTO(user));
+                list.Add(MappingToDTO(user));
             }
             return list;
         }
 
-        public void Update(int id, UserDTO item)
+        public async Task Update(int id, UserDTO item)
         {
             if (item != null)
             {
-                _userRepository.Update(id, TranslateUserDTOToUserEntity(item));
+                await _userRepository.Update(id, MappingToEntity(item));
             }
         }
 
-        private UserEntity TranslateUserDTOToUserEntity(UserDTO userDTO)
+        private UserEntity MappingToEntity(UserDTO userDTO)
         {
             var translateObj = new MapperConfiguration(map => map.CreateMap<UserDTO, UserEntity>()).CreateMapper();
             if (userDTO != null)
-                return new UserEntity()
-                {
-                    Id = userDTO.Id,
-                    FirstName = userDTO.FirstName,
-                    LastName = userDTO.LastName,
-                    Phone = userDTO.Phone,
-                    Email = userDTO.Email,
-                    Password = userDTO.Password,
-                    DateCreated = userDTO.DateCreated,
-                    IsDelete = userDTO.IsDelete
-                };
+                return translateObj.Map<UserDTO, UserEntity>(userDTO);
+            ;
             return null;
         }
 
-        private UserDTO TranslateCategoryEntityToCategoryDTO(UserEntity userEntity)
+        private UserDTO MappingToDTO(UserEntity userEntity)
         {
             var translateObj = new MapperConfiguration(map => map.CreateMap<UserEntity, UserDTO>()).CreateMapper();
 
             if (userEntity != null)
-                return new UserDTO()
-                {
-                    Id = userEntity.Id,
-                    FirstName = userEntity.FirstName,
-                    LastName = userEntity.LastName,
-                    Phone = userEntity.Phone,
-                    Email = userEntity.Email,
-                    Password = userEntity.Password,
-                    DateCreated = userEntity.DateCreated,
-                    IsDelete = userEntity.IsDelete
-                };
+                return translateObj.Map<UserEntity, UserDTO>(userEntity);
+
             return null;
         }
     }

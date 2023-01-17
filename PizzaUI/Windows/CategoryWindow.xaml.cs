@@ -82,7 +82,7 @@ namespace PizzaUI.Windows
             delPhotoUpd.Visibility = Visibility.Hidden;
         }
 
-        private void updateBtn_Click(object sender, RoutedEventArgs e)
+        private async void updateBtn_Click(object sender, RoutedEventArgs e)
         {
             var category = comboboxUpd.SelectedItem as CategoryDTO;
 
@@ -94,7 +94,7 @@ namespace PizzaUI.Windows
             {
                 category.Image = base64UpdImg;
             }
-            categoryService.Update(category.Id, category);
+            await categoryService.Update(category.Id, category);
 
             imgBackgrUpd.Background = Brushes.Transparent;
             base64UpdImg = null;
@@ -150,7 +150,7 @@ namespace PizzaUI.Windows
             delPhotoAdd.Visibility = Visibility.Hidden;
         }
 
-        private void addBtn_Click(object sender, RoutedEventArgs e)
+        private async void addBtn_Click(object sender, RoutedEventArgs e)
         {
             CategoryDTO category = new CategoryDTO();
             if (!String.IsNullOrEmpty(nameAdd.Text))
@@ -164,7 +164,7 @@ namespace PizzaUI.Windows
             category.DateCreated = DateTime.Now;
             category.IsDelete = false;
 
-            categoryService.Create(category);
+            await categoryService.Create(category);
 
             imgBackgrAdd.Background = Brushes.Transparent;
             base64AddImg = null;
@@ -176,10 +176,10 @@ namespace PizzaUI.Windows
             cm.GetCategories.Add(category);
         }
 
-        private void deleteBtn_Click(object sender, RoutedEventArgs e)
+        private async void deleteBtn_Click(object sender, RoutedEventArgs e)
         {
             var category = comboboxDel.SelectedItem as CategoryDTO;
-            categoryService.Delete(category.Id);
+            await categoryService.Delete(category.Id);
 
             var cm = DataContext as CategoriesVM;
             cm.GetCategories.Remove(category);

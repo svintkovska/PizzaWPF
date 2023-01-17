@@ -25,27 +25,27 @@ namespace BLL.Services
         {
             if (item != null)
             {
-                var entity = TranslateCategoryDTOToCategoryEntity(item);
+                var entity = MappingToEntity(item);
                 await _categoryRepository.Create(entity);
                 return entity.Id;
             }
             return 0;
         }
 
-        public void Delete(int? id)
+        public async Task Delete(int? id)
         {
             if (id != null)
             {
-                _categoryRepository.Delete((int)id);
+               await _categoryRepository.Delete((int)id);
             };
         }
 
-        public CategoryDTO Find(int? id)
+        public async Task<CategoryDTO> Find(int? id)
         {
             if (id != null)
             {
-                Task<CategoryEntity> item = _categoryRepository.GetById((int)id);
-                return TranslateCategoryEntityToCategoryDTO(item.Result);
+                CategoryEntity item = await _categoryRepository.GetById((int)id);
+                return MappingToDTO(item);
             }
                 return null;
         }
@@ -55,47 +55,35 @@ namespace BLL.Services
             var list = new List<CategoryDTO>();
             foreach (var cat in _categoryRepository.GetAll())
             {
-                list.Add(TranslateCategoryEntityToCategoryDTO(cat));
+                list.Add(MappingToDTO(cat));
             }
             return list;
         }
 
-        public void Update(int id,CategoryDTO item)
+        public async Task Update(int id,CategoryDTO item)
         {
             if (item != null)
             {
-                _categoryRepository.Update(id, TranslateCategoryDTOToCategoryEntity(item));
+                await _categoryRepository.Update(id, MappingToEntity(item));
             }
         }
 
-        private CategoryEntity TranslateCategoryDTOToCategoryEntity(CategoryDTO categoryDTO)
+        private CategoryEntity MappingToEntity(CategoryDTO categoryDTO)
         {
             var translateObj = new MapperConfiguration(map => map.CreateMap<CategoryDTO, CategoryEntity>()).CreateMapper();
             if (categoryDTO != null)
-                return new CategoryEntity()
-                {
-                    Id = categoryDTO.Id,
-                    Name = categoryDTO.Name,
-                    Image = categoryDTO.Image,
-                    DateCreated = categoryDTO.DateCreated,
-                    IsDelete = categoryDTO.IsDelete
-                };
+                return translateObj.Map<CategoryDTO, CategoryEntity>(categoryDTO);
+
             return null;
         }
 
-        private CategoryDTO TranslateCategoryEntityToCategoryDTO(CategoryEntity categoryEntity)
+        private CategoryDTO MappingToDTO(CategoryEntity categoryEntity)
         {
             var translateObj = new MapperConfiguration(map => map.CreateMap<CategoryEntity, CategoryDTO>()).CreateMapper();
 
             if (categoryEntity != null)
-                return new CategoryDTO()
-                {
-                    Id = categoryEntity.Id,
-                    Name = categoryEntity.Name,
-                    Image = categoryEntity.Image,
-                    DateCreated = categoryEntity.DateCreated,
-                    IsDelete = categoryEntity.IsDelete
-                };
+                return translateObj.Map<CategoryEntity, CategoryDTO>(categoryEntity);
+
             return null;
         }
     }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PizzaUI.Windows" 
         xmlns:localVM="clr-namespace:PizzaUI.ViewModels"
         mc:Ignorable="d"
-        Title="ProductWindow" Height="500" Width="800"
+        Title="ProductWindow" Height="500" Width="800" MinHeight="500" MinWidth="800"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <localVM:CategoriesVM></localVM:CategoriesVM>
@@ -376,40 +376,6 @@
                 </Grid>
             </Grid>
         </TabItem>
-        <TabItem Header="Order">
-            <Grid>
-                <Grid.Background>
-                    <ImageBrush ImageSource="https://cdn.pixabay.com/photo/2020/05/07/23/14/pizza-5143513_960_720.jpg"></ImageBrush>
-                </Grid.Background>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.35*"></ColumnDefinition>
-                    <ColumnDefinition Width="0.9*"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="90"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-
-                <Label FontSize="55" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center">Make an order</Label>
-                <TextBlock Grid.Column="1" Grid.Row="1">Basket:</TextBlock>
-                <Label Grid.Row="2" Grid.Column="1" Grid.RowSpan="7" x:Name="name_of_prod">
-                    
-                </Label>
-                <Label Grid.Row="2" Grid.Column="2" Grid.RowSpan="7" x:Name="price_of_prod">
-                    
-                </Label>
-
-                <Button x:Name="order_btn" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="9" Click="order_btn_Click" HorizontalAlignment="Center">Order</Button>
-            </Grid>
-        </TabItem>
+        
     </TabControl>
 </Window>
