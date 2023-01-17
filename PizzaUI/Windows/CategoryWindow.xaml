@@ -6,7 +6,7 @@
         xmlns:localVM="clr-namespace:PizzaUI.ViewModels"
         xmlns:local="clr-namespace:PizzaUI.Windows"
         mc:Ignorable="d"
-        Title="Categories" Height="470" Width="800"
+        Title="Categories" Height="470" Width="800" MinHeight="470" MinWidth="800"
         WindowStartupLocation="CenterScreen">
     <Window.DataContext>
         <localVM:CategoriesVM></localVM:CategoriesVM>

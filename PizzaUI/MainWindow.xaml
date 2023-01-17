@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PizzaUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="800"
+        Title="MainWindow" Height="500" Width="800" MinHeight="500" MinWidth="800"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="Button">
@@ -30,16 +30,16 @@
             <Button x:Name="logoBtn" Grid.Column="0" Padding="0" Click="logoBtn_Click">
                 <Image Source="https://lapizza.te.ua/catalog/view/theme/default/image/logo_white.png"></Image>
             </Button>
-            <Button x:Name="adminBtn" Grid.Column="2" Visibility="Visible" Click="adminBtn_Click">
+            <Button x:Name="adminBtn" Grid.Column="2" Visibility="Visible" Click="adminBtn_Click" ToolTip="Admin">
                 <Image Source="https://cdn-icons-png.flaticon.com/512/3281/3281344.png"></Image>
             </Button>
-            <Button x:Name="loginBtn" Grid.Column="3" Click="loginBtn_Click">
+            <Button x:Name="loginBtn" Grid.Column="3" Click="loginBtn_Click" ToolTip="Log In">
                 <Image Source="https://cdn-icons-png.flaticon.com/512/2050/2050106.png"></Image>
             </Button>
-            <Button x:Name="basketBtn" Grid.Column="4" Click="basketBtn_Click">
+            <Button x:Name="basketBtn" Grid.Column="4" Click="basketBtn_Click" ToolTip="Basket">
                 <Image Source="https://cdn-icons-png.flaticon.com/512/2636/2636614.png"></Image>
             </Button>
-            <Button x:Name="exitBtn" Grid.Column="5" Click="exitBtn_Click">
+            <Button x:Name="exitBtn" Grid.Column="5" Click="exitBtn_Click" ToolTip="Exit">
                 <Image Source="https://cdn-icons-png.flaticon.com/512/4400/4400828.png"></Image>
             </Button>
         </Grid>
