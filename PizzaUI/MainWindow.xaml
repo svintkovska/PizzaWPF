@@ -30,7 +30,7 @@
             <Button x:Name="logoBtn" Grid.Column="0" Padding="0" Click="logoBtn_Click">
                 <Image Source="https://lapizza.te.ua/catalog/view/theme/default/image/logo_white.png"></Image>
             </Button>
-            <Button x:Name="adminBtn" Grid.Column="2" Visibility="Visible" Click="adminBtn_Click" ToolTip="Admin">
+            <Button x:Name="adminBtn" Grid.Column="2" Visibility="Hidden" Click="adminBtn_Click" ToolTip="Admin" >
                 <Image Source="https://cdn-icons-png.flaticon.com/512/3281/3281344.png"></Image>
             </Button>
             <Button x:Name="loginBtn" Grid.Column="3" Click="loginBtn_Click" ToolTip="Log In">

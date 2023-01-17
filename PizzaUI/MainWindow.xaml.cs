@@ -1,4 +1,5 @@
 ﻿using BLL.ModelsDTO;
+using BLL.Services;
 using DAL.Data;
 using PizzaUI.Pages;
 using PizzaUI.Windows;
@@ -33,10 +34,15 @@ namespace PizzaUI
                 if(_loginedUser != null)
                 {
                     loginBtn.IsEnabled = false;
+                    if (CheckIfAdmin())
+                        adminBtn.Visibility = Visibility.Visible;
+                    else
+                        adminBtn.Visibility = Visibility.Hidden;
                 }
                 else
                 {
                     loginBtn.IsEnabled = true;
+                    adminBtn.Visibility = Visibility.Hidden;
                 }
                 OnPropertyChanged(); }
         }
@@ -56,6 +62,7 @@ namespace PizzaUI
         private void adminBtn_Click(object sender, RoutedEventArgs e)
         {
             pagesFrame.Content = new AdminPage();
+
         }
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)
@@ -72,6 +79,7 @@ namespace PizzaUI
         {
             _loginedUser = null;
             loginBtn.IsEnabled = true;
+            adminBtn.Visibility = Visibility.Hidden;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -80,5 +88,23 @@ namespace PizzaUI
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+       
+        private bool CheckIfAdmin()
+        {
+            int id = _loginedUser.Id;
+            RoleService roleService = new RoleService();
+            int roleId = roleService.GetAll().Where(r => r.Name == "Admin").FirstOrDefault().Id;
+
+            UserRolesService userRolesService = new UserRolesService();
+            var userRoles = userRolesService.GetAll();
+
+            foreach (var r in userRoles)
+            {
+                if (r.UserId == id && r.RoleId == roleId)
+                    return true;
+            }
+
+            return false;
+        }
     }
 }
