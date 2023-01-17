@@ -23,12 +23,14 @@ namespace PizzaUI.ViewModels
             _categories = new ObservableCollection<CategoryDTO>();
             foreach (var item in _categoryService.GetAll())
             {
-                _categories.Add(item);
+                if (!item.IsDelete)
+                    _categories.Add(item);
             }
             _products = new ObservableCollection<ProductDTO>();
             foreach (var item in _productService.GetAll())
             {
-                _products.Add(item);
+                if(!item.IsDelete)
+                  _products.Add(item);
             }
         }
         public event PropertyChangedEventHandler PropertyChanged;

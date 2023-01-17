@@ -56,6 +56,7 @@ namespace PizzaUI.Pages
                     var border = new Border();
                     var grid = new Grid();
                     var button = new Button();
+                    button.Background = Brushes.Transparent;
 
                     grid.RowDefinitions.Add(new RowDefinition());
                     grid.RowDefinitions.Add(new RowDefinition());
