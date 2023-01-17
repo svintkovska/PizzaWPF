@@ -23,7 +23,7 @@ namespace BLL.ModelsDTO
                 }
             }
         }
-        public decimal _price { get; set; }
+        private decimal _price { get; set; }
         public decimal Price
         {
             get
@@ -39,7 +39,7 @@ namespace BLL.ModelsDTO
                 }
             }
         }
-        public decimal _discountPrice { get; set; }
+        private decimal _discountPrice { get; set; }
         public decimal DiscountPrice
         {
             get
@@ -55,7 +55,7 @@ namespace BLL.ModelsDTO
                 }
             }
         }
-        public bool _isOnDiscount { get; set; }
+        private bool _isOnDiscount { get; set; }
         public bool IsOnDiscount
         {
             get
@@ -71,7 +71,7 @@ namespace BLL.ModelsDTO
                 }
             }
         }
-        public int _weight { get; set; }
+        private int _weight { get; set; }
         public int Weight
         {
             get
@@ -87,7 +87,7 @@ namespace BLL.ModelsDTO
                 }
             }
         }
-        public string _description { get; set; }
+        private string _description { get; set; }
         public string Description
         {
             get
@@ -103,7 +103,7 @@ namespace BLL.ModelsDTO
                 }
             }
         }
-        public int _categoryId { get; set; }
+        private int _categoryId { get; set; }
         public int CategoryId
         {
             get

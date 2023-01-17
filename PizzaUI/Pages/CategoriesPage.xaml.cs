@@ -47,39 +47,42 @@ namespace PizzaUI.Pages
         {
             CategoryService categoryService = new CategoryService();
             var list = categoryService.GetAll();
-            var panel = wrapPanel;
 
 
             for (int i = 0; i < list.Count; i++)
             {
-                var border = new Border();
-                var grid = new Grid();
-                var button = new Button();
-
-                grid.RowDefinitions.Add(new RowDefinition());
-                grid.RowDefinitions.Add(new RowDefinition());
-
-                var image = new Image();
-                BitmapImage bmp = new BitmapImage();
-                string someUrl = list[i].Image;
-                using (var webClient = new WebClient())
+                if(!list[i].IsDelete)
                 {
-                    byte[] imageBytes = webClient.DownloadData(someUrl);
-                    bmp = ToBitmapImage(imageBytes);
+                    var border = new Border();
+                    var grid = new Grid();
+                    var button = new Button();
+
+                    grid.RowDefinitions.Add(new RowDefinition());
+                    grid.RowDefinitions.Add(new RowDefinition());
+
+                    var image = new Image();
+                    BitmapImage bmp = new BitmapImage();
+                    string someUrl = list[i].Image;
+                    using (var webClient = new WebClient())
+                    {
+                        byte[] imageBytes = webClient.DownloadData(someUrl);
+                        bmp = ToBitmapImage(imageBytes);
+                    }
+                    image.Source = bmp;
+
+                    var label = new Label();
+                    label.Content = list[i].Name;
+
+                    Grid.SetRow(image, 0);
+                    grid.Children.Add(image);
+
+                    Grid.SetRow(label, 1);
+                    grid.Children.Add(label);
+                    button.Content = grid;
+                    border.Child = button;
+                    wrapPanel.Children.Add(border);
                 }
-                image.Source = bmp;
-
-                var label = new Label();
-                label.Content = list[i].Name;
-
-                Grid.SetRow(image, 0);
-                grid.Children.Add(image);
-
-                Grid.SetRow(label, 1);
-                grid.Children.Add(label);
-                button.Content = grid;
-                border.Child = button;
-                wrapPanel.Children.Add(border);
+               
             }
         }
 
