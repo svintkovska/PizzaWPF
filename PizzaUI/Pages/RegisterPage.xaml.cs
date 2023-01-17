@@ -2,6 +2,7 @@
 using BLL.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -23,7 +24,8 @@ namespace PizzaUI.Pages
     public partial class RegisterPage : Page
     {
         UserService userService = new UserService();
-
+        UserRolesService userRolesService = new UserRolesService();
+        RoleService roleService = new RoleService();
         public RegisterPage()
         {
             InitializeComponent();
@@ -47,7 +49,14 @@ namespace PizzaUI.Pages
                 Password = hashPassword
             };
 
-            await userService.Create(user);
+            int userId = await userService.Create(user);
+            int roleId = roleService.GetAll().Where(r => r.Name == "User").FirstOrDefault().Id;
+            var userRole = new UserRoleDTO()
+            {
+                UserId = userId,
+                RoleId = roleId
+            };
+            await userRolesService.Create(userRole);
 
             var mainWindow = (MainWindow)Application.Current.MainWindow;
             mainWindow.pagesFrame.Navigate(new LoginPage());
