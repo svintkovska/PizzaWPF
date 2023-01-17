@@ -1,4 +1,5 @@
-﻿using BLL.Services;
+﻿using BLL.ModelsDTO;
+using BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,6 +22,7 @@ namespace PizzaUI.Pages
     /// </summary>
     public partial class CategoriesPage : Page
     {
+        CategoryService categoryService = new CategoryService();
         public CategoriesPage()
         {
             InitializeComponent();
@@ -56,7 +58,9 @@ namespace PizzaUI.Pages
                     var border = new Border();
                     var grid = new Grid();
                     var button = new Button();
+                    button.Name = $"button_{list[i].Id}";
                     button.Background = Brushes.Transparent;
+                    
 
                     grid.RowDefinitions.Add(new RowDefinition());
                     grid.RowDefinitions.Add(new RowDefinition());
@@ -82,11 +86,23 @@ namespace PizzaUI.Pages
                     button.Content = grid;
                     border.Child = button;
                     wrapPanel.Children.Add(border);
+
+                    button.Click += myClick;
                 }
                
             }
         }
 
+        private async void myClick(object sender, RoutedEventArgs e)
+        {
+            string name = (sender as Button).Name;
+            var id = name.Remove(0,7);
+
+            CategoryDTO category = await categoryService.Find(Int32.Parse(id));
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.pagesFrame.Navigate(new ProductPage(category));
+
+        }
         private BitmapImage ToBitmapImage(byte[] data)
         {
             using (MemoryStream ms = new MemoryStream(data))
