@@ -33,6 +33,7 @@ namespace PizzaUI
             set { _loginedUser = value; 
                 if(_loginedUser != null)
                 {
+                    userBtn.Visibility = Visibility.Visible;
                     loginBtn.IsEnabled = false;
                     if (CheckIfAdmin())
                         adminBtn.Visibility = Visibility.Visible;
@@ -72,14 +73,20 @@ namespace PizzaUI
 
         private void basketBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            pagesFrame.Content = new MakeOrderPage();
         }
 
+        private void userBtn_Click(object sender, RoutedEventArgs e)
+        {
+            pagesFrame.Content = new UserPage();
+        }
         private void exitBtn_Click(object sender, RoutedEventArgs e)
         {
             _loginedUser = null;
             loginBtn.IsEnabled = true;
             adminBtn.Visibility = Visibility.Hidden;
+            userBtn.Visibility = Visibility.Hidden;
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -106,5 +113,7 @@ namespace PizzaUI
 
             return false;
         }
+
+        
     }
 }
