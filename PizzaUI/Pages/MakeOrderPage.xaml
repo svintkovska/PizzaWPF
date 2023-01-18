@@ -1,0 +1,115 @@
+﻿<Page x:Class="PizzaUI.Pages.MakeOrderPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PizzaUI.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MakeOrderPage">
+    <Page.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="23"></Setter>
+            <Setter Property="Margin" Value="5 10"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="Padding" Value="20 2"></Setter>
+            <Setter Property="Height" Value="35"></Setter>
+            <Setter Property="Margin" Value="10 0 7 0"></Setter>
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Foreground" Value="Red"></Setter>
+        </Style>
+        
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="Width" Value="150"></Setter>
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="Background" Value="DarkRed"></Setter>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="Margin" Value="40 10"></Setter>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="20"></Setter>
+            <Setter Property="Padding" Value="20 2"></Setter>
+            <Setter Property="Height" Value="35"></Setter>
+            <Setter Property="Margin" Value="10 0 10 10"></Setter>
+            <Setter Property="Background" Value="Black"></Setter>
+            <Setter Property="BorderBrush" Value="Black"></Setter>
+            <Setter Property="BorderThickness" Value="3"></Setter>
+            <Setter Property="Foreground" Value="Red"></Setter>
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="https://i.pinimg.com/564x/fb/b6/7d/fbb67d1be242190b57b543416eceb16b.jpg"></ImageBrush>
+        </Grid.Background>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="26" FontWeight="Bold">Delivery Details</TextBlock>
+        <Label Grid.Row="1">Phone:</Label>
+        <Label Grid.Row="2">City:</Label>
+        <Label Grid.Row="3">Street:</Label>
+        <Label Grid.Row="4">House/appartment:</Label>
+        <Label Grid.Row="5">Payment method:</Label>
+        <Label Grid.Row="6">Total price:</Label>
+
+        <TextBox Grid.Row="1" Grid.Column="1" x:Name="userPhoneTB"></TextBox>
+
+        <ComboBox Grid.Row="2" Grid.Column="1">
+            <ComboBoxItem>Ternopil</ComboBoxItem>
+            <ComboBoxItem>Baikivtsi</ComboBoxItem>
+            <ComboBoxItem>Pidhorodnie</ComboBoxItem>
+            <ComboBoxItem>Smykivtsi</ComboBoxItem>
+            <ComboBoxItem>Petrykiv</ComboBoxItem>
+            <ComboBoxItem>Berezovytsia</ComboBoxItem>
+        </ComboBox>
+        <TextBox Grid.Row="3" Grid.Column="1"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1"></TextBox>
+        <Grid Grid.Row="5" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <RadioButton GroupName="paymentMethod" IsChecked="True"></RadioButton>
+            <RadioButton GroupName="paymentMethod" IsChecked="false" Grid.Column="1"></RadioButton>
+            <RadioButton GroupName="paymentMethod" IsChecked="False" Grid.Column="2"></RadioButton>
+
+            <Label Grid.Row="1" Grid.Column="0" FontSize="15" Margin="0" HorizontalAlignment="Center">Cash</Label>
+            <Label Grid.Row="1" Grid.Column="1" FontSize="15" Margin="0" HorizontalAlignment="Center">LIQPAY</Label>
+            <Label Grid.Row="1" Grid.Column="2" FontSize="15" Margin="0" HorizontalAlignment="Center">Card</Label>
+        </Grid>
+        <TextBlock Grid.Row="6" Grid.Column="1" Foreground="Red" FontWeight="Bold" HorizontalAlignment="Center"
+                   x:Name="totalPriceTB">0 UAH</TextBlock>
+
+
+        <Button Grid.Row="7" Grid.Column="1">Confirm order</Button>
+    </Grid>
+</Page>

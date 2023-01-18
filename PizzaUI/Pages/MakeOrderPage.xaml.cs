@@ -1,5 +1,4 @@
-﻿using BLL.ModelsDTO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -15,14 +14,16 @@ using System.Windows.Shapes;
 namespace PizzaUI.Pages
 {
     /// <summary>
-    /// Interaction logic for ProductPage.xaml
+    /// Interaction logic for MakeOrderPage.xaml
     /// </summary>
-    public partial class ProductPage : Page
+    public partial class MakeOrderPage : Page
     {
-        public ProductPage(CategoryDTO category)
+        public MakeOrderPage()
         {
             InitializeComponent();
-            textblock.Text = category.Name;
+            var user = (App.Current.MainWindow as MainWindow).LoginedUser;
+            if (user != null)
+                userPhoneTB.Text = user.Phone;
         }
     }
 }
