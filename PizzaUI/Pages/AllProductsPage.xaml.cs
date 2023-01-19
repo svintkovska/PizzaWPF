@@ -246,7 +246,7 @@ namespace PizzaUI.Pages
             num.Text = "0";
             num.Margin = new Thickness(3, 2, 13, 3);
             num.FontSize = 13;
-            num.IsReadOnly = true;
+            //num.IsReadOnly = true;
 
 
             //num.GotFocus += textBox1_GotFocus;
