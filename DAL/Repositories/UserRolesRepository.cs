@@ -28,7 +28,18 @@ namespace DAL.Repositories
         {
             return _dbContext.Set<UserRoleEntity>().AsNoTracking();
         }
+        public async Task<UserRoleEntity> GetById(int userId, int roleId)
+        {
+            return await _dbContext.Set<UserRoleEntity>()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.UserId == userId && e.RoleId == roleId);
+        }
 
-       
+        public async Task Delete(int userId, int roleId)
+        {
+            var entity = await GetById(userId, roleId);
+             _dbContext.Set<UserRoleEntity>().Remove(entity);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
