@@ -1,4 +1,5 @@
 ﻿using Bogus;
+using DAL.Constants;
 using DAL.Data.Entities;
 using DAL.Repositories;
 using System;
@@ -19,6 +20,8 @@ namespace DAL.Data
                 SeedProductImages(dataContext);
                 SeedUsers(dataContext);
                 SeedBasket(dataContext);
+                SeedRoles(dataContext);
+                SeedUserRoles(dataContext);
             }
         }
         private static void SeedCategories(EFAppContext dataContext)
@@ -747,5 +750,47 @@ namespace DAL.Data
                 dataContext.SaveChanges();
             }
         }
+
+        private static void SeedRoles(EFAppContext dataContext)
+        {
+            if (!dataContext.Roles.Any())
+            {
+                var r1 = new RoleEntity
+                {
+                    Name = Roles.User
+                };
+                var r2 = new RoleEntity
+                {
+                    Name = Roles.Admin
+                };
+               dataContext.Roles.Add(r1);
+               dataContext.Roles.Add(r2);
+               dataContext.SaveChanges();
+
+            }
+        }
+
+        private static void SeedUserRoles(EFAppContext dataContext)
+        {
+            if (!dataContext.UserRoles.Any())
+            {
+                UserRepository us_repository = new UserRepository(dataContext);
+                var usertList = us_repository.GetAll();
+                int userId = usertList.Where((i) => i.Email == "admin@gmail.com").FirstOrDefault().Id;
+
+                var rolesList = dataContext.Roles;
+                int roleId = rolesList.Where((i) => i.Name == Roles.Admin).FirstOrDefault().Id;
+                var userrole = new UserRoleEntity
+                {
+                    UserId = userId,
+                    RoleId = roleId
+                };
+
+                dataContext.UserRoles.Add(userrole);
+                dataContext.SaveChanges();
+
+            }
+        }
+
     }
 }
