@@ -1,0 +1,407 @@
+﻿<Page x:Class="PizzaUI.Pages.SeparateProductPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PizzaUI.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SeparateProductPage">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="https://i.pinimg.com/originals/f4/8e/4d/f48e4dff0f6a85810095664b11356c52.jpg"
+                        Stretch="UniformToFill"></ImageBrush>
+        </Grid.Background>
+
+        <Grid Background="Transparent" Margin="25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.1*"></RowDefinition>
+                <RowDefinition Height="1.1*"></RowDefinition>
+                <RowDefinition Height="0.1*"></RowDefinition>
+                <RowDefinition Height="1.4*"></RowDefinition>
+                <RowDefinition Height="0.7*"></RowDefinition>
+                <RowDefinition Height="0.7*"></RowDefinition>
+                <RowDefinition Height="0.9*"></RowDefinition>
+                <RowDefinition  Height="0.8*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+
+            <Image x:Name="MainImage"
+                   Height="260"
+                   Width="260"
+                   Grid.Column="0"
+                   Grid.Row="0"
+                   Grid.RowSpan="6"
+                   VerticalAlignment="Top"
+                   Source="https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061132__340.png"
+                   Stretch="UniformToFill"
+                   
+                   >
+            </Image>
+
+
+            <ListBox Height="130"
+                    HorizontalAlignment="Center"
+                    Margin="0,0,0,-20"
+                    Name="Album"
+                    VerticalAlignment="Bottom"
+                    MaxWidth="360"
+                    Grid.Column="0"
+                    Grid.Row="4"
+                    Grid.RowSpan="4"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     VerticalContentAlignment="Bottom"
+                     HorizontalContentAlignment="Center"
+                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                     ScrollViewer.CanContentScroll="False"
+                     >
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Margin" Value="0,0,5,0" />
+                        <Setter Property="Width" Value="86"></Setter>
+                        <Setter Property="Height" Value="86"></Setter>
+                        
+                        <EventSetter Event="Selected" Handler="ListBoxItem_Selected"></EventSetter>
+                    </Style>
+
+                    
+                </ListBox.ItemContainerStyle>
+
+                
+                <ListBox.Resources>
+
+                    <SolidColorBrush x:Key='{x:Static SystemColors.HighlightBrushKey}' Color='Orange'/>
+                    <SolidColorBrush x:Key='{x:Static SystemColors.HighlightTextBrushKey}' Color='Orange'/>
+                    <SolidColorBrush x:Key='{x:Static SystemColors.ControlBrushKey}' Color='Orange'/>
+
+                    <Style TargetType="{x:Type ScrollBar}">
+                        <Setter Property="Background" Value="Yellow"/>
+                        <Setter Property="Foreground" Value="Orange"/>
+                        <Setter Property="Width" Value="auto"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleY="0.8"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Track Name="PART_Track" Grid.Row="1" Height="15"  Opacity="1" >
+                                            <Track.Thumb>
+                                                <Thumb>
+                                                    <Thumb.Template>
+                                                        <ControlTemplate>
+
+                                                            <Rectangle Stroke="Black" StrokeThickness="0.7"  Width="auto" Fill="Orange">
+                                                                
+                                                            </Rectangle>
+                                                        </ControlTemplate>
+                                                    </Thumb.Template>
+                                                </Thumb>
+                                            </Track.Thumb>
+                                        </Track>
+
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+
+                
+            </ListBox>
+
+
+            <ScrollViewer Grid.Row="0"
+                       Grid.Column="1"
+                       Grid.RowSpan="2">
+
+
+                <TextBlock x:Name="NamePr"
+                           Text="smth"
+                       
+                       Foreground="White"
+                       FontSize="28"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                       TextWrapping="WrapWithOverflow"
+                       >
+
+                </TextBlock>
+
+                <ScrollViewer.Resources>
+                    <Style TargetType="{x:Type ScrollBar}">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Width" Value="8"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleY="0.8"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="0.2*"/>
+                                            <RowDefinition Height="0.6*"/>
+                                            <RowDefinition Height="0.2*"/>
+                                        </Grid.RowDefinitions>
+                                        
+                                        <Track Name="PART_Track" Grid.Row="1" Opacity="1" >
+                                            <Track.Thumb>
+                                                <Thumb>
+                                                    <Thumb.Template>
+                                                        <ControlTemplate>
+                                                            
+                                                            <Rectangle Stroke="White" StrokeThickness="0.2" Width="7" Fill="{TemplateBinding Foreground}"/>
+                                                        </ControlTemplate>
+                                                    </Thumb.Template>
+                                                </Thumb>
+                                            </Track.Thumb>
+                                        </Track>
+                                        
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                </ScrollViewer.Resources>
+
+                
+
+            </ScrollViewer>
+
+
+            <ScrollViewer
+                Grid.Row="3"
+                Grid.Column="1"
+                Grid.RowSpan="1"
+                Background="Transparent"
+                >
+                
+                <TextBlock x:Name="DescriptionPr"
+                       Width="340"
+                       Text="smth"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       Grid.RowSpan="1"
+                       Foreground="White"
+                       FontSize="18"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                       TextWrapping="WrapWithOverflow"
+                       >
+
+                </TextBlock>
+
+                <ScrollViewer.Resources>
+                    <Style TargetType="{x:Type ScrollBar}">
+                        <Setter Property="Background" Value="Black"/>
+                        <Setter Property="Foreground" Value="White"/>
+                        <Setter Property="Width" Value="8"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="RenderTransform">
+                            <Setter.Value>
+                                <ScaleTransform ScaleY="0.8"/>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="0.2*"/>
+                                            <RowDefinition Height="0.6*"/>
+                                            <RowDefinition Height="0.2*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <Track Name="PART_Track" Grid.Row="1" Opacity="1" >
+                                            <Track.Thumb>
+                                                <Thumb>
+                                                    <Thumb.Template>
+                                                        <ControlTemplate>
+                                                            <Rectangle Stroke="White" StrokeThickness="0.2" Width="7" Fill="{TemplateBinding Foreground}"/>
+                                                        </ControlTemplate>
+                                                    </Thumb.Template>
+                                                </Thumb>
+                                            </Track.Thumb>
+                                        </Track>
+
+                                    </Grid>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ScrollViewer.Resources>
+                
+                
+
+            </ScrollViewer>
+
+            <TextBlock x:Name="WeightPr"
+                       Text="smth"
+                       Grid.Row="4"
+                       Grid.Column="1"
+                       Grid.RowSpan="1"
+                       Foreground="White"
+                       FontSize="20"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center">
+
+            </TextBlock>
+
+            <TextBlock x:Name="PricePr"
+                       Text="smth"
+                       Grid.Row="5"
+                       Grid.Column="1"
+                       Grid.RowSpan="1"
+                       Foreground="LightGoldenrodYellow"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center">
+
+            </TextBlock>
+
+            <Grid   Grid.Row="6"
+                    Grid.Column="1"
+                    Grid.RowSpan="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="0.64*"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Button
+                    x:Name="Up"
+                    Grid.Column="0"                   
+                    Width="40"
+                    Height="40"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    BorderBrush="LightCoral"
+                    BorderThickness="1.5"
+                    Click="Up_Click">
+                    <TextBlock Text="+"
+                               FontSize="35"
+                               FontWeight="ExtraBold"
+                               Foreground="Gray"
+                               Margin="0,-9.5,0,0"
+                               Padding="0,0,0,0"
+                               TextAlignment="Center">
+
+
+                    </TextBlock>
+                    
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <TextBox    Grid.Column="1" 
+                            x:Name="Counter"
+                            Width="70"
+                            Height="40"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="LightGray"
+                            BorderBrush="Gray"
+                            Text="1"
+                            TextAlignment="Center"
+                            FontSize="26"
+                            IsReadOnly="True"
+                            >
+
+                    <TextBox.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
+                    
+                </TextBox>
+                
+                <Button
+                    x:Name="Down"
+                    Grid.Column="2"                   
+                    Width="40"
+                    Height="40"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    BorderBrush="LightCoral"
+                    BorderThickness="1.5"
+                    Click="Down_Click">
+                    <TextBlock Text="–"
+                               FontSize="35"
+                               FontWeight="ExtraBold"
+                               Foreground="Gray"
+                               Margin="0,-11,0,0"
+                               Padding="0,0,0,0"
+                               TextAlignment="Center"
+                               >
+
+
+                    </TextBlock>
+
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+
+
+            <Button x:Name="AddBasket"
+                    Grid.Row="7"
+                    Grid.Column="1"
+                    Grid.RowSpan="1"
+                    Width="170"
+                    
+                    FontSize="18"
+                    Background="Orange"
+                    FontWeight="Bold"
+                    Click="AddBasket_Click"
+                    
+                >ADD TO BASKET
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="13"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            
+            
+        </Grid>
+
+    </Grid>
+</Page>
