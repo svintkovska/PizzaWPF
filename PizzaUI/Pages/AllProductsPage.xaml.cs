@@ -214,24 +214,18 @@ namespace PizzaUI.Pages
         private Grid Counter()
         {
 
-            //< Grid  Height = "26" Margin = "152,63,11,0" >
-            //    < TextBox x: Name = "txtNum" x: FieldModifier = "private" FontSize = "13" Text = "0" TextChanged = "txtNum_TextChanged" Margin = "0,3,14,3" />
-            //    < Button x: Name = "cmdUp" x: FieldModifier = "private" FontSize = "12" Padding = "0,-4,0,0" Content = "▲" Width = "12" Click = "cmdUp_Click" Margin = "33,1,1,14" />
-            //    < Button x: Name = "cmdDown" x: FieldModifier = "private" FontSize = "12" Padding = "0,-4,0,0" Content = "▼" Width = "12" Click = "cmdDown_Click" Margin = "33,14,1,1" />
-            //</ Grid >
-
             Grid TempItem = new Grid();
             TempItem.Height = 26;
             TempItem.IsEnabled = false;
             TempItem.HorizontalAlignment = HorizontalAlignment.Right;
 
-            TextBox num = new TextBox();
+            TextBlock num = new TextBlock();
             num.Text = "0";
             num.Margin = new Thickness(3, 2, 13, 3);
             num.FontSize = 13;
             //num.GotFocus += textBox1_GotFocus;
 
-            Button Up= new Button();
+            Button Up = new Button();
             Up.FontSize = 12;
             Up.Padding = new Thickness(0, -4, 0, 0);
             Up.Content = "▲";
@@ -240,7 +234,7 @@ namespace PizzaUI.Pages
             Up.Click += cmdUp_Click;
 
 
-            Button Dn= new Button();
+            Button Dn = new Button();
             Dn.FontSize = 12;
             Dn.Padding = new Thickness(0, -4, 0, 0);
             Dn.Content = "▼";
@@ -262,16 +256,12 @@ namespace PizzaUI.Pages
 
             CheckBox choose = new CheckBox();
             choose.HorizontalAlignment = HorizontalAlignment.Left;
+            choose.VerticalAlignment = VerticalAlignment.Center;
             choose.Checked += Choose_Checked;
-            choose.Unchecked += Choose_Unchecked; 
-
-
-
+            choose.Unchecked += Choose_Unchecked;
 
             outer.Children.Add(choose);
             outer.Children.Add(TempItem);
-            
-
 
             return outer;
         }
@@ -293,6 +283,7 @@ namespace PizzaUI.Pages
 
         private void cmdUp_Click(object sender, RoutedEventArgs e)
         {
+            Object parentG = ((sender as Button).Parent as Grid).Children[0];
             TextBlock counter = ((sender as Button).Parent as Grid).Children[0] as TextBlock;
             counter.Text = (Convert.ToInt32(counter.Text.ToString()) + 1).ToString();
         }
@@ -304,7 +295,7 @@ namespace PizzaUI.Pages
             if (Convert.ToInt32(counter.Text.ToString()) == 0)
                 return;
             counter.Text = (Convert.ToInt32(counter.Text.ToString()) - 1).ToString();
-           
+
         }
 
 

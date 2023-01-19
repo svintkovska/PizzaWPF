@@ -65,7 +65,7 @@ namespace PizzaUI
 
         private void basketBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            pagesFrame.Content = new BasketPage();
         }
 
         private void exitBtn_Click(object sender, RoutedEventArgs e)
