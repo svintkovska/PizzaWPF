@@ -67,29 +67,7 @@ namespace BLL.Services
             }
         }
 
-        public async Task AddProductToBasket(BasketDTO basketDTO)
-        {
-            var translateObj = new MapperConfiguration(map => map.CreateMap<BasketDTO, BasketEntity>()).CreateMapper();
-            var basket = translateObj.Map<BasketDTO, BasketEntity>(basketDTO);
-            await _userRepository.AddProductToBasket(basket);
-        }
-        public async Task UpdateProductInBasket(BasketDTO basketDTO)
-        {
-            var translateObj = new MapperConfiguration(map => map.CreateMap<BasketDTO, BasketEntity>()).CreateMapper();
-            var basket = translateObj.Map<BasketDTO, BasketEntity>(basketDTO);
-            basket.Product = null;
-            basket.User = null;
-            await _userRepository.UpdateProductInBasket(basket);
-        }
-        public async Task RemoveProductFromBasket(BasketDTO basketDTO)
-        {
-            var translateObj = new MapperConfiguration(map => map.CreateMap<BasketDTO, BasketEntity>()).CreateMapper();
-            var basket = translateObj.Map<BasketDTO, BasketEntity>(basketDTO);
-            basket.Product = null;
-            basket.User = null;
-            await _userRepository.RemoveProductFromBasket(basket);
-        }
-
+      
 
         private UserEntity MappingToEntity(UserDTO userDTO)
         {
