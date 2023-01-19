@@ -48,7 +48,7 @@ namespace PizzaUI.Pages
                 DescriptionPr.Text = string.Empty;
             }
 
-            if (current.Price != null)
+            if (current.Price != null )
             {
                 PricePr.Text = current.Price.ToString() + " UAH";
             }
@@ -110,21 +110,25 @@ namespace PizzaUI.Pages
 
         }
 
-        private void ListBoxItem_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
-
-        private void ListBoxItem_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
 
         private void ListBoxItem_Selected(object sender, RoutedEventArgs e)
         {
             ListBoxItem Item = (sender as ListBoxItem);
             Image im = Item.Content as Image;
             MainImage.Source = im.Source;
+        }
+
+        private void btnPreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            var navigationService = (App.Current.MainWindow as MainWindow).pagesFrame.NavigationService;
+            navigationService.GoBack();
+        }
+
+        private void btnMainPage_Click(object sender, RoutedEventArgs e)
+        {
+            var navigationService = (App.Current.MainWindow as MainWindow).pagesFrame.NavigationService;
+            navigationService.GoBack();
+            navigationService.GoBack();
         }
     }
 }

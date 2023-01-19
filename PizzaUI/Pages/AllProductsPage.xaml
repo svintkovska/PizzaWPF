@@ -59,6 +59,33 @@
 
 
 
+        <StackPanel Orientation="Horizontal" Margin="20,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="40" Width="40" Grid.Column="0" Grid.Row="0" >
+            <Button x:Name="btnBack"
+                       
+                        
+                        Width="35"
+                        Height="35"
+                        Background="Black"
+                        Foreground="White" 
+                        BorderBrush="Orange"
+                        BorderThickness="2"
+                        Click="btnBack_Click">
+                <TextBlock
+                        Text="⇚"
+                        FontSize="25"
+                        FontWeight="Bold"
+                        Margin="4,-7,6,-2">
+
+                </TextBlock>
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="25"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            
+        </StackPanel>
+
 
         <!--<ListView Grid.ColumnSpan="4" Background="White" Margin="20,20,20,0" BorderBrush="Black" BorderThickness="2" >
             <ListView.ItemTemplate>
@@ -76,7 +103,7 @@
         <ListBox Name="ListBixItems"  
                  Grid.ColumnSpan="4" 
                  Background="Black" 
-                 Margin="20,20,20,0" 
+                 Margin="20,50,20,0" 
                  BorderBrush="Black" 
                  BorderThickness="2" 
                  ScrollViewer.VerticalScrollBarVisibility="Auto"
