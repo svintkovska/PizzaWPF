@@ -30,11 +30,41 @@ namespace PizzaUI.Pages
             ProductDTO current = product.Keys.First();
             List<ProductImageDTO> images = product[current].OrderBy(i => i.Priority).ToList();
 
-            NamePr.Text = current.Name.ToString();
-            DescriptionPr.Text = current.Description.ToString();
-            PricePr.Text = current.Price.ToString() + " UAH";
-            WeightPr.Text ="Weight: "+ current.Weight.ToString();
-            MainImage.Source = new BitmapImage(new Uri(images[0].Name));
+            if (current.Name != null)
+            {
+                NamePr.Text = current.Name.ToString();
+            }
+            else
+            {
+                NamePr.Text = string.Empty;
+            }
+
+            if (current.Description != null)
+            {
+                DescriptionPr.Text = current.Description.ToString();
+            }
+            else
+            {
+                DescriptionPr.Text = string.Empty;
+            }
+
+            if (current.Price != null)
+            {
+                PricePr.Text = current.Price.ToString() + " UAH";
+            }
+            else
+            {
+                PricePr.Text = string.Empty;
+            }
+
+            if (current.Weight != null)
+            {
+                WeightPr.Text = "Weight: " + current.Weight.ToString();
+            }
+            else
+            {
+                WeightPr.Text = string.Empty;
+            }
 
             foreach (ProductImageDTO image in images) 
             {
