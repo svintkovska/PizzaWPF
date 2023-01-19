@@ -27,7 +27,8 @@ namespace PizzaUI.Pages
 
         private void order_btn_Click(object sender, RoutedEventArgs e)
         {
-
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.pagesFrame.Navigate(new MakeOrderPage());
         }
     }
 }

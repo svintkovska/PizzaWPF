@@ -7,6 +7,8 @@ namespace BLL.ModelsDTO
     public class RoleDTO : BaseModel<int>   
     {
         public string Name { get; set; }
+        public virtual IReadOnlyCollection<UserRoleDTO> UserRoles { get; set; }
+
 
     }
 }

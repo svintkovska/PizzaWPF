@@ -763,8 +763,13 @@ namespace DAL.Data
                 {
                     Name = Roles.Admin
                 };
-               dataContext.Roles.Add(r1);
+                var r3 = new RoleEntity
+                {
+                    Name = Roles.SuperAdmin
+                };
+                dataContext.Roles.Add(r1);
                dataContext.Roles.Add(r2);
+               dataContext.Roles.Add(r3);
                dataContext.SaveChanges();
 
             }
@@ -786,7 +791,19 @@ namespace DAL.Data
                     RoleId = roleId
                 };
 
+
+
+                int suprAdmId = usertList.Where((i) => i.Email == "superAdmin@gmail.com").FirstOrDefault().Id;
+                int superRoleId = rolesList.Where((i) => i.Name == Roles.SuperAdmin).FirstOrDefault().Id;
+
+                var userrole2 = new UserRoleEntity
+                {
+                    UserId = suprAdmId,
+                    RoleId = superRoleId
+                };
+
                 dataContext.UserRoles.Add(userrole);
+                dataContext.UserRoles.Add(userrole2);
                 dataContext.SaveChanges();
 
             }

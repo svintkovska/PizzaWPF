@@ -27,24 +27,28 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Button x:Name="logoBtn" Grid.Column="0" Padding="0" Click="logoBtn_Click">
                 <Image Source="https://lapizza.te.ua/catalog/view/theme/default/image/logo_white.png"></Image>
             </Button>
-            <Button x:Name="adminBtn" Grid.Column="2" Visibility="Hidden" Click="adminBtn_Click" ToolTip="Admin" >
+            <Button x:Name="superAdminBtn" Grid.Column="2" Visibility="Hidden" Click="superAdminBtn_Click" ToolTip="Super Admin" >
                 <Image Source="https://cdn-icons-png.flaticon.com/512/3281/3281344.png"></Image>
             </Button>
-            <Button x:Name="userBtn" Grid.Column="3" Visibility="Hidden" Click="userBtn_Click" ToolTip="Personal account">
+            <Button x:Name="adminBtn" Grid.Column="3" Visibility="Hidden" Click="adminBtn_Click" ToolTip="Admin" >
+                <Image Source="https://cdn-icons-png.flaticon.com/512/3374/3374550.png"></Image>
+            </Button>
+            <Button x:Name="userBtn" Grid.Column="4" Visibility="Hidden" Click="userBtn_Click" ToolTip="Personal account">
                 <Image Source="https://cdn-icons-png.flaticon.com/512/668/668709.png"></Image>
             </Button>
-            <Button x:Name="loginBtn" Grid.Column="4" Click="loginBtn_Click" ToolTip="Log In">
+            <Button x:Name="loginBtn" Grid.Column="5" Click="loginBtn_Click" ToolTip="Log In">
                 <Image Source="https://cdn-icons-png.flaticon.com/512/2050/2050106.png"></Image>
             </Button>
             
-            <Button x:Name="basketBtn" Grid.Column="5" Click="basketBtn_Click" ToolTip="Basket">
+            <Button x:Name="basketBtn" Grid.Column="6" Click="basketBtn_Click" ToolTip="Basket">
                 <Image Source="https://cdn-icons-png.flaticon.com/512/2636/2636614.png"></Image>
             </Button>
-            <Button x:Name="exitBtn" Grid.Column="6" Click="exitBtn_Click" ToolTip="Exit">
+            <Button x:Name="exitBtn" Grid.Column="7" Click="exitBtn_Click" ToolTip="Exit">
                 <Image Source="https://cdn-icons-png.flaticon.com/512/4400/4400828.png"></Image>
             </Button>
         </Grid>

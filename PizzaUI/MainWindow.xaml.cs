@@ -39,11 +39,23 @@ namespace PizzaUI
                         adminBtn.Visibility = Visibility.Visible;
                     else
                         adminBtn.Visibility = Visibility.Hidden;
+
+                    if (CheckIfSuperAdmin())
+                    {
+                        adminBtn.Visibility = Visibility.Visible;
+                        superAdminBtn.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        adminBtn.Visibility = Visibility.Hidden;
+                        superAdminBtn.Visibility = Visibility.Hidden;
+                    }
                 }
                 else
                 {
                     loginBtn.IsEnabled = true;
                     adminBtn.Visibility = Visibility.Hidden;
+                    superAdminBtn.Visibility = Visibility.Hidden;
                 }
                 OnPropertyChanged(); }
         }
@@ -65,7 +77,10 @@ namespace PizzaUI
             pagesFrame.Content = new AdminPage();
 
         }
-
+        private void superAdminBtn_Click(object sender, RoutedEventArgs e)
+        {
+            pagesFrame.Content = new SuperAdminPage();
+        }
         private void loginBtn_Click(object sender, RoutedEventArgs e)
         {
             pagesFrame.Content = new LoginPage();
@@ -73,7 +88,7 @@ namespace PizzaUI
 
         private void basketBtn_Click(object sender, RoutedEventArgs e)
         {
-            pagesFrame.Content = new MakeOrderPage();
+            pagesFrame.Content = new BasketPage();
         }
 
         private void userBtn_Click(object sender, RoutedEventArgs e)
@@ -85,8 +100,9 @@ namespace PizzaUI
             _loginedUser = null;
             loginBtn.IsEnabled = true;
             adminBtn.Visibility = Visibility.Hidden;
+            superAdminBtn.Visibility = Visibility.Hidden;
             userBtn.Visibility = Visibility.Hidden;
-
+            pagesFrame.Content = new CategoriesPage();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -114,6 +130,24 @@ namespace PizzaUI
             return false;
         }
 
-        
+
+        private bool CheckIfSuperAdmin()
+        {
+            int id = _loginedUser.Id;
+            RoleService roleService = new RoleService();
+            int roleId = roleService.GetAll().Where(r => r.Name == "Super Admin").FirstOrDefault().Id;
+
+            UserRolesService userRolesService = new UserRolesService();
+            var userRoles = userRolesService.GetAll();
+
+            foreach (var r in userRoles)
+            {
+                if (r.UserId == id && r.RoleId == roleId)
+                    return true;
+            }
+
+            return false;
+        }
+       
     }
 }

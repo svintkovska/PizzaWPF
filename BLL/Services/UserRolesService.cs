@@ -40,7 +40,23 @@ namespace BLL.Services
             }
             return list;
         }
+        public async Task Delete(int? userId, int? roleId)
+        {
+            if (userId != null && roleId !=null)
+            {
+                await _userRolesRepository.Delete((int)userId, (int)roleId);
+            };
+        }
 
+        public async Task<UserRoleDTO> Find(int? userId, int? roleId)
+        {
+            if (userId != null && roleId != null)
+            {
+                var item = await _userRolesRepository.GetById((int)userId, (int)roleId);
+                return MappingToDTO(item);
+            }
+            return null;
+        }
         private UserRoleEntity MappingToEntity(UserRoleDTO userRoleDTO)
         {
             var translateObj = new MapperConfiguration(map => map.CreateMap<UserRoleDTO, UserRoleEntity>()).CreateMapper();

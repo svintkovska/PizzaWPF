@@ -9,9 +9,12 @@ namespace DAL.Constants
         public static List<string> All = new List<string>
         {
             Admin,
+            SuperAdmin,
             User
         };
-        public const string Admin = "Admin";
         public const string User = "User";
+        public const string Admin = "Admin";
+        public const string SuperAdmin = "Super Admin";
+
     }
 }
