@@ -100,7 +100,7 @@ namespace PizzaUI.Pages
 
             CategoryDTO category = await categoryService.Find(Int32.Parse(id));
             var mainWindow = (MainWindow)Application.Current.MainWindow;
-            mainWindow.pagesFrame.Navigate(new AllProducts(category.Name));
+            mainWindow.pagesFrame.Navigate(new AllProducts(category));
 
         }
         private BitmapImage ToBitmapImage(byte[] data)
