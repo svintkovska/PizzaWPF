@@ -344,5 +344,11 @@ namespace PizzaUI.Pages
             var mainWindow = (MainWindow)Application.Current.MainWindow;
             mainWindow.pagesFrame.Navigate(new SeparateProductPage(productDTO));
         }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+            var navigationService = (App.Current.MainWindow as MainWindow).pagesFrame.NavigationService;
+            navigationService.GoBack();
+        }
     }
 }
