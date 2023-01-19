@@ -242,11 +242,11 @@ namespace PizzaUI.Pages
             TempItem.IsEnabled = false;
             TempItem.HorizontalAlignment = HorizontalAlignment.Right;
 
-            TextBox num = new TextBox();
+            TextBlock num = new TextBlock();
             num.Text = "0";
             num.Margin = new Thickness(3, 2, 13, 3);
             num.FontSize = 13;
-            num.IsReadOnly = true;
+            //num.IsReadOnly = true;
 
 
             //num.GotFocus += textBox1_GotFocus;
