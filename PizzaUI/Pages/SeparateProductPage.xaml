@@ -32,6 +32,49 @@
             </Grid.RowDefinitions>
 
 
+
+            <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left" Height="100" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2">
+                <Button x:Name="btnPreviousPage"
+                       
+                        
+                        Width="35"
+                        Height="35"
+                        Background="Black"
+                        Foreground="White" 
+                        BorderBrush="Orange"
+                        BorderThickness="2"
+                        Click="btnPreviousPage_Click">
+                    <TextBlock
+                        Text="⇚"
+                        FontSize="25"
+                        FontWeight="Bold"
+                        Margin="4,-7,6,-2">
+                        
+                    </TextBlock>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="25"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button x:Name="btnMainPage" 
+                        Content="MAIN"
+                        Margin="0,10,0,0"
+                        Width="45"
+                        Height="35"
+                        Background="Black"
+                        Foreground="White" 
+                        BorderBrush="Orange"
+                        BorderThickness="2"
+                        Click="btnMainPage_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+
             <Image x:Name="MainImage"
                    Height="260"
                    Width="260"
@@ -68,9 +111,12 @@
                         <StackPanel Orientation="Horizontal" />
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
+                
+                
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Margin" Value="0,0,5,0" />
+                        <Setter Property="Padding" Value="1,1,1,1" />
                         <Setter Property="Width" Value="86"></Setter>
                         <Setter Property="Height" Value="86"></Setter>
                         
