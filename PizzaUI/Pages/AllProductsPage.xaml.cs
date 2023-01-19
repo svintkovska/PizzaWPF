@@ -15,7 +15,6 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static System.Net.Mime.MediaTypeNames;
 using System.Linq;
 using System.Windows.Shell;
 
@@ -72,7 +71,7 @@ namespace PizzaUI.Pages
                     foreach (ProductDTO product in data[category].Keys)
                     {
                         int i = 1;
-                        Grid item = CreateItem(data[category][product], product.Price, product.Name, product.Weight);
+                        Grid item = CreateItem(data[category][product], product.Price, product.Name, product.Weight, product.Id);
                         //if(i==1)
                         //{
                         //    item.Margin = new Thickness(0, 0, 5, 0);
@@ -126,12 +125,14 @@ namespace PizzaUI.Pages
         }
 
 
-        private Grid CreateItem(List<ProductImageDTO> img, decimal price, string name, float weight)
+        private Grid CreateItem(List<ProductImageDTO> img, decimal price, string name, float weight, int _id)
         {
 
             List<ProductImageDTO> images = img.OrderBy(i => i.Priority).ToList();
 
-
+            TextBlock Id = new TextBlock() { Text = _id.ToString() };
+            Id.Opacity = 0;
+            Id.IsEnabled = false;
             Grid TempItem = new Grid();
             System.Windows.Controls.Image Im = new System.Windows.Controls.Image() { Source = new BitmapImage(new Uri(images[0].Name)) };
             TextBlock Price = new TextBlock() { Text = price.ToString() + "UAH." };
@@ -217,6 +218,7 @@ namespace PizzaUI.Pages
             TempItem.Children.Add(Weight);
             TempItem.Children.Add(Price);
             TempItem.Children.Add(AddBt);
+            TempItem.Children.Add(Id);
             //TempItem.Children.Add(counter);
             //TempItem.Children.Add(album);
             TempItem.Width = 170;
@@ -227,34 +229,7 @@ namespace PizzaUI.Pages
             return TempItem;
         }
 
-        private Grid CreateAlbom(List<ProductImageDTO> images)
-        {
-            Grid album = new Grid();
-            album.VerticalAlignment = VerticalAlignment.Center;
-            album.HorizontalAlignment = HorizontalAlignment.Left;
-            Grid.SetColumn(album, 0);
-            Grid.SetRow(album, 2);
-            for (int i = 0; i < images.Count; i++)
-            {
-                album.ColumnDefinitions.Add(new ColumnDefinition());
-            }
-
-            foreach (ProductImageDTO currentImage in images)
-            {
-                int i = 0;
-                System.Windows.Controls.Image image = new System.Windows.Controls.Image();
-                image.Source = new BitmapImage(new Uri(currentImage.Name));
-                image.Width = 20;
-                image.Height = 20;
-                image.VerticalAlignment = VerticalAlignment.Center;
-                image.HorizontalAlignment = HorizontalAlignment.Center;
-                Grid.SetColumn(image, i);
-                album.Children.Add(image);
-                i++;
-            }
-
-            return album;
-        }
+        
 
 
 
@@ -354,6 +329,20 @@ namespace PizzaUI.Pages
 
         }
 
+        private void ListBoxItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ListBoxItem Item = (sender as ListBoxItem);
+            Grid MainGrid = Item.Content as Grid;
+            int childCount = MainGrid.Children.Count;
+            int idProduct = Convert.ToInt32((MainGrid.Children[childCount - 1] as TextBlock).Text.ToString());
 
+            var productDTO = data.SelectMany(c => c.Value)
+                    .Where(p => p.Key.Id == idProduct)
+                    .Select(p => new Dictionary<ProductDTO, List<ProductImageDTO>>() { {p.Key, p.Value } })
+                    .FirstOrDefault();
+
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.pagesFrame.Navigate(new SeparateProductPage(productDTO));
+        }
     }
 }

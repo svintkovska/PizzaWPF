@@ -98,6 +98,7 @@
                     <Setter Property="Padding" Value="0,0,0,0"/>
                     <Setter Property="BorderBrush" Value="Transparent"></Setter>
                     <Setter Property="BorderThickness" Value="2"></Setter>
+                    <EventSetter Event="MouseDoubleClick" Handler="ListBoxItem_MouseDoubleClick"/>
                 </Style>
 
 
@@ -105,7 +106,7 @@
 
             </ListBox.ItemContainerStyle>
 
-
+           
             <ListBox.Resources>
                 <Style TargetType="ScrollBar">
                     <Setter Property="Template">
