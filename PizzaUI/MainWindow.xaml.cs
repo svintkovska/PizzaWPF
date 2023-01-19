@@ -88,7 +88,7 @@ namespace PizzaUI
 
         private void basketBtn_Click(object sender, RoutedEventArgs e)
         {
-            pagesFrame.Content = new MakeOrderPage();
+            pagesFrame.Content = new BasketPage();
         }
 
         private void userBtn_Click(object sender, RoutedEventArgs e)
