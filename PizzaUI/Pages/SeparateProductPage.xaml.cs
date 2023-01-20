@@ -1,4 +1,5 @@
 ﻿using BLL.ModelsDTO;
+using BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,9 @@ namespace PizzaUI.Pages
     /// </summary>
     public partial class SeparateProductPage : Page
     {
+        UserDTO _user = (App.Current.MainWindow as MainWindow).LoginedUser;
+        ProductDTO _product = new ProductDTO();
+        OrderService _orderService = new OrderService();
         public SeparateProductPage()
         {
             InitializeComponent();
@@ -28,6 +32,7 @@ namespace PizzaUI.Pages
        public SeparateProductPage(Dictionary<ProductDTO, List<ProductImageDTO>> product): this()
        {
             ProductDTO current = product.Keys.First();
+            _product = current;
             List<ProductImageDTO> images = product[current].OrderBy(i => i.Priority).ToList();
 
             if (current.Name != null)
@@ -105,9 +110,26 @@ namespace PizzaUI.Pages
             }
         }
 
-        private void AddBasket_Click(object sender, RoutedEventArgs e)
+        private async void AddBasket_Click(object sender, RoutedEventArgs e)
         {
-
+            if(_user == null)
+            {
+                Counter.Text = "0";
+                var mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.pagesFrame.Navigate(new LoginPage());
+            }
+            else
+            {
+                short count = short.Parse(Counter.Text);
+                BasketDTO basketItem = new BasketDTO()
+                {
+                    UserId = _user.Id,
+                    ProductId = _product.Id,
+                    Count = count
+                };
+                await _orderService.AddToBasket(basketItem);
+                Counter.Text = "0";
+            }      
         }
 
 

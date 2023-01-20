@@ -15,10 +15,10 @@ namespace BLL.Services
 {
     public class ProductService : IService<ProductDTO>
     {
+        EFAppContext context = new EFAppContext();
         private readonly IProductRepository _productRepository;
         public ProductService()
         {
-            EFAppContext context = new EFAppContext();
             _productRepository = new ProductRepository(context);
 
         }
@@ -70,6 +70,11 @@ namespace BLL.Services
             }
         }
 
+        public async Task<string> GetImg(int productId)
+        {
+            var image = context.ProductImages.AsQueryable().Where(i => i.ProductId == productId && i.Priority == 1).FirstOrDefault();
+            return image.Name;
+        }
         private ProductEntity MappingToEntity(ProductDTO productDTO)
         {
             var translateObj = new MapperConfiguration(map => map.CreateMap<ProductDTO, ProductEntity>()).CreateMapper();

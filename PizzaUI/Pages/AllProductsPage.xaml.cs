@@ -32,7 +32,8 @@ namespace PizzaUI.Pages
         IList<CategoryDTO> categoryDTOs;
         IList<ProductImageDTO> productImageDTOs;
         string selectedCategory = null;
-
+        UserDTO _user = (App.Current.MainWindow as MainWindow).LoginedUser;
+        ProductDTO _product = new ProductDTO();
         List<Grid> checkedItems = new List<Grid>();
 
         Dictionary<CategoryDTO, Dictionary<ProductDTO, List<ProductImageDTO>>> data = new Dictionary<CategoryDTO, Dictionary<ProductDTO, List<ProductImageDTO>>>();
@@ -138,7 +139,7 @@ namespace PizzaUI.Pages
             TextBlock Price = new TextBlock() { Text = price.ToString() + "UAH." };
             TextBlock Name = new TextBlock() { Text = name.ToUpper() };
             TextBlock Weight = new TextBlock() { Text = weight.ToString() + "g." };
-            Button AddBt = new Button() { Content = "ADD" };
+            Button AddBt = new Button() { Content = "ADD", Name = $"button_{_id}" };
 
             //Grid counter = Counter();
             //Grid.SetColumn(counter, 1);
@@ -226,11 +227,34 @@ namespace PizzaUI.Pages
             TempItem.Background = (Brush)(new BrushConverter().ConvertFrom("#FF202020"));
             //TempItem.Background = Brushes.DarkGray;
 
+            AddBt.Click += myClick;
+
             return TempItem;
         }
 
-        
 
+        private async void myClick(object sender, RoutedEventArgs e)
+        {
+            if (_user == null)
+            {
+                var mainWindow = (MainWindow)Application.Current.MainWindow;
+                mainWindow.pagesFrame.Navigate(new LoginPage());
+            }
+            else
+            {
+                string name = (sender as Button).Name;
+                var prod_id = name.Remove(0, 7);
+                short count = 1;
+                BasketDTO basketItem = new BasketDTO()
+                {
+                    UserId = _user.Id,
+                    ProductId = Int32.Parse(prod_id),
+                    Count = count
+                };
+                OrderService _orderService = new OrderService();
+                await _orderService.AddToBasket(basketItem);
+            }
+        }
 
 
 
