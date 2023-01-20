@@ -1,6 +1,7 @@
 ﻿using BLL.ModelsDTO;
 using BLL.Services;
 using DAL.Data;
+using DAL.Repositories;
 using PizzaUI.Pages;
 using PizzaUI.Windows;
 using System;
@@ -103,6 +104,9 @@ namespace PizzaUI
             superAdminBtn.Visibility = Visibility.Hidden;
             userBtn.Visibility = Visibility.Hidden;
             pagesFrame.Content = new CategoriesPage();
+
+            OrderService _orderService = new OrderService();
+             _orderService.ClearBasket();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
