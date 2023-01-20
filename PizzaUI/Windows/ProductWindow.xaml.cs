@@ -193,12 +193,12 @@ namespace PizzaUI.Windows
                 }
                 else if(img.Priority == 2 && !String.IsNullOrEmpty(base64UpdImg2))
                 {
-                    img.Name = base64UpdImg1;
+                    img.Name = base64UpdImg2;
                     await productImgService.Update(img.Id, img);
                 }
                 else if (img.Priority == 3 && !String.IsNullOrEmpty(base64UpdImg3))
                 {
-                    img.Name = base64UpdImg1;
+                    img.Name = base64UpdImg3;
                     await productImgService.Update(img.Id, img);
                 }
             }      
