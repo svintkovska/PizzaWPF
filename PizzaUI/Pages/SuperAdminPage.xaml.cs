@@ -51,12 +51,12 @@ namespace PizzaUI.Pages
         {
             var roles = _roleService.GetAll();
             int adminRoleId = roles.Where(r => r.Name == "Admin").FirstOrDefault().Id;
-
-            var user = allUsersCombobox.SelectedItem as UserDTO;          
+            var user = allAdminsCombobox.SelectedItem as UserDTO;          
             await _userRolesService.Delete(user.Id, adminRoleId);
 
             var cm = DataContext as CategoriesVM;
             cm.GetAdmins.Remove(user);
+            cm.GetUsers.Add(user);
             allAdminsCombobox.SelectedIndex = -1;
         }
     }

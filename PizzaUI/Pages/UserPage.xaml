@@ -112,12 +112,9 @@
                     <Grid.Background>
                         <ImageBrush ImageSource="https://cdn.pixabay.com/photo/2020/05/07/23/14/pizza-5143513_960_720.jpg"></ImageBrush>
                     </Grid.Background>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.2*"/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <ListBox Grid.Column="1" Name="orderHistoryListBox" Background="Black" Margin="30 10" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                       
+
+                    <ListBox Name="orderHistoryListBox" Background="Black" Margin="30 10" ScrollViewer.VerticalScrollBarVisibility="Auto">
+
                     </ListBox>
                 </Grid>
             </TabItem>
