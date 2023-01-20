@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -25,29 +26,39 @@ namespace PizzaUI.Pages
         ProductService productService;
         CategoryService categoryService;
         ProductImageService productImageService;
+        OrderService orderService;
         IList<ProductDTO> productDTOs;
         IList<CategoryDTO> categoryDTOs;
         IList<ProductImageDTO> productImageDTOs;
+        IList<BasketDTO> basketDTOs;
+        IList<OrderDTO> orderDTOs;
+        IList<OrderItemDTO> orderItemDTOs;
+        UserDTO _user = (App.Current.MainWindow as MainWindow).LoginedUser;
         EFAppContext context = new EFAppContext();
-        string selectedCategory = null;
+        int userbasket = 0;
+        decimal basket_sum = 0;
 
         //List<Grid> checkedItems = new List<Grid>();
 
-        Dictionary<CategoryDTO, Dictionary<ProductDTO, List<ProductImageDTO>>> data = new Dictionary<CategoryDTO, Dictionary<ProductDTO, List<ProductImageDTO>>>();
+        Dictionary<BasketDTO, Dictionary<ProductDTO, List<ProductImageDTO>>> data = new Dictionary<BasketDTO, Dictionary<ProductDTO, List<ProductImageDTO>>>();
         public BasketPage()
         {
             InitializeComponent();
             productService = new ProductService();
             categoryService = new CategoryService();
             productImageService = new ProductImageService();
+            orderService = new OrderService();
+            setData();
+            //FillData();
+            loadItems();
         }
 
-        public BasketPage(CategoryDTO category) : this()
+        public BasketPage(BasketDTO basket) : this()
         {
-            selectedCategory = category.Name;
-            setData();
-            FillData();
-            loadItems();
+            userbasket = basket.UserId;
+            //setData();
+            ////FillData();
+            //loadItems();
         }
 
         private void setData()
@@ -55,18 +66,23 @@ namespace PizzaUI.Pages
             productDTOs = productService.GetAll();
             categoryDTOs = categoryService.GetAll();
             productImageDTOs = productImageService.GetAll();
+            //orderDTOs = orderService
+            //orderItemDTOs = orderService.GetOrderItemsByOrderId();
         }
 
-        private void loadItems()
+        private async void loadItems()
         {
-            foreach (CategoryDTO category in data.Keys)
-            {
-                if (category.Name == selectedCategory)
+            BasketDTO basket = new BasketDTO();
+            //foreach (BasketDTO basket in data.Keys)
+            //{
+                var basketuserprod = await productService.Find(basket.ProductId);
+                if (basket.UserId == userbasket)
                 {
-                    foreach (ProductDTO product in data[category].Keys)
-                    {
+                    //foreach (ProductDTO product in data[basket].Keys)
+                    //{
+                        Task<string> taskimg = productService.GetImg(basketuserprod.Id);
                         //int i = 1;
-                        Grid item = CreateItem(data[category][product], product.Price, product.Name, product.Id);
+                        Grid item = CreateItem(taskimg, basketuserprod.Price, basketuserprod.Name, basketuserprod.Id, basket.Count, basket.ProductId);
                         //if(i==1)
                         //{
                         //    item.Margin = new Thickness(0, 0, 5, 0);
@@ -77,61 +93,70 @@ namespace PizzaUI.Pages
                         //}
                         ListBoxBasket.Items.Add(item);
 
+                        basket_sum += basketuserprod.Price;
+
 
                         //i += (i == 1) ? -1 : 1;
-                    }
-                    break;
+                    //}
+                    //break;
                 }
-            }
+            //}
+            CreateOrderSum();
         }
 
 
-        private void FillData()
+        private async void FillData()
         {
-            foreach (CategoryDTO category in categoryDTOs)
+            foreach (BasketDTO basket in basketDTOs)
             {
-                data.Add(category, new Dictionary<ProductDTO, List<ProductImageDTO>>());
+                data.Add(basket, new Dictionary<ProductDTO, List<ProductImageDTO>>());
             }
-
-            foreach (ProductDTO productDTO in productDTOs)
+            foreach (BasketDTO basket in basketDTOs)
             {
-                if (productDTO.IsDelete == false)
+                //var basketuserprod = await productService.Find(basket.ProductId);
+                foreach (ProductDTO productDTO in productDTOs)
                 {
-                    List<ProductImageDTO> tempPhotos = new List<ProductImageDTO>();
-                    foreach (ProductImageDTO productImageDTO in productImageDTOs)
+                    if (productDTO.Id == basket.ProductId)
                     {
-                        if (productImageDTO.ProductId == productDTO.Id && productImageDTO.IsDelete == false)
+                        if (productDTO.IsDelete == false)
                         {
-                            tempPhotos.Add(productImageDTO);
+                            List<ProductImageDTO> tempPhotos = new List<ProductImageDTO>();
+                            foreach (ProductImageDTO productImageDTO in productImageDTOs)
+                            {
+                                if (productImageDTO.ProductId == productDTO.Id && productImageDTO.IsDelete == false)
+                                {
+                                    tempPhotos.Add(productImageDTO);
+                                }
+                            }
+                            
+                            //foreach (var key in data.Keys)
+                            //{
+                            //    if (key.Id == productDTO.CategoryId)
+                            //    {
+                            //        data[key].Add(productDTO, tempPhotos);
+                            //    }
+                            //}
+
                         }
                     }
-
-                    foreach (var key in data.Keys)
-                    {
-                        if (key.Id == productDTO.CategoryId)
-                        {
-                            data[key].Add(productDTO, tempPhotos);
-                        }
-                    }
-
                 }
-
             }
         }
 
-        private Grid CreateItem(List<ProductImageDTO> img, decimal price, string name, int _id)
+        private Grid CreateItem(Task<string> img, decimal price, string name, int _id, short count, int productId)
         {
 
-            List<ProductImageDTO> images = img.OrderBy(i => i.Priority).ToList();
+            //List<ProductImageDTO> images = img.OrderBy(i => i.Priority).ToList();
 
             TextBlock Id = new TextBlock() { Text = _id.ToString() };
             Id.Opacity = 0;
             Id.IsEnabled = false;
             Grid TempItem = new Grid();
-            System.Windows.Controls.Image Im = new System.Windows.Controls.Image() { Source = new BitmapImage(new Uri(images[0].Name)) };
+            System.Windows.Controls.Image Im = new System.Windows.Controls.Image() { Source = new BitmapImage(new Uri(img.ToString())) };
             TextBlock Price = new TextBlock() { Text = price.ToString() + "UAH" };
             TextBlock Name = new TextBlock() { Text = name.ToUpper() };
-            Button DelBt = new Button() { Content = "Delete" };
+            TextBlock Count = new TextBlock() { Text = count.ToString() };
+            Button DelBt = new Button() { Content = "Delete", Name = $"button_{_id}" };
 
             Im.Stretch = Stretch.UniformToFill;
             Im.Height = 150;
@@ -151,7 +176,13 @@ namespace PizzaUI.Pages
             Price.Foreground = Brushes.White;
             Price.Margin = new Thickness(4, 0, 0, 0);
 
-            DelBt.Background = Brushes.Orange;
+            Count.FontSize = 14;
+            Count.HorizontalAlignment = HorizontalAlignment.Left;
+            Count.VerticalAlignment = VerticalAlignment.Center;
+            Count.Foreground = Brushes.White;
+            Count.Margin = new Thickness(4, 0, 0, 0);
+
+            DelBt.Background = Brushes.Red;
             DelBt.Width = 50;
             DelBt.Height = 30;
             DelBt.HorizontalAlignment = HorizontalAlignment.Center;
@@ -186,19 +217,35 @@ namespace PizzaUI.Pages
             TempItem.Children.Add(Im);
             TempItem.Children.Add(Name);
             TempItem.Children.Add(Price);
+            TempItem.Children.Add(Count);
             TempItem.Children.Add(DelBt);
             TempItem.Children.Add(Id);
             TempItem.Width = 170;
             TempItem.Height = 230;
             TempItem.Background = (Brush)(new BrushConverter().ConvertFrom("#FF202020"));
 
+            DelBt.Click += delprodbasketClick;
+
             return TempItem;
+        }
+
+        private void CreateOrderSum()
+        {
+            order_sum_tb.Text += basket_sum;
+        }
+
+        private async void delprodbasketClick(object sender, RoutedEventArgs e)
+        {
+            string name = (sender as Button).Name;
+            int prod_id = Int32.Parse(name.Remove(0, 7));
+            await orderService.DeleteFromBasket(_user.Id, prod_id);
         }
 
         private void order_btn_Click(object sender, RoutedEventArgs e)
         {
             var mainWindow = (MainWindow)Application.Current.MainWindow;
             mainWindow.pagesFrame.Navigate(new MakeOrderPage());
+            // basket_sum - зміна в яку записується сума замовлення
         }
     }
 }
