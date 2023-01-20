@@ -3,6 +3,7 @@ using BLL.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -37,6 +38,26 @@ namespace PizzaUI.Pages
 
             var mainWindow = (MainWindow)Application.Current.MainWindow;
             mainWindow.pagesFrame.Navigate(new OrderReadyPage());
+        }
+        private readonly Regex validatePhoneNumberRegex = new Regex("^[+][3][8][0][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$");
+
+        private void ValidateOrderDetails()
+        {
+            if (!validatePhoneNumberRegex.IsMatch(userPhoneTB.Text))
+                confirmOrderBtn.IsEnabled = false;
+            else if (String.IsNullOrEmpty(streetTB.Text))
+                confirmOrderBtn.IsEnabled = false;
+            else if (String.IsNullOrEmpty(houseTB.Text))
+                confirmOrderBtn.IsEnabled = false;
+            else if (cityComboBox.SelectedItem == null)
+                confirmOrderBtn.IsEnabled = false;
+            else
+                confirmOrderBtn.IsEnabled = true;
+        }
+
+        private void Grid_MouseMove(object sender, MouseEventArgs e)
+        {
+            ValidateOrderDetails();
         }
     }
 }
