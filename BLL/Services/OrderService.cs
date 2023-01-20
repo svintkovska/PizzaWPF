@@ -19,12 +19,14 @@ namespace BLL.Services
         private readonly IOrderRepository _orderRepository;
         private readonly IOrderItemsRepository _orderItemsRepository;
         private readonly BasketRepository _basketRepository;
+        private readonly IProductRepository _productRepository;
 
         public OrderService()
         {
             _orderRepository = new OrderRepository(context);
             _orderItemsRepository = new OrderItemsRepository(context);
             _basketRepository = new BasketRepository(context);
+            _productRepository = new ProductRepository(context);
         }
 
         public async Task AddToBasket(BasketDTO item)
@@ -48,9 +50,9 @@ namespace BLL.Services
                 await _basketRepository.Update(entity);
             }
         }
-        public  void ClearBasket()
+        public async Task ClearBasket()
         {
-            var baskets = _basketRepository.GetAll();
+            var baskets =  _basketRepository.GetAll().AsNoTracking().ToList();
             foreach (var item in baskets)
             {
                 var basket = new BasketEntity()
@@ -59,9 +61,9 @@ namespace BLL.Services
                     ProductId = item.ProductId,
                     Count = item.Count
                 };
-                 context.Baskets.Remove(basket);
+                context.Baskets.Remove(basket);
             }
-            context.SaveChanges();
+            await  context.SaveChangesAsync();
         }
         public async Task DeleteFromBasket(int userId, int productId)
         {
@@ -82,17 +84,15 @@ namespace BLL.Services
             return entity.Id;
         }
 
-        public async Task CreateOrderItems(int userId)
+        public async Task CreateOrderItems(int userId, int orderId)
         {
-            var orderQuery = _orderRepository.GetAll().Where(u => u.UserId == userId).LastOrDefault();
-
-            var basketQuery = _basketRepository.GetAll().Where(u => u.UserId == userId);
+            var basketQuery = await context.Baskets.AsQueryable().Where(u => u.UserId == userId).ToListAsync() ;
 
             var orderItems = new List<OrderItemDTO>();
 
             foreach (var item in basketQuery)
             {
-                var product = context.Products.AsQueryable().Where(p => p.Id == item.ProductId).FirstOrDefault();
+                var product = await context.Products.AsQueryable().Where(p => p.Id == item.ProductId).FirstOrDefaultAsync();
                 var price = product.IsOnDiscount ? product.DiscountPrice : product.Price;
                 var order = new OrderItemDTO()
                 {
@@ -100,16 +100,11 @@ namespace BLL.Services
                     DateCreated = DateTime.Now,
                     Count = item.Count,
                     Price = price,
-                    OrderId = orderQuery.Id
+                    OrderId = orderId
                 };
                 var translateObj = new MapperConfiguration(map => map.CreateMap<OrderItemDTO, OrderItemEntity>()).CreateMapper();
                 var entity = translateObj.Map<OrderItemDTO, OrderItemEntity>(order);
-                await _orderItemsRepository.Create(entity);
-            }
-
-            foreach (var item in basketQuery)
-            {
-                await DeleteFromBasket(userId, item.ProductId);
+               await  _orderItemsRepository.Create(entity);
             }
         }
 
