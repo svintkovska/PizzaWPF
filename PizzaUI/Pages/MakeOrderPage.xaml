@@ -110,6 +110,6 @@
                    x:Name="totalPriceTB">0 UAH</TextBlock>
 
 
-        <Button Grid.Row="7" Grid.Column="1">Confirm order</Button>
+        <Button Grid.Row="7" Grid.Column="1" x:Name="confirmOrderBtn" Click="confirmOrderBtn_Click">Confirm order</Button>
     </Grid>
 </Page>

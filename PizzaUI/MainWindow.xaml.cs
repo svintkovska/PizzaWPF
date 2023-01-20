@@ -48,7 +48,6 @@ namespace PizzaUI
                     }
                     else
                     {
-                        adminBtn.Visibility = Visibility.Hidden;
                         superAdminBtn.Visibility = Visibility.Hidden;
                     }
                 }
@@ -96,7 +95,7 @@ namespace PizzaUI
         {
             pagesFrame.Content = new UserPage();
         }
-        private void exitBtn_Click(object sender, RoutedEventArgs e)
+        private async void exitBtn_Click(object sender, RoutedEventArgs e)
         {
             _loginedUser = null;
             loginBtn.IsEnabled = true;
@@ -106,7 +105,7 @@ namespace PizzaUI
             pagesFrame.Content = new CategoriesPage();
 
             OrderService _orderService = new OrderService();
-             _orderService.ClearBasket();
+             await _orderService.ClearBasket();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
