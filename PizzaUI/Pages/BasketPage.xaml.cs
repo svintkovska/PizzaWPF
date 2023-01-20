@@ -78,8 +78,8 @@ namespace PizzaUI.Pages
                 var basketuserprod = await productService.Find(basket.ProductId);
                 if (basket.UserId == userbasket)
                 {
-                    foreach (ProductDTO product in data[basket].Keys)
-                    {
+                    //foreach (ProductDTO product in data[basket].Keys)
+                    //{
                         Task<string> taskimg = productService.GetImg(basketuserprod.Id);
                         //int i = 1;
                         Grid item = CreateItem(taskimg, basketuserprod.Price, basketuserprod.Name, basketuserprod.Id, basket.Count, basket.ProductId);
@@ -97,7 +97,7 @@ namespace PizzaUI.Pages
 
 
                         //i += (i == 1) ? -1 : 1;
-                    }
+                    //}
                     //break;
                 }
             //}
