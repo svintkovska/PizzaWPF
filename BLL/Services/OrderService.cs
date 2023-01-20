@@ -4,6 +4,7 @@ using DAL.Data;
 using DAL.Data.Entities;
 using DAL.Interfaces;
 using DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,7 +48,21 @@ namespace BLL.Services
                 await _basketRepository.Update(entity);
             }
         }
-
+        public  void ClearBasket()
+        {
+            var baskets = _basketRepository.GetAll();
+            foreach (var item in baskets)
+            {
+                var basket = new BasketEntity()
+                {
+                    UserId = item.UserId,
+                    ProductId = item.ProductId,
+                    Count = item.Count
+                };
+                 context.Baskets.Remove(basket);
+            }
+            context.SaveChanges();
+        }
         public async Task DeleteFromBasket(int userId, int productId)
         {
             await _basketRepository.Delete(userId, productId);
