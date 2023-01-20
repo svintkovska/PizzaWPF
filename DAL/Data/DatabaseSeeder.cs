@@ -19,7 +19,7 @@ namespace DAL.Data
                 SeedProducts(dataContext);
                 SeedProductImages(dataContext);
                 SeedUsers(dataContext);
-                SeedBasket(dataContext);
+                //SeedBasket(dataContext);
                 SeedRoles(dataContext);
                 SeedUserRoles(dataContext);
             }
@@ -709,47 +709,47 @@ namespace DAL.Data
 
             }
         }
-        private static void SeedBasket(EFAppContext dataContext)
-        {
-            if (!dataContext.Baskets.Any())
-            {
-                UserRepository us_repository = new UserRepository(dataContext);
-                var usertList = us_repository.GetAll();
-                int userId1 = usertList.Where((i) => i.Email == "vika@ua.com").FirstOrDefault().Id;
-                int userId2 = usertList.Where((i) => i.Email == "john@gmail.com").FirstOrDefault().Id;
+        //private static void SeedBasket(EFAppContext dataContext)
+        //{
+        //    if (!dataContext.Baskets.Any())
+        //    {
+        //        UserRepository us_repository = new UserRepository(dataContext);
+        //        var usertList = us_repository.GetAll();
+        //        int userId1 = usertList.Where((i) => i.Email == "vika@ua.com").FirstOrDefault().Id;
+        //        int userId2 = usertList.Where((i) => i.Email == "john@gmail.com").FirstOrDefault().Id;
 
-                ProductRepository pr_repository = new ProductRepository(dataContext);
-                var productList = pr_repository.GetAll();
-                int pepperoniId = productList.Where((i) => i.Name == "Pepperoni").FirstOrDefault().Id;
-                int cheesecakeId = productList.Where((i) => i.Name == "Red Berry & Vanilla Cheesecake").FirstOrDefault().Id;
-                int tomYumId = productList.Where((i) => i.Name == "Tom Yum").FirstOrDefault().Id;
+        //        ProductRepository pr_repository = new ProductRepository(dataContext);
+        //        var productList = pr_repository.GetAll();
+        //        int pepperoniId = productList.Where((i) => i.Name == "Pepperoni").FirstOrDefault().Id;
+        //        int cheesecakeId = productList.Where((i) => i.Name == "Red Berry & Vanilla Cheesecake").FirstOrDefault().Id;
+        //        int tomYumId = productList.Where((i) => i.Name == "Tom Yum").FirstOrDefault().Id;
 
 
-                var basket1 = new BasketEntity
-                {
-                    UserId = userId1,
-                    ProductId = cheesecakeId,
-                    Count = 2
-                };
-                var basket2 = new BasketEntity
-                {
-                    UserId = userId1,
-                    ProductId = tomYumId,
-                    Count = 3
-                };
-                var basket3 = new BasketEntity
-                {
-                    UserId = userId2,
-                    ProductId = pepperoniId,
-                    Count = 4
-                };
+        //        var basket1 = new BasketEntity
+        //        {
+        //            UserId = userId1,
+        //            ProductId = cheesecakeId,
+        //            Count = 2
+        //        };
+        //        var basket2 = new BasketEntity
+        //        {
+        //            UserId = userId1,
+        //            ProductId = tomYumId,
+        //            Count = 3
+        //        };
+        //        var basket3 = new BasketEntity
+        //        {
+        //            UserId = userId2,
+        //            ProductId = pepperoniId,
+        //            Count = 4
+        //        };
 
-                dataContext.Baskets.Add(basket1);
-                dataContext.Baskets.Add(basket2);
-                dataContext.Baskets.Add(basket3);
-                dataContext.SaveChanges();
-            }
-        }
+        //        dataContext.Baskets.Add(basket1);
+        //        dataContext.Baskets.Add(basket2);
+        //        dataContext.Baskets.Add(basket3);
+        //        dataContext.SaveChanges();
+        //    }
+        //}
 
         private static void SeedRoles(EFAppContext dataContext)
         {
