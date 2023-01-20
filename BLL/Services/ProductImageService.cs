@@ -60,6 +60,17 @@ namespace BLL.Services
             return list;
         }
 
+        public IList<ProductImageDTO> GetByProductId(int prodcutId)
+        {
+            var list = new List<ProductImageDTO>();
+            foreach (var cat in _productImgRepository.GetAll())
+            {
+                if(cat.ProductId == prodcutId)
+                  list.Add(MappingToDTO(cat));
+            }
+            return list;
+        }
+
         public async Task Update(int id, ProductImageDTO item)
         {
             if (item != null)

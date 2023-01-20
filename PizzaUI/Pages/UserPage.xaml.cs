@@ -187,8 +187,16 @@ namespace PizzaUI.Pages
                 string someUrl = await _productService.GetImg(item.ProductId);
                 using (var webClient = new WebClient())
                 {
-                    byte[] imageBytes = webClient.DownloadData(someUrl);
-                    bmp = ToBitmapImage(imageBytes);
+                    try
+                    {
+                        byte[] imageBytes = webClient.DownloadData(someUrl);
+                        bmp = ToBitmapImage(imageBytes);
+                    }
+                    catch
+                    {
+
+                    }
+                   
                 }
                 img.Source = bmp;
 

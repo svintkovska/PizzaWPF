@@ -89,13 +89,6 @@ namespace PizzaUI.Windows
                 IsDelete = false
             };
 
-            //int id = productService.Create(new_product);
-
-            //var findprod = context.Products.FirstOrDefault(x => x.Name == name_add.Text);
-            //findprod.Id
-
-            //////////////////////////////////// треба якось витягнути id продукта, який створили
-            ///
             var id = await productService.Create(new_product);
 
             if (!String.IsNullOrEmpty(base64AddImg1))
@@ -188,6 +181,27 @@ namespace PizzaUI.Windows
                 product.CategoryId = category.Id;
             
             await productService.Update(product.Id, product);
+
+
+            var images = productImgService.GetByProductId(product.Id);
+            foreach (var img in images)
+            {
+                if(img.Priority == 1 && !String.IsNullOrEmpty(base64UpdImg1))
+                {
+                    img.Name = base64UpdImg1;
+                    await productImgService.Update(img.Id, img);
+                }
+                else if(img.Priority == 2 && !String.IsNullOrEmpty(base64UpdImg2))
+                {
+                    img.Name = base64UpdImg1;
+                    await productImgService.Update(img.Id, img);
+                }
+                else if (img.Priority == 3 && !String.IsNullOrEmpty(base64UpdImg3))
+                {
+                    img.Name = base64UpdImg1;
+                    await productImgService.Update(img.Id, img);
+                }
+            }      
 
             new_name.Text = "";
             new_price.Text = "";
