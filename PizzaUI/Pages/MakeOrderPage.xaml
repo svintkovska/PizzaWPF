@@ -48,7 +48,7 @@
             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
         </Style>
     </Page.Resources>
-    <Grid>
+    <Grid MouseMove="Grid_MouseMove">
         <Grid.Background>
             <ImageBrush ImageSource="https://i.pinimg.com/564x/fb/b6/7d/fbb67d1be242190b57b543416eceb16b.jpg"></ImageBrush>
         </Grid.Background>
@@ -59,14 +59,14 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="1.3*"/>
+            <RowDefinition Height="1.3*"/>
+            <RowDefinition Height="1.3*"/>
+            <RowDefinition Height="1.3*"/>
+            <RowDefinition Height="1.3*"/>
+            <RowDefinition Height="1.3*"/>
+            <RowDefinition Height="1.3*"/>
+            <RowDefinition />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="26" FontWeight="Bold">Delivery Details</TextBlock>
         <Label Grid.Row="1">Phone:</Label>
@@ -78,16 +78,16 @@
 
         <TextBox Grid.Row="1" Grid.Column="1" x:Name="userPhoneTB"></TextBox>
 
-        <ComboBox Grid.Row="2" Grid.Column="1">
-            <ComboBoxItem>Ternopil</ComboBoxItem>
+        <ComboBox Grid.Row="2" Grid.Column="1" x:Name="cityComboBox">
+            <ComboBoxItem IsSelected="True">Ternopil</ComboBoxItem>
             <ComboBoxItem>Baikivtsi</ComboBoxItem>
             <ComboBoxItem>Pidhorodnie</ComboBoxItem>
             <ComboBoxItem>Smykivtsi</ComboBoxItem>
             <ComboBoxItem>Petrykiv</ComboBoxItem>
             <ComboBoxItem>Berezovytsia</ComboBoxItem>
         </ComboBox>
-        <TextBox Grid.Row="3" Grid.Column="1"></TextBox>
-        <TextBox Grid.Row="4" Grid.Column="1"></TextBox>
+        <TextBox Grid.Row="3" Grid.Column="1" x:Name="streetTB"></TextBox>
+        <TextBox Grid.Row="4" Grid.Column="1" x:Name="houseTB"></TextBox>
         <Grid Grid.Row="5" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -110,6 +110,6 @@
                    x:Name="totalPriceTB">0 UAH</TextBlock>
 
 
-        <Button Grid.Row="7" Grid.Column="1">Confirm order</Button>
+        <Button Grid.Row="7" Grid.Column="1" x:Name="confirmOrderBtn" Click="confirmOrderBtn_Click">Confirm order</Button>
     </Grid>
 </Page>
