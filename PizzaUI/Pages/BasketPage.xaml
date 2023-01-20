@@ -61,6 +61,7 @@
             <RowDefinition ></RowDefinition>
             <RowDefinition Height="0.8*"></RowDefinition>
             <RowDefinition Height="0.7*"></RowDefinition>
+            <RowDefinition Height="0.7*"></RowDefinition>
             <RowDefinition ></RowDefinition>
         </Grid.RowDefinitions>
 
@@ -73,6 +74,8 @@
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
         </ListBox>
+
+        <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" x:Name="order_sum_tb">Order sum: </TextBlock>
 
         <Button x:Name="order_btn" Click="order_btn_Click" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="6">Order</Button>
         

@@ -62,7 +62,7 @@ namespace PizzaUI
         public MainWindow()
         {
             InitializeComponent();
-            DatabaseSeeder.Seed();
+            //DatabaseSeeder.Seed();
 
             pagesFrame.Content = new CategoriesPage();
         }
