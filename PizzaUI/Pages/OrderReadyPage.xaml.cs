@@ -1,6 +1,7 @@
 ﻿using BLL.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,6 +28,28 @@ namespace PizzaUI.Pages
             _orderService.ClearBasket();
         }
 
-       
+        private void backtoMenuBnt_Click(object sender, RoutedEventArgs e)
+        {
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.pagesFrame.Navigate(new CategoriesPage());
+        }
+
+        private void instaBtn_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://www.instagram.com/lapizza_ternopil/",
+                UseShellExecute = true
+            });
+        }
+
+        private void facebookBtn_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(new ProcessStartInfo
+            {
+                FileName = "https://www.facebook.com/lapizza.ternopil",
+                UseShellExecute = true
+            });
+        }
     }
 }

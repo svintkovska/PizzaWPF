@@ -10,8 +10,53 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="https://creativeyadley.com/wp-content/uploads/2020/05/Thank-You-1024x675.png"></ImageBrush>
+            <ImageBrush ImageSource="https://i.pinimg.com/564x/d0/7f/1f/d07f1f146947fab6db0205c49f0fd85c.jpg"></ImageBrush>
         </Grid.Background>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="1" Grid.Column="1" FontSize="25" FontWeight="Bold"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                   Foreground="DarkRed">THANK YOU FOR YOUR ORDER!</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="1" FontSize="18" FontWeight="Bold"
+                   HorizontalAlignment="Center">We will call you in 1 min to confirm the order</TextBlock>
+        <Button Grid.Row="3" Grid.Column="1" Content="Back to Menu" Width="200"
+                FontSize="20" Background="DarkRed" x:Name="backtoMenuBnt" Click="backtoMenuBnt_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="25"></Setter>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <TextBlock Grid.Row="4" Grid.Column="1" Foreground="White" FontSize="20" 
+                   VerticalAlignment="Bottom" HorizontalAlignment="Center">Follow us:</TextBlock>
+        <Grid Grid.Row="5" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="1" Name="instaBtn" Background="Transparent" Click="instaBtn_Click"
+                    Margin="10" BorderBrush="Transparent">
+                <Image Source="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"></Image>
+            </Button>
+            <Button Grid.Column="2" Name="facebookBtn" Background="Transparent" Click="facebookBtn_Click"
+                    Margin="10" BorderBrush="Transparent">
+                <Image Source="https://cdn-icons-png.flaticon.com/512/2504/2504903.png"></Image>
+            </Button>
+        </Grid>
     </Grid>
 </Page>
