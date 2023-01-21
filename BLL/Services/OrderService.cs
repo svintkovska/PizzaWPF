@@ -6,6 +6,7 @@ using DAL.Interfaces;
 using DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,6 +30,19 @@ namespace BLL.Services
             _productRepository = new ProductRepository(context);
         }
 
+        public List<BasketDTO> GetBasketsByUserId(int userId)
+        {
+            var baskets = _basketRepository.GetAll().Where(i => i.UserId == userId).ToList();
+            List<BasketDTO> list = new List<BasketDTO>();
+
+            foreach (var item in baskets)
+            {
+                var translateObj = new MapperConfiguration(map => map.CreateMap<BasketEntity, BasketDTO>()).CreateMapper();
+                var basketDTO = translateObj.Map<BasketEntity, BasketDTO>(item);
+                list.Add(basketDTO);
+            }
+            return list;
+        }
         public async Task AddToBasket(BasketDTO item)
         {
             if (item != null)

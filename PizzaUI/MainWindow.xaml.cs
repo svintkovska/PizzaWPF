@@ -27,6 +27,8 @@ namespace PizzaUI
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        OrderService _orderService = new OrderService();
+
         private UserDTO _loginedUser;
         public UserDTO LoginedUser
         {
@@ -65,6 +67,7 @@ namespace PizzaUI
             //DatabaseSeeder.Seed();
 
             pagesFrame.Content = new CategoriesPage();
+             _orderService.ClearBasket();
         }
 
         private void logoBtn_Click(object sender, RoutedEventArgs e)
@@ -104,7 +107,6 @@ namespace PizzaUI
             userBtn.Visibility = Visibility.Hidden;
             pagesFrame.Content = new CategoriesPage();
 
-            OrderService _orderService = new OrderService();
              await _orderService.ClearBasket();
         }
 
