@@ -132,12 +132,12 @@ namespace PizzaUI.Pages
             System.Windows.Controls.Image Im = new System.Windows.Controls.Image() { Source = new BitmapImage(new Uri(img.ToString())) };
             TextBlock Price = new TextBlock() { Text = price.ToString() + "UAH" };
             TextBlock Name = new TextBlock() { Text = name.ToUpper() };
-            TextBlock Count = new TextBlock() { Text = count.ToString() };
+            TextBlock Count = new TextBlock() { Text = "Count: " + count.ToString() };
             Button DelBt = new Button() { Content = "Delete", Name = $"button_{_id}" };
 
             Im.Stretch = Stretch.UniformToFill;
-            Im.Height = 150;
-            Im.Width = 150;
+            Im.Height = 70;
+            Im.Width = 70;
             Im.HorizontalAlignment = HorizontalAlignment.Center;
             Name.FontSize = 14;
             Name.HorizontalAlignment = HorizontalAlignment.Center;
@@ -160,16 +160,17 @@ namespace PizzaUI.Pages
             Count.Margin = new Thickness(4, 0, 0, 0);
 
             DelBt.Background = Brushes.Red;
-            DelBt.Width = 50;
-            DelBt.Height = 30;
+            DelBt.Width = 40;
+            DelBt.Height = 20;
             DelBt.HorizontalAlignment = HorizontalAlignment.Center;
             DelBt.FontWeight = FontWeights.Bold;
-            DelBt.FontSize = 15;
+            DelBt.FontSize = 12;
 
 
-            TempItem.ColumnDefinitions.Add(new ColumnDefinition());
             TempItem.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(60) });
-            TempItem.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(150) });
+            TempItem.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(60) });
+            TempItem.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(70) });
+            TempItem.RowDefinitions.Add(new RowDefinition());
             TempItem.RowDefinitions.Add(new RowDefinition());
             TempItem.RowDefinitions.Add(new RowDefinition());
 
@@ -184,21 +185,24 @@ namespace PizzaUI.Pages
             Grid.SetColumnSpan(Name, 2);
             Grid.SetRow(Name, 1);
 
+            Grid.SetColumn(Count, 0);
+            Grid.SetRow(Count, 2);
+
             Grid.SetColumn(Price, 0);
-            Grid.SetRow(Price, 2);
+            Grid.SetRow(Price, 3);
 
             Grid.SetColumn(DelBt, 1);
-            Grid.SetRow(DelBt, 2);
+            Grid.SetRow(DelBt, 3);
 
-            TempItem.Height = 40;
+            TempItem.Height = 20;
             TempItem.Children.Add(Im);
             TempItem.Children.Add(Name);
             TempItem.Children.Add(Price);
             TempItem.Children.Add(Count);
             TempItem.Children.Add(DelBt);
             TempItem.Children.Add(Id);
-            TempItem.Width = 170;
-            TempItem.Height = 230;
+            TempItem.Width = 120;
+            TempItem.Height = 200;
             TempItem.Background = (Brush)(new BrushConverter().ConvertFrom("#FF202020"));
 
             DelBt.Click += delprodbasketClick;
@@ -216,6 +220,10 @@ namespace PizzaUI.Pages
             string name = (sender as Button).Name;
             int prod_id = Int32.Parse(name.Remove(0, 7));
             await orderService.DeleteFromBasket(_user.Id, prod_id);
+            order_sum_tb = null;
+            basket_sum = 0;
+            /*await*/ ListBoxBasket.Items.Clear();
+            /*await*/ loadItems();
         }
 
         private void order_btn_Click(object sender, RoutedEventArgs e)
