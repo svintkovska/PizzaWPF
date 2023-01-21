@@ -24,19 +24,13 @@ namespace PizzaUI.Pages
     public partial class BasketPage : Page
     {
         ProductService productService;
-        CategoryService categoryService;
         ProductImageService productImageService;
         OrderService orderService;
         IList<ProductDTO> productDTOs;
-        IList<CategoryDTO> categoryDTOs;
         IList<ProductImageDTO> productImageDTOs;
-        IList<BasketDTO> basketDTOs;
-        IList<OrderDTO> orderDTOs;
-        IList<OrderItemDTO> orderItemDTOs;
         UserDTO _user = (App.Current.MainWindow as MainWindow).LoginedUser;
-        EFAppContext context = new EFAppContext();
-        int userbasket = 0;
         decimal basket_sum = 0;
+        List<BasketDTO> basketItems = new List<BasketDTO>();
 
         //List<Grid> checkedItems = new List<Grid>();
 
@@ -45,7 +39,6 @@ namespace PizzaUI.Pages
         {
             InitializeComponent();
             productService = new ProductService();
-            categoryService = new CategoryService();
             productImageService = new ProductImageService();
             orderService = new OrderService();
             setData();
@@ -53,65 +46,49 @@ namespace PizzaUI.Pages
             loadItems();
         }
 
-        public BasketPage(BasketDTO basket) : this()
-        {
-            userbasket = basket.UserId;
-            //setData();
-            ////FillData();
-            //loadItems();
-        }
+        //public BasketPage(BasketDTO basket) : this()
+        //{
+        //    userbasket = basket.UserId;
+        //    //setData();
+        //    ////FillData();
+        //    //loadItems();
+        //}
 
         private void setData()
         {
             productDTOs = productService.GetAll();
-            categoryDTOs = categoryService.GetAll();
             productImageDTOs = productImageService.GetAll();
-            //orderDTOs = orderService
-            //orderItemDTOs = orderService.GetOrderItemsByOrderId();
+            basketItems = orderService.GetBasketsByUserId(_user.Id);
         }
 
         private async void loadItems()
         {
-            BasketDTO basket = new BasketDTO();
-            //foreach (BasketDTO basket in data.Keys)
-            //{
-                var basketuserprod = await productService.Find(basket.ProductId);
-                if (basket.UserId == userbasket)
-                {
-                    //foreach (ProductDTO product in data[basket].Keys)
-                    //{
-                        Task<string> taskimg = productService.GetImg(basketuserprod.Id);
-                        //int i = 1;
-                        Grid item = CreateItem(taskimg, basketuserprod.Price, basketuserprod.Name, basketuserprod.Id, basket.Count, basket.ProductId);
-                        //if(i==1)
-                        //{
-                        //    item.Margin = new Thickness(0, 0, 5, 0);
-                        //}
-                        //else if(i == 2)
-                        //{
-                        //    item.Margin = new Thickness(5, 0, 0, 0);
-                        //}
-                        ListBoxBasket.Items.Add(item);
+            foreach(var basketItem in basketItems)
+            {
+                var basketuserprod = await productService.Find(basketItem.ProductId);
 
-                        basket_sum += basketuserprod.Price;
+                string img = await productService.GetImg(basketuserprod.Id);
+
+                decimal price = basketuserprod.IsOnDiscount ? basketuserprod.DiscountPrice : basketuserprod.Price;
+                Grid item = CreateItem(img, price, basketuserprod.Name, basketuserprod.Id, basketItem.Count, basketItem.ProductId);
+
+                ListBoxBasket.Items.Add(item);
+
+                basket_sum += price * basketItems.Count;
+            }
 
 
-                        //i += (i == 1) ? -1 : 1;
-                    //}
-                    //break;
-                }
-            //}
             CreateOrderSum();
         }
 
 
         private async void FillData()
         {
-            foreach (BasketDTO basket in basketDTOs)
+            foreach (BasketDTO basket in basketItems)
             {
                 data.Add(basket, new Dictionary<ProductDTO, List<ProductImageDTO>>());
             }
-            foreach (BasketDTO basket in basketDTOs)
+            foreach (BasketDTO basket in basketItems)
             {
                 //var basketuserprod = await productService.Find(basket.ProductId);
                 foreach (ProductDTO productDTO in productDTOs)
@@ -143,7 +120,7 @@ namespace PizzaUI.Pages
             }
         }
 
-        private Grid CreateItem(Task<string> img, decimal price, string name, int _id, short count, int productId)
+        private Grid CreateItem(string img, decimal price, string name, int _id, short count, int productId)
         {
 
             //List<ProductImageDTO> images = img.OrderBy(i => i.Priority).ToList();
