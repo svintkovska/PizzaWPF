@@ -56,18 +56,18 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="0.7*"></RowDefinition>
             <RowDefinition ></RowDefinition>
             <RowDefinition ></RowDefinition>
             <RowDefinition Height="0.8*"></RowDefinition>
+            <RowDefinition></RowDefinition>
             <RowDefinition Height="0.7*"></RowDefinition>
-            <RowDefinition Height="0.7*"></RowDefinition>
-            <RowDefinition ></RowDefinition>
+            <RowDefinition Height="0.5*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Center">Basket</TextBlock>
 
-        <ListBox Name="ListBoxBasket" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="4" Background="White" Margin="10,10,10,0" BorderBrush="Black" BorderThickness="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+        <ListBox Name="ListBoxBasket" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Grid.RowSpan="4" Background="White" Margin="10,0,10,0" BorderBrush="Black" BorderThickness="2" ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Vertical"/>
