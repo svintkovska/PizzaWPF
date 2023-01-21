@@ -170,7 +170,7 @@ namespace PizzaUI.Pages
             TempItem.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(60) });
             TempItem.ColumnDefinitions.Add(new ColumnDefinition() { Width = new GridLength(60) });
             TempItem.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(70) });
-            TempItem.RowDefinitions.Add(new RowDefinition());
+            TempItem.RowDefinitions.Add(new RowDefinition() { Height = new GridLength(70) });
             TempItem.RowDefinitions.Add(new RowDefinition());
             TempItem.RowDefinitions.Add(new RowDefinition());
 
