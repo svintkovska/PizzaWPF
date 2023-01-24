@@ -33,6 +33,8 @@ namespace PizzaUI.Pages
         UserDTO _user = (App.Current.MainWindow as MainWindow).LoginedUser;
         decimal basket_sum = 0;
         List<BasketDTO> basketItems = new List<BasketDTO>();
+        List<int> productsId = new List<int>();
+        List<short> productsCount = new List<short>();
 
         //List<Grid> checkedItems = new List<Grid>();
 
@@ -65,7 +67,7 @@ namespace PizzaUI.Pages
 
         private async void loadItems()
         {
-            foreach(var basketItem in basketItems)
+            foreach (var basketItem in basketItems)
             {
                 var basketuserprod = await productService.Find(basketItem.ProductId);
 
@@ -76,7 +78,10 @@ namespace PizzaUI.Pages
 
                 ListBoxBasket.Items.Add(item);
 
-                basket_sum += price * basketItems.Count;
+                productsId.Add(basketuserprod.Id);
+                productsCount.Add(basketItem.Count);
+
+                basket_sum += price * basketItem.Count;
             }
 
 
@@ -244,7 +249,7 @@ namespace PizzaUI.Pages
 
         private void CreateOrderSum()
         {
-            order_sum_tb.Text += basket_sum;
+            order_sum_tb.Text = basket_sum.ToString();
         }
 
         private async void delprodbasketClick(object sender, RoutedEventArgs e)
@@ -252,47 +257,30 @@ namespace PizzaUI.Pages
             string name = (sender as Button).Name;
             int prod_id = Int32.Parse(name.Remove(0, 7));
             await orderService.DeleteFromBasket(_user.Id, prod_id);
-            order_sum_tb = null;
-            basket_sum = 0;
-            /*await*/ ListBoxBasket.Items.Clear();
-            /*await*/ loadItems();
+            order_sum_tb.Text = "";
+            // basket_sum = 0;
+            /*await*/ //ListBoxBasket.Items.Clear();
+            /*await*/ //loadItems();
+
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.pagesFrame.Navigate(new BasketPage());
         }
 
         private async void CountplusClick(object sender, RoutedEventArgs e)
         {
+            short count = 1;
             string name = (sender as Button).Name;
             var prod_id = name.Remove(0, 10);
-            //var c = await productService.Find(prod_id);
-            var myTextBlock = ListBoxBasket.FindName($"countTb_{prod_id}"); // countTb_{_id}
-            //short textcount = short.Parse(myTextBlock.Text.Remove(0, 7));
-            //short count = textcount;
-            //count++;
-            //myTextBlock.Text = "Count: " + count;
 
-            //BasketDTO basketItem = new BasketDTO()
-            //{
-            //    UserId = _user.Id,
-            //    ProductId = Int32.Parse(prod_id),
-            //    Count = count
-            //};
-
-            //await orderService.UpdateBasket(basketItem);
-            order_sum_tb = null;
-            basket_sum = 0;
-            /*await*/ ListBoxBasket.Items.Clear();
-            /*await*/ loadItems();
-        }
-
-        private async void CountminusClick(object sender, RoutedEventArgs e)
-        {
-            string name = (sender as Button).Name;
-            var prod_id = name.Remove(0, 7);
-            //var c = await productService.Find(prod_id);
-            var myTextBlock = (TextBlock)this.FindName("countTb_" + prod_id);
-            short textcount = short.Parse(myTextBlock.Text.Remove(0, 7));
-            short count = textcount;
-            count--;
-            myTextBlock.Text = "Count: " + count;
+            for(int i = 0; i <= productsId.Count; i++)
+            {
+                if (productsId[i] == Int32.Parse(prod_id))
+                {
+                    count = productsCount[i];
+                    count++;
+                    break;
+                }
+            }
 
             BasketDTO basketItem = new BasketDTO()
             {
@@ -302,10 +290,46 @@ namespace PizzaUI.Pages
             };
 
             await orderService.UpdateBasket(basketItem);
-            order_sum_tb = null;
-            basket_sum = 0;
-            /*await*/ ListBoxBasket.Items.Clear();
-            /*await*/ loadItems();
+            //order_sum_tb.Text = "";
+            //basket_sum = 0;
+            /*await*/ //ListBoxBasket.Items.Clear();
+            /*await*/ //loadItems();
+
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.pagesFrame.Navigate(new BasketPage());
+        }
+
+        private async void CountminusClick(object sender, RoutedEventArgs e)
+        {
+            short count = 1;
+            string name = (sender as Button).Name;
+            var prod_id = name.Remove(0, 11);
+
+            for (int j = 0; j <= productsId.Count; j++)
+            {
+                if (productsId[j] == Int32.Parse(prod_id))
+                {
+                    count = productsCount[j];
+                    count--;
+                    break;
+                }
+            }
+
+            BasketDTO basketItem = new BasketDTO()
+            {
+                UserId = _user.Id,
+                ProductId = Int32.Parse(prod_id),
+                Count = count
+            };
+
+            await orderService.UpdateBasket(basketItem);
+            //order_sum_tb.Text = "";
+            //basket_sum = 0;
+            /*await*/ //ListBoxBasket.Items.Clear();
+            /*await*/ //loadItems();
+
+            var mainWindow = (MainWindow)Application.Current.MainWindow;
+            mainWindow.pagesFrame.Navigate(new BasketPage());
         }
 
         private void order_btn_Click(object sender, RoutedEventArgs e)
